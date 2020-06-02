@@ -127,8 +127,8 @@ class UserDetails extends Component {
   componentWillMount(){
    
     this.setState({
-    mob:this.props.location.state.mobileNumber.mobileNumber,
-    mobileNumber:this.props.location.state.mobileNumber.mobileNumberx
+    // mob:this.props.location.state.mobileNumber.mobileNumber,
+    // mobileNumber:this.props.location.state.mobileNumber.mobileNumber
      
   })  
   fetch('http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes',{headers:header}) 
@@ -157,14 +157,14 @@ class UserDetails extends Component {
     });  
   }
   componentDidMount(){
-  axios.get('/stskFmsApi/userLogin/getByMob/'+this.props.location.state.mobileNumber.mobileNumber,{headers:header})
-    .then(res=>{
-      console.log(res.data)
-       this.setState({
-            userId:res.data.data.id,
-            email:res.data.data.email
-        })
-    })
+  // axios.get('/stskFmsApi/userLogin/getByMob/'+this.props.location.state.mobileNumber.mobileNumber,{headers:header})
+  //   .then(res=>{
+  //     console.log(res.data)
+  //      this.setState({
+  //           userId:res.data.data.id,
+  //           email:res.data.data.email
+  //       })
+  //   })
 }
  handleRadio=(e)=>{
   console.log(e.target.value)

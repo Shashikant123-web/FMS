@@ -128,7 +128,8 @@ class Verify extends Component{
     
     return(
         <div id="body">
-            <div className="row" id="main1">      
+            <div className="row" id="main1">   
+               
             <center id="center">
                 <img className="center" id="logo" src={logo} width="70" height="70"></img>
                 <h4 className="center" id="otpheader">Enter OTP</h4>  
