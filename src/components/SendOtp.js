@@ -106,7 +106,7 @@ class SendOtp extends Component{
                               
                                {countries.map((country,i) =>(
                                    <option key={i} value={country.number.slice(1)}>
-                                        {country.name} 
+                                        {country.name.toUpperCase().slice(0,3)} 
 
                                    </option>
                                ))}
