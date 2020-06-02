@@ -99,6 +99,7 @@ class SendOtp extends Component{
                 pattern="[0-9]{10}" title="Enter 10 digit number"  onChange={this.handleChange} required/>
             </div>
 
+            
           <Form.Group  onChange={this.handleChange1}>
                     
                            <Form.Control as="select" value={this.state.countryCode} onChange={this.handleChange1}
