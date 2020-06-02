@@ -127,8 +127,8 @@ class UserDetails extends Component {
   componentWillMount(){
    
     this.setState({
-    mob:this.props.location.state.mobileNumber.mobileNumber,
-    mobileNumber:this.props.location.state.mobileNumber.mobileNumberx
+    // mob:this.props.location.state.mobileNumber.mobileNumber,
+    // mobileNumber:this.props.location.state.mobileNumber.mobileNumber
      
   })  
   fetch('http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes',{headers:header}) 
@@ -157,14 +157,14 @@ class UserDetails extends Component {
     });  
   }
   componentDidMount(){
-  axios.get('/stskFmsApi/userLogin/getByMob/'+this.props.location.state.mobileNumber.mobileNumber,{headers:header})
-    .then(res=>{
-      console.log(res.data)
-       this.setState({
-            userId:res.data.data.id,
-            email:res.data.data.email
-        })
-    })
+  // axios.get('/stskFmsApi/userLogin/getByMob/'+this.props.location.state.mobileNumber.mobileNumber,{headers:header})
+  //   .then(res=>{
+  //     console.log(res.data)
+  //      this.setState({
+  //           userId:res.data.data.id,
+  //           email:res.data.data.email
+  //       })
+  //   })
 }
  handleRadio=(e)=>{
   console.log(e.target.value)
@@ -480,19 +480,12 @@ render() {
     return (
    
       <div className="wrapper5 col m4 offset-l1">
-        <div className="form-wrapper4 row " style={{width:'1000px',height:'650px'}}>
+        <div className="form-wrapper4 row " style={{width:'1000px',height:'650px',marginLeft: '165px'}}>
           
           {/* <h3 className="center-align" id="Registertext">{this.props.match.params.name}</h3> */}
          
         <h3 className="center-align" id="usertext">JobSeeker</h3>
-        {/* <Avatar
-          width={390}
-          height={295}
-          onCrop={this.onCrop}
-          onClose={this.onClose}
-          src={this.state.src}
-        />
-        <img src={this.state.preview} alt="Preview" /> */}
+   
      
       
 <div className="userimage" style={{marginLeft:'407px',marginRight:'499px'}}>

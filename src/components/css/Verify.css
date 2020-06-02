@@ -1,15 +1,18 @@
 *{
   font-family: 'Lato', ;
 }
+#sendi{
+  width: 100%;
+}
 
 .wrapper {
-  height: 100vh;
+  /* height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-image: url("../Images/Background.png"); 
+  align-items: center; */
+  /* background-image: url("../Images/Background.png");  */
 }
 
 .form-wrapper {
@@ -45,7 +48,7 @@ label {
   font-weight: lighter;
 }
 
-/* input {
+input {
   padding: 10px 10px;
   border-radius: 5px;
   outline: none;
@@ -54,7 +57,7 @@ label {
   border-radius: 10px;
   margin:5px;
   width: 100%;
-} */
+}
 
 input::placeholder {
   font-size: 1.2em;
@@ -186,7 +189,7 @@ input.error {
   color: #707070;
   margin-bottom: 27px;
   margin-left: 6px;
-
+  font-weight: 500;
 }
 #otpinput {
   width: 278px;
@@ -202,7 +205,7 @@ input.error {
   margin-top: -10px;
   color:lightseagreen;
   text-decoration: none;
-  cursor: pointer;
+  font-weight: 500;
 }
 #verifymisscall,
 #verifymisscall1{
@@ -212,7 +215,6 @@ input.error {
   color: lightseagreen;
   border-color: 7px black;
   outline: none;
-  font-weight: 500;
 }
 #verifymisscall{
   margin-top: -44px;
@@ -225,10 +227,14 @@ input.error {
   width: 282px; 
   margin-top: -9px;
   margin-bottom: 34px;
-
+  font-weight: 500;
 }
+
+
 #enterHere{
   margin-bottom: -7px;
+  color: #707070;
+  font-weight: 500;
 }
 /* #hr {
   width: 129px;
@@ -266,17 +272,11 @@ input.error {
 .separator::after {
   margin-left: .25em;
 }
-.numInputsss{
-  display: flex;
-  flex-direction: row;
-  width: 3em;
-    text-align: center;
-    background: bisque;
-    border: none;
+#separator1{
+  width:10px;
+
 }
-#eyesssss{
-  margin-left: 235px;
-  padding-top: -13px;
-  position: relative;
-  top: -17px;
+.input-field input[type=tel] {
+  width: 2em;
+ 
 }

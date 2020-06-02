@@ -808,7 +808,8 @@ componentDidMount(e){
                                     mobileNumber : this.state,
                                  }
                                 }}>Help</Link></li>
-                                <li><i className="material-icons grey-text large" id="profileicn">account_circle</i></li>
+                                {/* <li><i className="material-icons grey-text large" id="profileicn">account_circle</i></li> */}
+                                <img src={this.state.profileimagepath} style={{height:'63px',width:'63px',borderRadius:'50px'}}></img>
                             </ul>
                         </div>
                     </nav>
