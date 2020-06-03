@@ -1,17 +1,16 @@
-
-
-*{
-  padding: 0px; margin: 0px; 
-    font-family: 'Lato', ;
+* {
+  padding: 0px;
+  margin: 0px;
+  font-family: "Lato";
   box-sizing: border-box;
 }
 
-.row{
+/* .row{
     margin-top: 10px;
-}
+} */
 
-#profile{
-    height: 500px;
+#profile {
+  height: 500px;
 }
 
 /* .nav-wrapper .brand-logo img {
@@ -19,37 +18,37 @@
     width: 130px;
     padding-left: 81px;
 } */
-#container{
-    height:500px; 
-    overflow:hidden;
-    overflow-y:scroll;
-  }
-  
-  #container {
-    overflow-y:scroll
-  }
+#container {
+  height: 500px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
 
-  #container2{
-    height:500px; 
-    width: 90%;
-    overflow:hidden;
-    overflow-y:scroll;
-  }
-  
-  #container2{
-    overflow-y:scroll
-  }
-  .card .card-image img {
-    display: block;
-    border-radius: 2px 2px 0 0;
-    position: relative;
-    margin-top: 10%;
-    margin-left: 29%;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 33%;
+#container {
+  overflow-y: scroll;
+}
+
+#container2 {
+  height: 500px;
+  width: 90%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+#container2 {
+  overflow-y: scroll;
+}
+.card .card-image img {
+  display: block;
+  border-radius: 2px 2px 0 0;
+  position: relative;
+  margin-top: 10%;
+  margin-left: 29%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 33%;
 }
 .card .card-content p {
   margin: 0;
@@ -59,54 +58,53 @@
   margin-top: -16px;
 }
 
-  #details{
-      margin-bottom: 50px;
-  }
-  nav ul li a{
-    color: #90a4ae ;
-  }  
- 
-  
-  #mail{
-    height: 80px;
-  }
-  #addresss{
-    background-color: #F9FFFF;
-  }
-  #textcolor{
-    color: #7c7f7f;
-    font-family: lato;
-  }
-  #locicon{
-    color: #3FB2AA;
-  }
-  #collpsible{
-    padding: 0px;
-    width: 90%;
-    margin: 8px auto;
-  }
-  #coll{
-    margin-top: -34px;
-  }
-  /* #colli{
+#details {
+  margin-bottom: 50px;
+}
+nav ul li a {
+  color: #90a4ae;
+}
+
+#mail {
+  height: 80px;
+}
+#addresss {
+  background-color: #f9ffff;
+}
+#textcolor {
+  color: #7c7f7f;
+  font-family: lato;
+}
+#locicon {
+  color: #3fb2aa;
+}
+#collpsible {
+  padding: 0px;
+  width: 90%;
+  margin: 8px auto;
+}
+#coll {
+  margin-top: -34px;
+}
+/* #colli{
     height: 389px;
     width: 991px;
   } */
-  #ques{
-    margin: 80px auto;
-  }
- #imghelp{
-   margin-top: 8%;
-   margin-bottom: -12%;
- }
-#dashinput{
-  font-family: 'Lato', ;
+#ques {
+  margin: 80px auto;
+}
+#imghelp {
+  margin-top: 8%;
+  margin-bottom: -12%;
+}
+#dashinput {
+  font-family: "Lato";
   padding: 26px;
 }
-#headinggg{
+#headinggg {
   margin-left: 8px;
   color: black;
 }
-.header{
+.header {
   margin-top: -27px;
 }
