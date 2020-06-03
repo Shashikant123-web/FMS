@@ -1,66 +1,64 @@
-*{
-  font-family: 'Lato', ;
- 
+* {
+  font-family: "Lato";
 }
-#body{
-  background-image: url('../Images/Background.png');
+#body {
+  /* background-image: url('../Images/Background.png');
   background-position: fixed;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   /* background-position: 100% 100%; */
 }
-#main1{
-    width: 390px;
-    height: 480px;
-    background:white;
-    border-radius: 10px;
-    margin-top: 118px;
-    box-shadow: 0 20px 50px rgba(230, 219, 219, 0.733);
-    margin-left: 0px;
-  }
-  
-#forgot{
-  cursor: pointer;
-  color:lightseagreen;
+#main1 {
+  width: 390px;
+  height: 480px;
+  background: white;
+  border-radius: 10px;
+  margin-top: 118px;
+  box-shadow: 0 20px 50px rgba(230, 219, 219, 0.733);
+  margin-left: 0px;
 }
-#text{
+
+#forgot {
+  cursor: pointer;
+  color: lightseagreen;
+}
+#text {
   margin-left: 90px;
 }
-#body{
+#body {
   position: relative;
   margin-top: 190px;
 }
-#main1{
+#main1 {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
-#icon_prefix{
+#icon_prefix {
   margin-top: -12px;
   width: 242px;
   margin-left: 43px;
   font-size: 15px;
-  font-family: 'Lato';
+  font-family: "Lato";
   letter-spacing: 1px;
   color: #707070;
 }
 
-#icon_prefix::placeholder{
+#icon_prefix::placeholder {
   font-size: 15px;
-  
 }
-#input-type3{
+#input-type3 {
   width: 288px;
   outline: none;
   font-weight: 500;
 }
-#input-forgot{
+#input-forgot {
   width: 288px;
   outline: none;
   margin-top: -30px;
 }
 
-#input-type4{
+#input-type4 {
   text-decoration: none;
   width: 288px;
   margin-top: -4px;
@@ -68,109 +66,118 @@
   border: none;
 }
 
-
-#iconn{
+#iconn {
   color: gray;
   margin-top: -6px;
 }
-#frm{
+#frm {
   margin-top: -14px;
 }
-#center{
+#center {
   margin-top: -12px;
 }
-#text{
+#text {
   color: gray;
   margin-left: 87px;
   margin-bottom: 39px;
 }
-#userloginHeading{
+#userloginHeading {
   color: gray;
   margin-right: -1px;
   margin-bottom: 39px;
 }
-#otp{
+#otp {
   color: gray;
   margin-left: 85px;
   margin: 20px auto;
   margin-bottom: 29px;
   margin-top: -4px;
 }
-#main2{
+#main2 {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 390px;
   height: 350px;
-  background:white;
+  background: white;
   border-radius: 10px;
   margin-top: 100px;
   box-shadow: 0 20px 50px rgba(230, 219, 219, 0.733);
 }
 
-#UserLoginButton{
+#UserLoginButton {
   width: 288px;
   margin-top: 6px;
   outline: none;
   border: none;
 }
 
-input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+input:not([type]):focus:not([readonly]),
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="password"]:not(.browser-default):focus:not([readonly]),
+input[type="email"]:not(.browser-default):focus:not([readonly]),
+input[type="url"]:not(.browser-default):focus:not([readonly]),
+input[type="time"]:not(.browser-default):focus:not([readonly]),
+input[type="date"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime-local"]:not(.browser-default):focus:not([readonly]),
+input[type="tel"]:not(.browser-default):focus:not([readonly]),
+input[type="number"]:not(.browser-default):focus:not([readonly]),
+input[type="search"]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #26a69a;
   -webkit-box-shadow: 0 1px 0 0 #26a69a;
   box-shadow: none;
 }
-#userLogin1{
+#userLogin1 {
   width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: -33px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -33px;
 }
 
-#FpVerify{
+#FpVerify {
   width: 288px;
-    outline: none;
-    margin-top: 17px;
+  outline: none;
+  margin-top: 17px;
 }
-#otpleftarrow{
+#otpleftarrow {
   margin-right: 271px;
-    color: #3FB2AA;
-    cursor: pointer;
+  color: #3fb2aa;
+  cursor: pointer;
 }
 i.right {
   float: right;
   margin-left: -21px;
 }
-span.character-counter{
+span.character-counter {
   color: white;
-    margin-top: -56px;
-    position: fixed;
-
+  margin-top: -56px;
+  position: fixed;
 }
-@media only screen and (max-width: 625px)
-{
+@media only screen and (max-width: 625px) {
   #pre {
     margin-top: 20px;
     margin-right: -7px;
-}
-   
-    #main1,#main2,#main{
-        width: 340px;
-        margin-left: 2px;
-    }
-    #center{
-      margin-left: -23px;
-    }
-    #pre {
-      margin-top: 20px;
-      margin-right: -7px;
   }
-  
-  
+
+  #main1,
+  #main2,
+  #main {
+    width: 340px;
+    margin-left: 2px;
+  }
+  #center {
+    margin-left: -23px;
+  }
+  #pre {
+    margin-top: 20px;
+    margin-right: -7px;
+  }
 }
-#eyesssss{
+#eyesssss {
   float: right;
-    position: relative;
-    top: -12px
+  position: relative;
+  top: -12px;
 }
