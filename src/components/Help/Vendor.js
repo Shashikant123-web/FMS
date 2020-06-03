@@ -297,7 +297,6 @@ export class dashboardHelp extends Component {
           </footer>
           <div className="footer-copyright" id="footer">
             <h6 className="center">
-              {" "}
               Copyright @2020 All rights reserved | This tamplate is made with
               STSK
             </h6>
