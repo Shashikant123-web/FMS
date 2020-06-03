@@ -145,7 +145,7 @@ export class dashboardHelp extends Component {
           <div className="row">
             <img className="center" id="dashboard" src={dashboard}></img>
             <div className="center-align">
-              <h6 className="hide-on-small-only" id="textimg">
+              <h6 className="show-on-large" id="textimg">
                 How can we help?
               </h6>
             </div>
@@ -183,7 +183,7 @@ export class dashboardHelp extends Component {
           </p>
 
           <div className="row container center" id="jobtypesbtn">
-            <div className="col s6 m6 l3 offset-l3 offset-m3">
+            <div className="col s6 m3 l3 offset-l3 ">
               <div
                 className="card hoverable z-depth-3"
                 onClick={this.handleJobseeker}
@@ -198,7 +198,7 @@ export class dashboardHelp extends Component {
               </div>
             </div>
 
-            <div className="col s6 m6 l3 " onClick={this.handleVendor}>
+            <div className="col s6 m3 l3 " onClick={this.handleVendor}>
               <div className="card hoverable">
                 <div className="card-image">
                   <img className="center-align" src={vendor}></img>
@@ -210,7 +210,7 @@ export class dashboardHelp extends Component {
               </div>
             </div>
 
-            <div className="col s6 m6 l3" onClick={this.handleAssociation}>
+            <div className="col s6 m3 l3" onClick={this.handleAssociation}>
               <div className="card hoverable">
                 <div className="card-image">
                   <img className="center-align" src={association}></img>
@@ -222,7 +222,7 @@ export class dashboardHelp extends Component {
               </div>
             </div>
 
-            <div className="col s6 m6 l3" onClick={this.handleResident}>
+            <div className="col s6 m3 l3" onClick={this.handleResident}>
               <div className="card hoverable">
                 <div className="card-image">
                   <img className="center-align" src={recident}></img>

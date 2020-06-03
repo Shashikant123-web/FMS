@@ -1,58 +1,56 @@
-*{
-  font-family: 'Lato', ;
+* {
+  font-family: "Lato";
 }
 
-#back{
+#back {
   background-color: white;
   overflow: auto;
-} 
-#profile{
-    height: 500px;
-    margin-bottom:31px;
 }
-#container{
-    height:500px; 
-    overflow:hidden;
-    overflow-y:scroll;
-    margin-left: 15px;
-  }
-  #container2{
-    height:500px; 
-    overflow:hidden;
-    overflow-y:scroll;
-    margin-left: 5%;
-  
-  }
-  #details{
-      margin-bottom: 50px;
-  }
-  nav ul li a{
-    color: #90a4ae ;
-  }  
-  #footer{
-    background: #767a7e;
-    color: white;
-    padding: 16px
-  }
+#profile {
+  height: 500px;
+  margin-bottom: 31px;
+}
+#container {
+  height: 500px;
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-left: 15px;
+}
+#container2 {
+  height: 500px;
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-left: 5%;
+}
+#details {
+  margin-bottom: 50px;
+}
+nav ul li a {
+  color: #90a4ae;
+}
+#footer {
+  background: #767a7e;
+  color: white;
+  padding: 16px;
+}
 
-  #profile1{
-    margin-top: 10px;
+#profile1 {
+  margin-top: 10px;
 }
-  #dashboard{
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    width: 100%;
-  }
-  #search{
-    margin-top: -30px;
-    width: 60%;
-    border-radius: 5px;
-  }
-#src{
+#dashboard {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+}
+#search {
+  margin-top: -30px;
+  width: 60%;
+  border-radius: 5px;
+}
+#src {
   margin-top: -19px;
-    margin-left: 3px;
-  
+  margin-left: 3px;
 }
 #src1 {
   margin-top: -12px;
@@ -60,46 +58,46 @@
   background-color: #3fb2aa;
   color: white;
 }
-#dashicn{
-  color:#1de9b6;
+#dashicn {
+  color: #1de9b6;
   margin-left: 18px;
   margin-right: 10px;
   margin-top: 3px;
   font-size: 19px;
 }
-#editicn{
+#editicn {
   cursor: pointer;
-  color:gray;
+  color: gray;
 }
-#dashbtn{
+#dashbtn {
   width: 120px;
   margin-top: 8px;
   border-radius: 10px;
-  background: #3FB2AA; 
+  background: #3fb2aa;
   color: white;
   text-transform: initial;
 }
-#btnnav{
+#btnnav {
   width: 75px;
   text-decoration: none;
-  background: #3FB2AA; 
+  background: #3fb2aa;
   color: white;
   text-transform: initial;
 }
-#logout{
+#logout {
   margin-top: 10%;
-  font-family: 'Lato', ;
+  font-family: "Lato";
   text-transform: capitalize;
 }
-#dashtext{
+#dashtext {
   font-weight: bolder;
   margin-top: -1px;
 }
-#home{
+#home {
   text-decoration: none;
   color: #707070;
 }
-.nav-wrapper .input-field input[type=search] {
+.nav-wrapper .input-field input[type="search"] {
   height: inherit;
   padding-left: 0;
   width: calc(100% - 4rem);
@@ -107,12 +105,11 @@
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-#profileicn{
+#profileicn {
   font-size: 66px;
 }
 
-
-#popcancelbtn{
+#popcancelbtn {
   width: 95%;
   border: 2px solid lightseagreen;
   margin-top: 14px;
@@ -123,22 +120,22 @@
   padding: 9px;
   font-size: 15px;
 }
-#inputBorder{
+#inputBorder {
   width: 95%;
   border-radius: 10px;
   height: 34px;
-    margin: 0px;
-    margin-bottom: 12px;
+  margin: 0px;
+  margin-bottom: 12px;
   border: 1px solid lightseagreen;
   background: white;
-  color:black;
+  color: black;
   outline: none;
   font-size: 13px;
 }
-#popsavebtn{
-    width: 95%;
-    margin-top: 12px;
-    outline: none;
+#popsavebtn {
+  width: 95%;
+  margin-top: 12px;
+  outline: none;
 }
 .popup-content {
   position: relative;
@@ -149,48 +146,46 @@
   border: none;
   padding: 5px;
 }
-.popup-overlay{
-  
+.popup-overlay {
   overflow: scroll;
   background: content-box;
-
 }
 
-#popTitle{
+#popTitle {
   margin-bottom: 43px;
 }
-#popLabel{
+#popLabel {
   font-size: 17px;
   margin-right: 28px;
   margin-left: -67px;
   margin-bottom: 0px;
 }
-#viewdetails{
+#viewdetails {
   color: turquoise;
-    cursor: pointer;
+  cursor: pointer;
 }
-#cardContent{
+#cardContent {
   padding: 6px;
 }
 nav .nav-wrapper {
   position: relative;
   height: 100%;
   margin-top: -53px;
-} 
-#dashcancelbtn{
+}
+#dashcancelbtn {
   cursor: pointer;
 }
-#textimg{
+#textimg {
   position: absolute;
-    top: 38%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 23px;
+  margin-top: -51px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 23px;
 }
-#helpDetails{
+#helpDetails {
   margin-top: -94px;
 }
-#jobtypesbtn{
+#jobtypesbtn {
   margin-top: -44px;
 }
