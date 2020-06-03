@@ -165,9 +165,9 @@ export class dashboardHelp extends Component {
           <h4 className="center" id="headinggg">
             Got questions?
           </h4>
-          <p className="center" id="textcolor">
+          <h5 className="center" id="textcolor">
             Perfect, we've got answer!
-          </p>
+          </h5>
 
           <div className="row container center-align" id="jobtypesbtn">
             <div className="col s3 m3 l3 offset-l3 offset-m3">
@@ -233,9 +233,9 @@ export class dashboardHelp extends Component {
             <h4 className="center" id="headinggg">
               You still have a questions?
             </h4>
-            <p className="center gray-text" id="textcolor">
+            <h5 className="center gray-text" id="textcolor">
               Lets talk about everything!
-            </p>
+            </h5>
           </div>
 
           <div className="row container" id="helpDetails">

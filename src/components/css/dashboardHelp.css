@@ -30,9 +30,10 @@
 
 #container2 {
   height: 500px;
-  width: 90%;
+  width: 80%;
   overflow: hidden;
   overflow-y: scroll;
+  margin-left: 11%;
 }
 
 #container2 {

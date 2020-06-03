@@ -53,10 +53,11 @@ nav ul li a {
   margin-left: 3px;
 }
 #src1 {
-  margin-top: -12px;
+  margin-top: -13px;
   border-radius: 8px;
   background-color: #3fb2aa;
   color: white;
+  text-transform: capitalize;
 }
 #dashicn {
   color: #1de9b6;

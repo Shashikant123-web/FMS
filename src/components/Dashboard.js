@@ -121,7 +121,6 @@ class Dashboard extends Component {
         { headers: header }
       )
       .then((res) => {
-        console.log(res.data);
         this.setState({
           userId: res.data.data.id,
           details: res.data.data,
@@ -511,7 +510,7 @@ class Dashboard extends Component {
             });
           } else {
             this.setState({
-              searchError: "Sorry, No JOb updates..!",
+              searchError: "Sorry, No job updates..!",
             });
           }
         });
@@ -910,19 +909,19 @@ class Dashboard extends Component {
         return (
           <div className="row card" key={applied.id}>
             <div className="card-content" id="cardContent">
-              <div className="col s6 m6 l3">
+              <div className="col s6 m4 l3">
                 <p id="dashtext">
                   Job position-
                   <span className="grey-text">{applied.jobType}</span>
                 </p>
               </div>
-              <div className="col s6 m6 l3">
+              <div className="col s6 m3 l3">
                 <p id="dashtext">
                   Experience-
                   <span className="grey-text">{applied.serviceArea}</span>
                 </p>
               </div>
-              <div className="col s6 m6 l3">
+              <div className="col s6 m3 l3">
                 <p id="dashtext">
                   Location-
                   <span className="grey-text">{applied.serviceArea}</span>
@@ -930,7 +929,7 @@ class Dashboard extends Component {
               </div>
               <Popup
                 trigger={
-                  <div className="col s6 m6 l2 right-align">
+                  <div className="col s6 m2 l2 right-align">
                     <h6
                       id="viewdetails"
                       onClick={() => this.setState({ model_open2: true })}
@@ -1181,7 +1180,7 @@ class Dashboard extends Component {
                       <h4 className="center-align" id="popTitle">
                         Edit profile
                       </h4>
-                      <div class="d-flex justify-content-center">
+                      <div className="d-flex justify-content-center">
                         <img
                           src={this.state.profileimagepath}
                           style={{
@@ -1197,7 +1196,7 @@ class Dashboard extends Component {
                         >
                           <div className="popup-content1" id="newimage">
                             <h5 id="change">Change Pictures</h5>
-                            <div class="imageload">
+                            <div className="imageload">
                               <img
                                 src={this.state.profileimagepath}
                                 style={{
@@ -1210,7 +1209,7 @@ class Dashboard extends Component {
 
                             <input
                               type="file"
-                              class="inputfile"
+                              className="inputfile"
                               id="embedpollfileinput"
                               name="image"
                               accept="images.jpeg"
@@ -1378,7 +1377,7 @@ class Dashboard extends Component {
                           <a href={path}>{this.state.fileName}</a>
                           <input
                             type="file"
-                            class="inputfile"
+                            className="inputfile"
                             id="embedpollfileinput"
                             name="image"
                             accept="images.jpeg"
@@ -1386,14 +1385,14 @@ class Dashboard extends Component {
                           />
                           <label
                             for="embedpollfileinput"
-                            class="ui huge white right floated button"
+                            className="ui huge white right floated button"
                             id="white"
                           >
                             <img src={file} id="fileimg" />
                             <span id="doc">Upload Resume</span>
                             <span>
                               <i
-                                class="far fa-times-circle fa-2x"
+                                className="far fa-times-circle fa-2x"
                                 id="close"
                               ></i>
                             </span>

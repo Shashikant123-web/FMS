@@ -324,9 +324,6 @@ export class dashboardHelp extends Component {
     );
   }
 }
-// $(document).ready(function(){
-//   $('.collapsible').collapsible();
-// });
 
 export default withRouter(dashboardHelp);
 
