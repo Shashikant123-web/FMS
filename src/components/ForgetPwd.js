@@ -101,9 +101,6 @@ class ForgetPwd extends Component {
 
   render() {
     const countries = require("./countryphonecode.json");
-    console.log(this.state.countryCode);
-    console.log(this.state);
-
     return (
       <div id="body">
         <div className="row" id="main1">
@@ -143,7 +140,7 @@ class ForgetPwd extends Component {
                     >
                       {countries.map((country, i) => (
                         <option key={i} value={country.number.slice(1)}>
-                          {country.name}
+                          {country.name.toUpperCase().slice(0, 3)}
                         </option>
                       ))}
                     </Form.Control>
@@ -208,7 +205,7 @@ class ForgetPwd extends Component {
                   >
                     {countries.map((country, i) => (
                       <option key={i} value={country.number.slice(1)}>
-                        {country.name}
+                        {country.name.toUpperCase().slice(0, 3)}
                       </option>
                     ))}
                   </Form.Control>
