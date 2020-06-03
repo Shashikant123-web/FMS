@@ -5,15 +5,15 @@
   width: 100%;
 }
 
-.wrapper {
-  /* height: 100vh;
+/* .wrapper {
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; */
-  /* background-image: url("../Images/Background.png");  */
-}
+  align-items: center; 
+  background-image: url("../Images/Background.png"); 
+} */
 
 .form-wrapper {
   width: 400px;
