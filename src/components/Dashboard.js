@@ -1072,7 +1072,7 @@ class Dashboard extends Component {
         <div className="navbar-fixed white">
           <nav className="white">
             <div className="nav-wrapper white container">
-              <a className="brand-logo left" id="img">
+              <a className="brand-logo left jobnav" id="img">
                 <img
                   className="center"
                   src={mainLogo}
@@ -1080,7 +1080,7 @@ class Dashboard extends Component {
                   height="50"
                 ></img>
               </a>
-              <ul id="nav-mobile" className="right">
+              <ul id="nav-mobile jonnav" className="right">
                 <li>
                   <Link
                     to="/dashboard"

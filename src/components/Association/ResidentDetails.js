@@ -30,10 +30,10 @@ class ResidentDetails extends Component {
             <div className="navbar-fixed white">
             <nav className="white" >
                 <div className="nav-wrapper white container">
-                <a className="brand-logo left" id="img"> 
+                <a className="brand-logo left jonnav" id="img"> 
                     <img className="center" src={mainLogo} width="50" height="50"></img>
                 </a>
-                    <ul id="nav-mobile" className="right">
+                    <ul id="nav-mobile jonnav" className="right">
                         <li><Link id="home" to="/nav">Property Details</Link></li>
                         <li><Link id="home" to="/vendor">Vendor</Link></li>
                         <li><Link  className="waves-effect waves-light btn-small" id="navbtn1" to="/ResidentDetails">Resident Details</Link></li>

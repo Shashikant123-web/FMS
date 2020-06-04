@@ -31,7 +31,7 @@ class AssoVendor extends Component {
         <div className="navbar-fixed white">
           <nav className="white">
             <div className="nav-wrapper white container">
-              <a className="brand-logo left" id="img">
+              <a className="brand-logo left jonnav" id="img">
                 <img
                   className="center"
                   src={mainLogo}
@@ -39,7 +39,7 @@ class AssoVendor extends Component {
                   height="50"
                 ></img>
               </a>
-              <ul id="nav-mobile" className="right">
+              <ul id="nav-mobile jonnav" className="right">
                 <li>
                   <Link id="home" to="/nav">
                     Property Details
