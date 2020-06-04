@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../AssociationCSS/Navbar.css";
+import "../AssociationCSS/Vendor.css";
 import mainLogo from "../Images/Mainlogo.png";
 import dashboard from "../Images/dashboard.png";
 import { withRouter, Link, NavLink } from "react-router-dom";
@@ -169,8 +170,8 @@ class AssoVendor extends Component {
                         <div className="col s3 m3 l3">
                           <p id="dashtext">18 Employees</p>
                         </div>
-                        <div className="col s3 m3 l3">
-                          <p id="btnnav">ViewDetails</p>
+                        <div className="col s3 m3 l3" id="assbtn">
+                          <h6 className="center assbtn1">ViewDetails</h6>
                         </div>
                       </div>
                     </div>

@@ -157,11 +157,6 @@ span.character-counter {
   position: fixed;
 }
 @media only screen and (max-width: 625px) {
-  #pre {
-    margin-top: 20px;
-    margin-right: -7px;
-  }
-
   #main1,
   #main2,
   #main {

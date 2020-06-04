@@ -61,3 +61,20 @@
   color: #3fb2aa;
   text-decoration: none;
 }
+@media only screen and (max-width: 625px) {
+  #main {
+    width: 374px;
+  }
+  #pre {
+    margin-top: 19px;
+    margin-right: 1px;
+    font-size: 17px;
+    color: #3fb2aa;
+    margin-left: 3px;
+    text-decoration: none;
+  }
+  #jobseeeker,
+  #vendorr {
+    margin-right: 4px;
+  }
+}

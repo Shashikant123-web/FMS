@@ -30,7 +30,7 @@ export class Register extends Component {
         console.log(res.data.data);
         this.setState({
           userRoless: res.data.data,
-          // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
+          //mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
         });
       });
   }
@@ -89,7 +89,7 @@ export class Register extends Component {
 
             <div className="row">
               <div
-                className="col m6 l6"
+                className="col s12 m6 l6"
                 id="jobseeeker"
                 onClick={this.handleChange}
               >
@@ -102,7 +102,7 @@ export class Register extends Component {
                 {postList[0]}
               </div>
               <div
-                className="col m6 l6"
+                className="col s12 m6 l6"
                 id="associationn"
                 onClick={this.handleChange}
               >
@@ -117,7 +117,7 @@ export class Register extends Component {
             </div>
             <div className="row">
               <div
-                className="col m6 l6"
+                className="col s12 m6 l6"
                 id="vendorr"
                 onClick={this.handleChange}
               >
@@ -130,7 +130,7 @@ export class Register extends Component {
                 {postList[2]}
               </div>
               <div
-                className="col m6 l6"
+                className="col s12 m6 l6"
                 id="residentt"
                 onClick={this.handleChange}
               >
