@@ -86,7 +86,7 @@ class ChangePwd extends Component {
                   required
                   value={this.state.password}
                   onChange={this.handleChange1}
-                  // pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
                   placeholder="Enter password"
                   onChange={this.handleChange1}
