@@ -7,9 +7,11 @@ import jobseeker from "./Images/JobseekerHelp.png";
 import vendor from "./Images/vendorHelp.png";
 import association from "./Images/AsssociationHelp.png";
 import recident from "./Images/recidentHelp.png";
+import M from "materialize-css/dist/js/materialize.min.js";
 import axios from "axios";
 import * as $ from "jquery";
 import edit from "./Images/edit.png";
+
 import {
   Accordion,
   AccordionItem,
@@ -23,9 +25,12 @@ export class dashboardHelp extends Component {
   state = {
     mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
   };
-  // componentDidMount(){
-  //   location.reload();
-  // }
+  componentDidMount() {
+    document.addEventListener("DOMContentLoaded", function() {
+      var elems = document.querySelectorAll(".collapsible");
+      var instances = M.Collapsible.init(elems, {});
+    });
+  }
   handleVendor = (e) => {
     this.props.history.push({
       pathname: "/vendorHelp",

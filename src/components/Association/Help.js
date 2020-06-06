@@ -7,6 +7,9 @@ import jobseeker from "../Images/JobseekerInactive.png";
 import vendor from "../Images/vendorHelp.png";
 import association from "../Images/AsssociationActive.png";
 import recident from "../Images/recidentHelp.png";
+import "materialize-css";
+import M from "materialize-css/dist/js/materialize.min.js";
+
 import axios from "axios";
 import * as $ from "jquery";
 
@@ -14,6 +17,12 @@ class Help extends Component {
   state = {
     status: "job",
   };
+  componentDidMount() {
+    document.addEventListener("DOMContentLoaded", function() {
+      var elems = document.querySelectorAll(".collapsible");
+      var instances = M.Collapsible.init(elems, {});
+    });
+  }
   handleVendor = (e) => {
     this.props.history.push("/assoVendorHelp");
   };

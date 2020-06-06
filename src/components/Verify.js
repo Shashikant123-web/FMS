@@ -46,20 +46,20 @@ class Verify extends Component {
         console.log(error);
       });
   };
-  handleResend = (e) => {
-    axios
-      .post(
-        "/stskFmsApi/otpServices/resendOtpBySMS",
-        {
-          countryCode: this.state.countryCode,
-          mobileNumber: this.state.mobileNumber,
-        },
-        { headers: header }
-      )
-      .then((res) => {
-        console.log(res);
-      });
-  };
+  // handleResend = (e) => {
+  //   axios
+  //     .post(
+  //       "/stskFmsApi/otpServices/resendOtpBySMS",
+  //       {
+  //         countryCode: this.state.countryCode,
+  //         mobileNumber: this.state.mobileNumber,
+  //       },
+  //       { headers: header }
+  //     )
+  //     .then((res) => {
+  //       console.log(res);
+  //     });
+  // };
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({

@@ -207,7 +207,7 @@ input.error {
   border: 2px solid lightseagreen;
   background: white;
   color: lightseagreen;
-  border-color: 7px black;
+  /* border-color: 7px black; */
   outline: none;
 }
 #verifymisscall {

@@ -67,13 +67,14 @@ class ForgetPwd extends Component {
   };
   handleVerify = (e) => {
     e.preventDefault();
+    console.log("verify");
     axios
       .post(
         "/stskFmsApi/otpServices/verifyOtpBySMS",
         {
           countryCode: 91,
           mobileNumber: this.state.mobileNumber,
-          otp_input: this.state.input_otp,
+          otp_input: this.state.otp,
         },
         { headers: header }
       )
@@ -100,6 +101,7 @@ class ForgetPwd extends Component {
   };
 
   render() {
+    console.log(this.state);
     const countries = require("./countryphonecode.json");
     return (
       <div id="body">
