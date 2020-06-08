@@ -76,6 +76,8 @@ class Dashboard extends Component {
       fileName: "",
 
       recomendedJobs: [],
+      appliedJobs: [],
+      recomendedJobsLength: "",
     };
   }
   handlejobtypes() {}
@@ -110,12 +112,10 @@ class Dashboard extends Component {
     //     .catch((error) => {
     //       console.log(error);
     //     });
-
     //   this._isMounted = true;
     //   this.setState({
     //     mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
     //   });
-
     //   axios
     //     .get(
     //       "/stskFmsApi/jobseeker/getByMob/" +
@@ -139,10 +139,9 @@ class Dashboard extends Component {
         .then((res) => {
           console.log(res.data.data);
           console.log(res.data.success);
-
           if (res.data.success === 1) {
             this.setState({
-              recomendedJobs: res.data.data.slice(0, 3),
+              recomendedJobs: res.data.data,
             });
           } else {
             console.log("No jobs present");
@@ -150,18 +149,15 @@ class Dashboard extends Component {
         });
     }, 2000);
 
-    //   const timer1 = setTimeout(() => {
-    //     axios
-    //       .get("/stskFmsApi/jobseeker/getById/" + this.state.userId, {
-    //         headers: header,
-    //       })
-    //       .then((res) => {
-    //         this.setState({
-    //           appliedJobs: res.data.data.jobs,
-    //           // appliedJobdId:[...this.state.appliedJobdId, res.data.data.jobs]
-    //         });
-    //       });
-    //   }, 3000);
+    const timer1 = setTimeout(() => {
+      axios
+        .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
+        .then((res) => {
+          this.setState({
+            appliedJobs: res.data.data.jobs,
+          });
+        });
+    }, 3000);
     //   const timer2 = setTimeout(() => {
     //     axios
     //       .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
@@ -231,7 +227,6 @@ class Dashboard extends Component {
     //       })
     //       .catch((err) => console.log(err));
     //   }, 8000);
-
     // axios.get('/stskFmsApi/jobseekerdoc/getByJobSeekerId'+this.state.userId,{headers:header})
     // .then(res => {
     //     console.log(res.data.data.docId)
@@ -522,36 +517,37 @@ class Dashboard extends Component {
 
   render() {
     const { recomendedJobs } = this.state;
+    const nmbr = recomendedJobs.length;
     const recommendedList = recomendedJobs.length ? (
-      recomendedJobs.map((job) => {
+      recomendedJobs.slice(0, 3).map((job) => {
+        console.log(recomendedJobs.length);
+
         return (
-          <div className="row">
-            <div className="col s12 m2 l2">
-              <div className="card darken-1 hoverable" key={job.id}>
-                <div className="card-content white-text">
-                  <strong className="black-text">
-                    Job position-
-                    <span className="grey-text">security guard</span>
-                  </strong>
-                  <br></br>
-                  <br></br>
-                  <strong className="black-text">
-                    Experience-
-                    <span className="grey-text">0 to 4 years</span>
-                  </strong>
-                  <br></br>
-                  <br></br>
-                  <strong className="black-text">
-                    Location-
-                    <span className="grey-text">rr nagar</span>
-                  </strong>
-                  <br></br>
-                  <br></br>
-                </div>
-                <div className="card-action">
-                  <strong className="left">8 am</strong>
-                  <i className="material-icons right">arrow_forward</i>
-                </div>
+          <div className="col 12 m6 l4" key={job.id}>
+            <div className="card darken-1 hoverable">
+              <div className="card-content">
+                <strong className="black-text">
+                  Job position-
+                  <span className="grey-text">{job.jobType}</span>
+                </strong>
+                <br></br>
+                <br></br>
+                <strong className="black-text">
+                  Experience-
+                  <span className="grey-text">{job.experience}</span>
+                </strong>
+                <br></br>
+                <br></br>
+                <strong className="black-text">
+                  Location-
+                  <span className="grey-text">{job.serviceArea}</span>
+                </strong>
+                <br></br>
+                <br></br>
+              </div>
+              <div className="card-action">
+                <strong className="left">8 am</strong>
+                <i className="material-icons right">arrow_forward</i>
               </div>
             </div>
           </div>
@@ -562,159 +558,36 @@ class Dashboard extends Component {
     );
 
     const { appliedJobs } = this.state;
+    const appliedJobsNmbr = appliedJobs.length;
     const appliedJobsList = appliedJobs.length ? (
-      appliedJobs.map((applied) => {
+      appliedJobs.slice(0, 3).map((applied) => {
         return (
-          <div className="row card" key={applied.id}>
-            <div className="card-content" id="cardContent">
-              <div className="col s6 m4 l3">
-                <p id="dashtext">
+          <div className="col 12 m6 l4" key={applied.id}>
+            <div className="card darken-1 hoverable">
+              <div className="card-content">
+                <strong className="black-text">
                   Job position-
                   <span className="grey-text">{applied.jobType}</span>
-                </p>
-              </div>
-              <div className="col s6 m3 l3">
-                <p id="dashtext">
+                </strong>
+                <br></br>
+                <br></br>
+                <strong className="black-text">
                   Experience-
-                  <span className="grey-text">{applied.serviceArea}</span>
-                </p>
-              </div>
-              <div className="col s6 m3 l3">
-                <p id="dashtext">
+                  <span className="grey-text">{applied.experience}</span>
+                </strong>
+                <br></br>
+                <br></br>
+                <strong className="black-text">
                   Location-
                   <span className="grey-text">{applied.serviceArea}</span>
-                </p>
+                </strong>
+                <br></br>
+                <br></br>
               </div>
-              <Popup
-                trigger={
-                  <div className="col s6 m2 l2 right-align">
-                    <h6
-                      id="viewdetails"
-                      onClick={() => this.setState({ model_open2: true })}
-                      className="right-align"
-                      value={applied.id}
-                    >
-                      {" "}
-                      <u>ViewDetails</u>
-                    </h6>
-                  </div>
-                }
-                modal
-              >
-                {(close) => (
-                  <div className="popup-content">
-                    <div className="col s12 m12 l12">
-                      <div className="right-align">
-                        <i
-                          className="material-icons"
-                          id="dashcancelbtn"
-                          onClick={() => {
-                            close();
-                          }}
-                        >
-                          clear
-                        </i>
-                      </div>
-                      <h4 className="center align grey-text">View Details</h4>
-
-                      <br></br>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Job position-
-                          <span className="grey-text">{applied.jobType}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Experience -{" "}
-                          <span className="grey-text">{applied.jobType}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Language -{" "}
-                          <span className="grey-text">{applied.language}</span>{" "}
-                        </h6>
-                        <br></br>
-                      </div>
-
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          {" "}
-                          Age limit -{" "}
-                          <span className="grey-text">{applied.ageLimit}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          {" "}
-                          Valid Upto -{" "}
-                          <span className="grey-text">{applied.validUpto}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Location -{" "}
-                          <span className="grey-text">
-                            {applied.serviceArea}
-                          </span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Vacancy -
-                          <span className="grey-text">{applied.id}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          {" "}
-                          Salary range -{" "}
-                          <span className="grey-text">
-                            {applied.salaryRange}
-                          </span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div>
-                        <h6>Description</h6>
-                        <br></br>
-                        <p className="grey-text">
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. Lorem Ipsum has been the
-                          industry's standard dummy text ever since the 1500s,
-                          when an unknown
-                        </p>
-                      </div>
-                      <div className="col s12 m6 l6">
-                        <button
-                          className="grey-text"
-                          onClick={() => {
-                            close();
-                          }}
-                          id="popcancelbtn"
-                          type="text"
-                        >
-                          cancel
-                        </button>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m6 l6">
-                        <button value={applied.id} id="popsavebtn" type="text">
-                          Appled
-                        </button>
-                        <br></br>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </Popup>
+              <div className="card-action">
+                <strong className="left">8 am</strong>
+                <i className="material-icons right">arrow_forward</i>
+              </div>
             </div>
           </div>
         );
@@ -1171,21 +1044,25 @@ class Dashboard extends Component {
                     <h4 className="grey-text">Recomended jobs</h4>
 
                     {recommendedList}
-                    <strong className="left">
-                      <div className="numberCircle left">10</div>
-                      <h5 className="left ">jobs recommended</h5>
-                    </strong>
-                    <a className="btn right" id="viewMore">
-                      View more
-                    </a>
+                    <div className="col s12 m12 l12">
+                      <strong>
+                        <div className="numberCircle left">{nmbr}</div>
+                        <h5 className="left">jobs recommended</h5>
+                      </strong>
+                      <a className="btn right" id="viewMore">
+                        View more
+                      </a>
+                      <br></br>
+                      <br></br>
+                    </div>
                   </div>
                 </div>
 
-                <div class="col s12 m8 l8">
+                <div className="col s12 m10 l8 offset-m1">
                   <div className="col s12 m6 l6">
-                    <div class="card white newJobs">
-                      <div class="card-content white-text">
-                        <span class="card-title right" id="number">
+                    <div className="card white newJobs">
+                      <div className="card-content white-text">
+                        <span className="card-title right" id="number">
                           10
                         </span>
                         <h5>New jobs</h5>
@@ -1200,9 +1077,9 @@ class Dashboard extends Component {
                     </div>
                   </div>
 
-                  <div class="card white newJobs">
-                    <div class="card-content white-text">
-                      <span class="card-title right" id="number">
+                  <div className="card white newJobs">
+                    <div className="card-content white-text">
+                      <span className="card-title right" id="number">
                         13
                       </span>
                       <h5>Saved jobs</h5>
@@ -1219,45 +1096,18 @@ class Dashboard extends Component {
               </div>
 
               <div className="col s12 m10 l10 offset-l1 offset-m1 z-depth-1">
-                <div>
-                  <h4 className="grey-text">Appied status</h4>
-                  <div className="row">
-                    <div className="col s12 m6 l3">
-                      <div className="card darken-1 hoverable">
-                        <div className="card-content white-text">
-                          <strong className="black-text col s12 m12 l12">
-                            Job position-
-                            <span className="grey-text">security guard</span>
-                          </strong>
-                          <br></br>
-                          <br></br>
-                          <strong className="black-text col s12 m12 l12">
-                            Experience-
-                            <span className="grey-text">0 to 4 years</span>
-                          </strong>
-                          <br></br>
-                          <br></br>
-                          <strong className="black-text col s12 m12 l12">
-                            Location-
-                            <span className="grey-text">rr nagar</span>
-                          </strong>
-                          <br></br>
-                          <br></br>
-                        </div>
-                        <div className="card-action">
-                          <strong className="left">8 am</strong>
-                          <i className="material-icons right">arrow_forward</i>
-                        </div>
-                      </div>
-                      <strong className="left">
-                        <div className="numberCircle left">14</div>
-                        <h5 className="left ">Applied jobs</h5>
-                      </strong>
-                      <a className="btn right" id="viewMore">
-                        View more
-                      </a>
-                    </div>
-                  </div>
+                <h4 className="grey-text">Appied status</h4>
+                {appliedJobsList}
+                <div className="col s12 m12 l12">
+                  <strong>
+                    <div className="numberCircle left">{appliedJobsNmbr}</div>
+                    <h5 className="left">jobs recommended</h5>
+                  </strong>
+                  <a className="btn right" id="viewMore">
+                    View more
+                  </a>
+                  <br></br>
+                  <br></br>
                 </div>
               </div>
             </div>

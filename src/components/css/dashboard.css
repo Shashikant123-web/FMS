@@ -218,3 +218,7 @@ nav .nav-wrapper {
 .newJobs {
   background-image: linear-gradient(#97dbd7, #3fb2aa);
 }
+#recommendedList {
+  display: flex;
+  flex-direction: row;
+}
