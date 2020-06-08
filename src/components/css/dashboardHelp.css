@@ -18,27 +18,7 @@
     width: 130px;
     padding-left: 81px;
 } */
-#container {
-  height: 500px;
-  overflow: hidden;
-  overflow-y: scroll;
-}
 
-#container {
-  overflow-y: scroll;
-}
-
-#container2 {
-  height: 500px;
-  width: 80%;
-  overflow: hidden;
-  overflow-y: scroll;
-  margin-left: 11%;
-}
-
-#container2 {
-  overflow-y: scroll;
-}
 .card .card-image img {
   display: block;
   border-radius: 2px 2px 0 0;

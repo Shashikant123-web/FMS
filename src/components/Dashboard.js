@@ -74,6 +74,8 @@ class Dashboard extends Component {
       //docId:'',
       path: "",
       fileName: "",
+
+      recomendedJobs: [],
     };
   }
   handlejobtypes() {}
@@ -88,50 +90,50 @@ class Dashboard extends Component {
   }
 
   componentDidMount(e) {
-    fetch("http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes", {
-      headers: header,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        let TypesFromApi = data.data.map((Type) => {
-          return { id: Type.id, name: Type.name };
-        });
-        this.setState({
-          Types: [
-            {
-              id: "",
-              name: "(Select your desire job)",
-            },
-          ].concat(TypesFromApi),
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    //   fetch("http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes", {
+    //     headers: header,
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       let TypesFromApi = data.data.map((Type) => {
+    //         return { id: Type.id, name: Type.name };
+    //       });
+    //       this.setState({
+    //         Types: [
+    //           {
+    //             id: "",
+    //             name: "(Select your desire job)",
+    //           },
+    //         ].concat(TypesFromApi),
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
 
-    this._isMounted = true;
-    this.setState({
-      mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-    });
+    //   this._isMounted = true;
+    //   this.setState({
+    //     mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
+    //   });
 
-    axios
-      .get(
-        "/stskFmsApi/jobseeker/getByMob/" +
-          this.props.location.state.mobileNumber.mobileNumber,
-        { headers: header }
-      )
-      .then((res) => {
-        this.setState({
-          userId: res.data.data.id,
-          details: res.data.data,
-          editProfile: res.data.data,
-          userLoginMobile: res.data.data.mob,
-        });
-      });
+    //   axios
+    //     .get(
+    //       "/stskFmsApi/jobseeker/getByMob/" +
+    //         this.props.location.state.mobileNumber.mobileNumber,
+    //       { headers: header }
+    //     )
+    //     .then((res) => {
+    //       this.setState({
+    //         userId: res.data.data.id,
+    //         details: res.data.data,
+    //         editProfile: res.data.data,
+    //         userLoginMobile: res.data.data.mob,
+    //       });
+    //     });
 
     const timer = setTimeout(() => {
       axios
-        .get("/stskFmsApi/jobs/recommendedJobs/" + this.state.userId, {
+        .get("/stskFmsApi/jobs/recommendedJobs/" + 27, {
           headers: header,
         })
         .then((res) => {
@@ -140,7 +142,7 @@ class Dashboard extends Component {
 
           if (res.data.success === 1) {
             this.setState({
-              posts: res.data.data,
+              recomendedJobs: res.data.data.slice(0, 3),
             });
           } else {
             console.log("No jobs present");
@@ -148,87 +150,88 @@ class Dashboard extends Component {
         });
     }, 2000);
 
-    const timer1 = setTimeout(() => {
-      axios
-        .get("/stskFmsApi/jobseeker/getById/" + this.state.userId, {
-          headers: header,
-        })
-        .then((res) => {
-          this.setState({
-            appliedJobs: res.data.data.jobs,
-            // appliedJobdId:[...this.state.appliedJobdId, res.data.data.jobs]
-          });
-        });
-    }, 3000);
-    const timer2 = setTimeout(() => {
-      axios
-        .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
-          headers: header,
-        })
-        .then((res) => {
-          console.log(res.data.data[0].docId);
-          this.setState({
-            docId: res.data.data[0].docId,
-          });
-        });
-    }, 4000);
-    const timer3 = setTimeout(() => {
-      axios
-        .get("/stskFmsApi/jobseekerdoc/retriveWithPath/" + this.state.docId, {
-          headers: header,
-        })
-        .then((res) => {
-          console.log(res.data.data.path);
-          this.setState({
-            path: res.data.data.path,
-            fileName: res.data.data.docName,
-          });
-        })
-        .catch((err) => console.log(err));
-    }, 5000);
-    const timer4 = setTimeout(() => {
-      axios
-        .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
-          headers: header,
-        })
-        .then((res) => {
-          console.log(res.data.data.id);
-          this.setState({
-            mobileNumberUserloginId: res.data.data.id,
-          });
-        })
-        .catch((err) => console.log(err));
-    }, 6000);
-    const timer5 = setTimeout(() => {
-      axios
-        .get(
-          "/stskFmsApi/imageDoc/getByLoginId/" +
-            this.state.mobileNumberUserloginId,
-          { headers: header }
-        )
-        .then((res) => {
-          console.log(res.data.data[0].docId);
-          this.setState({
-            profileimageretrievedocId: res.data.data[0].docId,
-          });
-        })
-        .catch((err) => console.log(err));
-    }, 7000);
-    const timer6 = setTimeout(() => {
-      axios
-        .get(
-          "/stskFmsApi/imageDoc/retriveWithPath/" +
-            this.state.profileimageretrievedocId,
-          { headers: header }
-        )
-        .then((res) => {
-          console.log(res);
-          this.setState({
-            profileimagepath: res.data.data.path,
-          });
-        })
-        .catch((err) => console.log(err));
-    }, 8000);
+    //   const timer1 = setTimeout(() => {
+    //     axios
+    //       .get("/stskFmsApi/jobseeker/getById/" + this.state.userId, {
+    //         headers: header,
+    //       })
+    //       .then((res) => {
+    //         this.setState({
+    //           appliedJobs: res.data.data.jobs,
+    //           // appliedJobdId:[...this.state.appliedJobdId, res.data.data.jobs]
+    //         });
+    //       });
+    //   }, 3000);
+    //   const timer2 = setTimeout(() => {
+    //     axios
+    //       .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
+    //         headers: header,
+    //       })
+    //       .then((res) => {
+    //         console.log(res.data.data[0].docId);
+    //         this.setState({
+    //           docId: res.data.data[0].docId,
+    //         });
+    //       });
+    //   }, 4000);
+    //   const timer3 = setTimeout(() => {
+    //     axios
+    //       .get("/stskFmsApi/jobseekerdoc/retriveWithPath/" + this.state.docId, {
+    //         headers: header,
+    //       })
+    //       .then((res) => {
+    //         console.log(res.data.data.path);
+    //         this.setState({
+    //           path: res.data.data.path,
+    //           fileName: res.data.data.docName,
+    //         });
+    //       })
+    //       .catch((err) => console.log(err));
+    //   }, 5000);
+    //   const timer4 = setTimeout(() => {
+    //     axios
+    //       .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
+    //         headers: header,
+    //       })
+    //       .then((res) => {
+    //         console.log(res.data.data.id);
+    //         this.setState({
+    //           mobileNumberUserloginId: res.data.data.id,
+    //         });
+    //       })
+    //       .catch((err) => console.log(err));
+    //   }, 6000);
+    //   const timer5 = setTimeout(() => {
+    //     axios
+    //       .get(
+    //         "/stskFmsApi/imageDoc/getByLoginId/" +
+    //           this.state.mobileNumberUserloginId,
+    //         { headers: header }
+    //       )
+    //       .then((res) => {
+    //         console.log(res.data.data[0].docId);
+    //         this.setState({
+    //           profileimageretrievedocId: res.data.data[0].docId,
+    //         });
+    //       })
+    //       .catch((err) => console.log(err));
+    //   }, 7000);
+    //   const timer6 = setTimeout(() => {
+    //     axios
+    //       .get(
+    //         "/stskFmsApi/imageDoc/retriveWithPath/" +
+    //           this.state.profileimageretrievedocId,
+    //         { headers: header }
+    //       )
+    //       .then((res) => {
+    //         console.log(res);
+    //         this.setState({
+    //           profileimagepath: res.data.data.path,
+    //         });
+    //       })
+    //       .catch((err) => console.log(err));
+    //   }, 8000);
+
     // axios.get('/stskFmsApi/jobseekerdoc/getByJobSeekerId'+this.state.userId,{headers:header})
     // .then(res => {
     //     console.log(res.data.data.docId)
@@ -518,382 +521,37 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log(this.state.uploadedResume);
-
-    console.log(this.state.editProfile.jobTypes);
-    console.log(this.state);
-    const { posts } = this.state;
-    const { path } = this.state;
-    const postList = posts.length ? (
-      posts.map((post) => {
-        // return this.state.appliedJobsId.map(item2 => {
-
-        //      if(item2!==post.id){
-        //          console.log('yehh')
-        //      }else{
-        //          console.log('puss')
-        //      }
-        //    })
+    const { recomendedJobs } = this.state;
+    const recommendedList = recomendedJobs.length ? (
+      recomendedJobs.map((job) => {
         return (
-          <div className="row card" key={post.id}>
-            <div className="card-content" id="cardContent">
-              <div className="col s6 m6 l3">
-                <p id="dashtext">
-                  Job position-<span className="grey-text">{post.jobType}</span>
-                </p>
-              </div>
-              <div className="col s6 m6 l3">
-                <p id="dashtext">
-                  Experience-<span className="grey-text">{post.id}</span>
-                </p>
-              </div>
-              <div className="col s6 m6 l3">
-                <p id="dashtext">
-                  Location-<span className="grey-text">{post.serviceArea}</span>
-                </p>
-              </div>
-              <Popup
-                trigger={
-                  <div className="col s6 m6 l2 right-align">
-                    <h6
-                      id="viewdetails"
-                      className="right-align"
-                      value={post.id}
-                    >
-                      {" "}
-                      <u>ViewDetails</u>
-                    </h6>
-                  </div>
-                }
-                modal
-              >
-                {(close) => (
-                  <div className="popup-content">
-                    <div className="col s12 m12 l12">
-                      <div className="right-align">
-                        <i
-                          className="material-icons"
-                          id="dashcancelbtn"
-                          onClick={() => {
-                            close();
-                          }}
-                        >
-                          clear
-                        </i>
-                      </div>
-
-                      <h4 className="center align grey-text">View Details</h4>
-
-                      <br></br>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Job position-
-                          <span className="grey-text">{post.jobType}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Experience -{" "}
-                          <span className="grey-text">{post.jobType}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Language -{" "}
-                          <span className="grey-text">{post.language}</span>{" "}
-                        </h6>
-                        <br></br>
-                      </div>
-
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          {" "}
-                          Age limit -{" "}
-                          <span className="grey-text">{post.ageLimit}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          {" "}
-                          Valid Upto -{" "}
-                          <span className="grey-text">{post.validUpto}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Location -{" "}
-                          <span className="grey-text">{post.serviceArea}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          Vacancy -<span className="grey-text">{post.id}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div className="col s12 m12 l6">
-                        <h6>
-                          {" "}
-                          Salary range -{" "}
-                          <span className="grey-text">{post.salaryRange}</span>
-                        </h6>
-                        <br></br>
-                      </div>
-                      <div>
-                        <h6>Description</h6>
-                        <br></br>
-                        <p className="grey-text">
-                          Lorem Ipsum is simply dummy text of the printing and
-                          typesetting industry. since the 1500s, when an unknown
-                        </p>
-                      </div>
-                      <div className="col s12 m12 l12">
-                        <h4>Before Applying Do you want to edit?</h4>
-                        <p>
-                          <label>
-                            <input
-                              name="wantedit"
-                              value="true"
-                              onClick={this.handleRadioEdit}
-                              type="radio"
-                            />
-                            <span id="label">Yes</span>
-                          </label>
-                        </p>
-                        <p>
-                          <label>
-                            <input
-                              name="wantedit"
-                              value="false"
-                              onClick={this.handleRadioEdit}
-                              type="radio"
-                            />
-                            <span id="label">No</span>
-                          </label>
-                        </p>
-                      </div>
-
-                      <div className="col s12 m6 l6">
-                        <button
-                          className="grey-text"
-                          onClick={() => {
-                            close();
-                          }}
-                          id="popcancelbtn"
-                          type="text"
-                        >
-                          cancel
-                        </button>
-                        <br></br>
-                      </div>
-
-                      <div className="col s12 m6 l6">
-                        <button
-                          onClick={() => {
-                            this.handleApply(post.id);
-                          }}
-                          value={post.id}
-                          id="popsavebtn"
-                          type="text"
-                        >
-                          Apply
-                        </button>
-                        <br></br>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </Popup>
-            </div>
-          </div>
-        );
-      })
-    ) : (
-      <div className="center">
-        <h5>Loading, please wait....</h5>
-        <div className="preloader-wrapper small active">
-          <div className="spinner-layer spinner-green-only">
-            <div className="circle-clipper left">
-              <div className="circle"></div>
-            </div>
-            <div className="gap-patch">
-              <div className="circle"></div>
-            </div>
-            <div className="circle-clipper right">
-              <div className="circle"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
-    const { searchedJobs } = this.state;
-    const searchList = searchedJobs.length ? (
-      searchedJobs.map((search) => {
-        return (
-          <div className="row card" key={search.id}>
-            <div className="card-content" id="cardContent">
-              <div className="col s6 m6 l3">
-                <p id="dashtext">
-                  Job position-
-                  <span className="grey-text">{search.jobType}</span>
-                </p>
-              </div>
-              <div className="col s6 m6 l3">
-                <p id="dashtext">
-                  Experience-
-                  <span className="grey-text">{search.serviceArea}</span>
-                </p>
-              </div>
-              <div className="col s6 m6 l3">
-                <p id="dashtext">
-                  Location-
-                  <span className="grey-text">{search.serviceArea}</span>
-                </p>
-              </div>
-              <div>
-                <Popup
-                  trigger={
-                    <div className="col s6 m6 l2 right-align">
-                      <h6
-                        id="viewdetails"
-                        className="right-align"
-                        value={search.id}
-                      >
-                        {" "}
-                        <u>ViewDetails</u>
-                      </h6>
-                    </div>
-                  }
-                  modal
-                >
-                  {(close) => (
-                    <div className="popup-content">
-                      <div className="col s12 m12 l12">
-                        <div className="right-align">
-                          <i
-                            className="material-icons"
-                            id="dashcancelbtn"
-                            onClick={() => {
-                              close();
-                            }}
-                          >
-                            clear
-                          </i>
-                        </div>
-                        <h4 className="center align grey-text">View Details</h4>
-
-                        <br></br>
-                        <div className="col s12 m12 l6">
-                          <h6>
-                            Job position-
-                            <span className="grey-text">{search.jobType}</span>
-                          </h6>
-                          <br></br>
-                        </div>
-                        <div className="col s12 m12 l6">
-                          <h6>
-                            Experience -{" "}
-                            <span className="grey-text">{search.jobType}</span>
-                          </h6>
-                          <br></br>
-                        </div>
-                        <div className="col s12 m12 l6">
-                          <h6>
-                            Language -{" "}
-                            <span className="grey-text">{search.language}</span>{" "}
-                          </h6>
-                          <br></br>
-                        </div>
-
-                        <div className="col s12 m12 l6">
-                          <h6>
-                            {" "}
-                            Age limit -{" "}
-                            <span className="grey-text">{search.ageLimit}</span>
-                          </h6>
-                          <br></br>
-                        </div>
-                        <div className="col s12 m12 l6">
-                          <h6>
-                            {" "}
-                            Valid Upto -{" "}
-                            <span className="grey-text">
-                              {search.validUpto}
-                            </span>
-                          </h6>
-                          <br></br>
-                        </div>
-                        <div className="col s12 m12 l6">
-                          <h6>
-                            Location -{" "}
-                            <span className="grey-text">
-                              {search.serviceArea}
-                            </span>
-                          </h6>
-                          <br></br>
-                        </div>
-                        <div className="col s12 m12 l6">
-                          <h6>
-                            Vacancy -
-                            <span className="grey-text">{search.id}</span>
-                          </h6>
-                          <br></br>
-                        </div>
-                        <div className="col s12 m12 l6">
-                          <h6>
-                            {" "}
-                            Salary range -{" "}
-                            <span className="grey-text">
-                              {search.salaryRange}
-                            </span>
-                          </h6>
-                          <br></br>
-                        </div>
-                        <div>
-                          <h6>Description</h6>
-                          <br></br>
-                          <p className="grey-text">
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the
-                            industry's standard dummy text ever since the 1500s,
-                            when an unknown
-                          </p>
-                        </div>
-                        <div className="col s12 m6 l6">
-                          <button
-                            className="grey-text"
-                            onClick={() => {
-                              close();
-                            }}
-                            id="popcancelbtn"
-                            type="text"
-                          >
-                            cancel
-                          </button>
-                          <br></br>
-                        </div>
-                        <div className="col s12 m6 l6">
-                          <button
-                            onClick={() => {
-                              this.handleApply(search.id);
-                            }}
-                            id="popsavebtn"
-                            type="text"
-                          >
-                            Apply
-                          </button>
-                          <br></br>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </Popup>
+          <div className="row">
+            <div className="col s12 m2 l2">
+              <div className="card darken-1 hoverable" key={job.id}>
+                <div className="card-content white-text">
+                  <strong className="black-text">
+                    Job position-
+                    <span className="grey-text">security guard</span>
+                  </strong>
+                  <br></br>
+                  <br></br>
+                  <strong className="black-text">
+                    Experience-
+                    <span className="grey-text">0 to 4 years</span>
+                  </strong>
+                  <br></br>
+                  <br></br>
+                  <strong className="black-text">
+                    Location-
+                    <span className="grey-text">rr nagar</span>
+                  </strong>
+                  <br></br>
+                  <br></br>
+                </div>
+                <div className="card-action">
+                  <strong className="left">8 am</strong>
+                  <i className="material-icons right">arrow_forward</i>
+                </div>
               </div>
             </div>
           </div>
@@ -1163,7 +821,7 @@ class Dashboard extends Component {
           <div className="row">
             <div className="col s12 m12 l12">
               <div
-                className="col s10 m3 l3 offset-m1 offset-l1 offset-s1 z-depth-1"
+                className="col s10 m2 l2 offset-m1 offset-l1 offset-s1 z-depth-1"
                 id="profile"
               >
                 <div id="editicn">
@@ -1374,7 +1032,6 @@ class Dashboard extends Component {
                             onChange={this.handlepopup}
                             type="text"
                           ></input>
-                          <a href={path}>{this.state.fileName}</a>
                           <input
                             type="file"
                             className="inputfile"
@@ -1504,35 +1161,111 @@ class Dashboard extends Component {
                   </a>
                 </div>
               </div>
-              <div className="col s12 m7 l7 offset-l1 z-depth-1" id="container">
-                {this.state.search ? (
+
+              <div>
+                <div
+                  className="col s12 m8 l8 offset-l1 z-depth-1"
+                  id="container"
+                >
                   <div>
-                    <h5>Searched Jobs</h5>
-                    <h4 className="red-text">{this.state.searchError}</h4>
-                    {searchList}
+                    <h4 className="grey-text">Recomended jobs</h4>
+
+                    {recommendedList}
+                    <strong className="left">
+                      <div className="numberCircle left">10</div>
+                      <h5 className="left ">jobs recommended</h5>
+                    </strong>
+                    <a className="btn right" id="viewMore">
+                      View more
+                    </a>
                   </div>
-                ) : (
-                  <div>
-                    <h4 className="grey-text">Job recomended for you</h4>
-                    {postList}
+                </div>
+
+                <div class="col s12 m8 l8">
+                  <div className="col s12 m6 l6">
+                    <div class="card white newJobs">
+                      <div class="card-content white-text">
+                        <span class="card-title right" id="number">
+                          10
+                        </span>
+                        <h5>New jobs</h5>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <h5 className="left">Security Guard</h5>
+                        <h6 className="right" id="viewdetailss">
+                          View Details
+                        </h6>
+                      </div>
+                    </div>
                   </div>
-                )}
+
+                  <div class="card white newJobs">
+                    <div class="card-content white-text">
+                      <span class="card-title right" id="number">
+                        13
+                      </span>
+                      <h5>Saved jobs</h5>
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                      <h5 className="left">Security Guard</h5>
+                      <h6 className="right" id="viewdetailss">
+                        View Details
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col s12 m10 l10 offset-l1 offset-m1 z-depth-1">
+                <div>
+                  <h4 className="grey-text">Appied status</h4>
+                  <div className="row">
+                    <div className="col s12 m6 l3">
+                      <div className="card darken-1 hoverable">
+                        <div className="card-content white-text">
+                          <strong className="black-text col s12 m12 l12">
+                            Job position-
+                            <span className="grey-text">security guard</span>
+                          </strong>
+                          <br></br>
+                          <br></br>
+                          <strong className="black-text col s12 m12 l12">
+                            Experience-
+                            <span className="grey-text">0 to 4 years</span>
+                          </strong>
+                          <br></br>
+                          <br></br>
+                          <strong className="black-text col s12 m12 l12">
+                            Location-
+                            <span className="grey-text">rr nagar</span>
+                          </strong>
+                          <br></br>
+                          <br></br>
+                        </div>
+                        <div className="card-action">
+                          <strong className="left">8 am</strong>
+                          <i className="material-icons right">arrow_forward</i>
+                        </div>
+                      </div>
+                      <strong className="left">
+                        <div className="numberCircle left">14</div>
+                        <h5 className="left ">Applied jobs</h5>
+                      </strong>
+                      <a className="btn right" id="viewMore">
+                        View more
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            className="col s12 l8 m8 offset-m1 offset-l1 z-depth-1"
-            id="container2"
-          >
-            <div className="">
-              <h4 className="grey-text">Status of applied jobs</h4>
-              {appliedJobsList}
-            </div>
-          </div>
         </div>
+
         <div className="footer-copyright" id="footer">
           <h6 className="center v-center">
-            {" "}
             Copyright @2020 All rights reserved | This tamplate is made with
             STSK
           </h6>

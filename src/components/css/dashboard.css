@@ -11,15 +11,9 @@
   margin-bottom: 31px;
 }
 #container {
-  height: 500px;
-  overflow: hidden;
-  overflow-y: scroll;
   margin-left: 15px;
 }
 #container2 {
-  height: 500px;
-  overflow: hidden;
-  overflow-y: scroll;
   margin-left: 5%;
 }
 #details {
@@ -42,6 +36,7 @@ nav ul li a {
   background-position: center;
   background-size: cover;
   width: 100%;
+  margin-top: 10px;
 }
 #search {
   margin-top: -30px;
@@ -189,4 +184,37 @@ nav .nav-wrapper {
 }
 #jobtypesbtn {
   margin-top: -44px;
+}
+
+#viewMore {
+  border: 1px teal;
+  border-radius: 13px;
+  color: teal;
+  text-transform: inherit;
+  text-decoration: underline;
+  border-style: double;
+}
+#viewMore:hover {
+  background-color: none;
+  background: none;
+}
+#viewdetailss {
+  text-decoration: underline;
+}
+#number {
+  font-size: 47px;
+  font-weight: initial;
+}
+.numberCircle {
+  border-radius: 50%;
+  width: 28px;
+  height: 27px;
+  background: rgb(177, 235, 235);
+  color: #666;
+  text-align: center;
+  font-size: larger;
+  margin-right: 4px;
+}
+.newJobs {
+  background-image: linear-gradient(#97dbd7, #3fb2aa);
 }
