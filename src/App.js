@@ -25,6 +25,8 @@ import AssVendorHelp from "./components/Association/AssVendorHelp";
 import AssResidentHelp from "./components/Association/AssResidentHelp";
 import UploadDocument from "./components/UploadDocument";
 import navbarAdmin from "./components/jobseekerAdmin/navbarAdmin";
+import { RecomendedJobs } from "./components/Dashboard/RecomendedJobs";
+import SavedJobs from "./components/Dashboard/SavedJobs";
 axios.defaults.baseURL = "http://stskfacilities.com:8081";
 
 //import dashboardHelp from './components/dashboardHelp'
@@ -51,6 +53,8 @@ class App extends Component {
             <Route exact path="/vendorHelp" component={Vendor} />
             <Route exact path="/associationHelp" component={Association} />
             <Route exact path="/residentHelp" component={Resident} />
+            <Route exact path="/recomendedJobs" component={RecomendedJobs} />
+            <Route exact path="/savedJobs" component={SavedJobs} />
 
             <Route exact path="/nav" component={propertyDetails} />
             <Route exact path="/vendor" component={AssoVendor} />

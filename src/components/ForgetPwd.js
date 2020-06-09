@@ -83,12 +83,25 @@ class ForgetPwd extends Component {
         console.log(Response.data);
 
         if (Response.data.type === "success") {
-          this.props.history.push({
-            pathname: "/changePwd",
-            state: {
-              mobileNumber: this.state,
-            },
-          });
+          axios
+            .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
+              headers: header,
+            })
+            .then((Response) => {
+              console.log(Response.data);
+              if (Response.data.success === 1) {
+                this.props.history.push({
+                  pathname: "/changePwd",
+                  state: {
+                    mobileNumber: this.state,
+                  },
+                });
+              } else {
+                this.setState({
+                  errorOtp: "Oops mobile number not registered",
+                });
+              }
+            });
         } else {
           this.setState({
             errorOtp: "Otp miss-match",

@@ -77,6 +77,7 @@ class Dashboard extends Component {
 
       recomendedJobs: [],
       appliedJobs: [],
+      savedJobs: [],
       recomendedJobsLength: "",
     };
   }
@@ -148,6 +149,16 @@ class Dashboard extends Component {
           }
         });
     }, 2000);
+    axios
+      .get("/stskFmsApi/jobseeker/getSavedJobs/" + 27, {
+        headers: header,
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        this.setState({
+          savedJobs: res.data.data,
+        });
+      });
 
     const timer1 = setTimeout(() => {
       axios
@@ -516,12 +527,16 @@ class Dashboard extends Component {
   };
 
   render() {
+    /*saved jobs */
+    const { savedJobs } = this.state;
+    const saveNumber = savedJobs.length;
+
+    /*recomended jobs*/
+
     const { recomendedJobs } = this.state;
     const nmbr = recomendedJobs.length;
     const recommendedList = recomendedJobs.length ? (
       recomendedJobs.slice(0, 3).map((job) => {
-        console.log(recomendedJobs.length);
-
         return (
           <div className="col 12 m6 l4" key={job.id}>
             <div className="card darken-1 hoverable">
@@ -546,8 +561,20 @@ class Dashboard extends Component {
                 <br></br>
               </div>
               <div className="card-action">
-                <strong className="left">8 am</strong>
-                <i className="material-icons right">arrow_forward</i>
+                <strong className="left">{job.createdAt}</strong>
+                <i
+                  className="material-icons teal-text right"
+                  onClick={() =>
+                    this.props.history.push({
+                      pathname: "/recomendedJobs",
+                      state: {
+                        recomendedJobs: this.state,
+                      },
+                    })
+                  }
+                >
+                  arrow_forward
+                </i>
               </div>
             </div>
           </div>
@@ -557,6 +584,8 @@ class Dashboard extends Component {
       <div>Loading please wait...</div>
     );
 
+    /*applied jobs*/
+    console.log(this.state.appliedJobs);
     const { appliedJobs } = this.state;
     const appliedJobsNmbr = appliedJobs.length;
     const appliedJobsList = appliedJobs.length ? (
@@ -585,8 +614,8 @@ class Dashboard extends Component {
                 <br></br>
               </div>
               <div className="card-action">
-                <strong className="left">8 am</strong>
-                <i className="material-icons right">arrow_forward</i>
+                <strong className="left">{applied.createdAt}</strong>
+                <i className="material-icons teal-text right">arrow_forward</i>
               </div>
             </div>
           </div>
@@ -689,12 +718,12 @@ class Dashboard extends Component {
             </div>
           </nav>
         </div>
-
+        {/* edit profile*/}
         <div className="" id="details">
           <div className="row">
             <div className="col s12 m12 l12">
               <div
-                className="col s10 m2 l2 offset-m1 offset-l1 offset-s1 z-depth-1"
+                className="col s10 m3 l2 offset-m1 offset-l1 offset-s1 z-depth-1"
                 id="profile"
               >
                 <div id="editicn">
@@ -1037,7 +1066,7 @@ class Dashboard extends Component {
 
               <div>
                 <div
-                  className="col s12 m8 l8 offset-l1 z-depth-1"
+                  className="col s12 m7 l8 offset-l1 z-depth-1"
                   id="container"
                 >
                   <div>
@@ -1049,7 +1078,18 @@ class Dashboard extends Component {
                         <div className="numberCircle left">{nmbr}</div>
                         <h5 className="left">jobs recommended</h5>
                       </strong>
-                      <a className="btn right" id="viewMore">
+                      <a
+                        className="btn right"
+                        id="viewMore"
+                        onClick={() =>
+                          this.props.history.push({
+                            pathname: "/recomendedJobs",
+                            state: {
+                              recomendedJobs: this.state,
+                            },
+                          })
+                        }
+                      >
                         View more
                       </a>
                       <br></br>
@@ -1080,21 +1120,32 @@ class Dashboard extends Component {
                   <div className="card white newJobs">
                     <div className="card-content white-text">
                       <span className="card-title right" id="number">
-                        13
+                        {saveNumber}
                       </span>
                       <h5>Saved jobs</h5>
                       <br></br>
                       <br></br>
                       <br></br>
                       <h5 className="left">Security Guard</h5>
-                      <h6 className="right" id="viewdetailss">
+                      <h6
+                        className="right"
+                        id="viewdetailss"
+                        onClick={() =>
+                          this.props.history.push({
+                            pathname: "/savedJobs",
+                            state: {
+                              savedJobs: this.state,
+                            },
+                          })
+                        }
+                      >
                         View Details
                       </h6>
                     </div>
                   </div>
                 </div>
               </div>
-
+              {/*applied status*/}
               <div className="col s12 m10 l10 offset-l1 offset-m1 z-depth-1">
                 <h4 className="grey-text">Appied status</h4>
                 {appliedJobsList}

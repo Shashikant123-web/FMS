@@ -1,0 +1,21 @@
+i.left {
+  margin-right: 6px;
+  cursor: pointer;
+}
+#savebtn,
+#applybtn {
+  width: 130px;
+  border-radius: 7px;
+  text-transform: inherit;
+}
+#savebtn {
+  border: 1px teal;
+  color: teal;
+  text-transform: inherit;
+  border-style: double;
+  margin-right: 10px;
+}
+#applybtn {
+  background: teal;
+  color: white;
+}
