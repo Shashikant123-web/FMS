@@ -256,3 +256,10 @@ button:enabled {
     background-size: auto;
   }
 }
+@media only screen and (max-width: 368px)
+{body
+#main1, #main2, #main {
+    width: 340px;
+    margin-left: 10px;
+}
+}

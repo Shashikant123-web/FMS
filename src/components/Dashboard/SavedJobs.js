@@ -10,7 +10,7 @@ const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
 
-export class RecomendedJobs extends Component {
+export class SavedJobs extends Component {
   state = {
     // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
     savedJobs: [],
@@ -23,11 +23,11 @@ export class RecomendedJobs extends Component {
 
   handleHide = (id) => {
     console.log(id);
-    const recomendedJobs = this.state.recomendedJobs.filter((job) => {
+    const SavedJobs = this.state.SavedJobs.filter((job) => {
       return job.id !== id;
     });
     this.setState({
-      recomendedJobs,
+      SavedJobs,
     });
   };
   handleApply = (id) => {
@@ -50,26 +50,240 @@ export class RecomendedJobs extends Component {
       });
   };
   handleSave = (id) => {
-    axios
-      .post(
-        "/stskFmsApi/jobseeker/saveJobs",
-        {
-          id: 27,
-          jobs: [
-            {
-              id: id,
-            },
-          ],
-        },
-        { headers: header }
-      )
-      .then((res) => {
-        console.log(res.data);
-        console.log(res);
-      });
+    // axios
+    //   .post(
+    //     "/stskFmsApi/jobseeker/saveJobs",
+    //     {
+    //       id: 27,
+    //       jobs: [
+    //         {
+    //           id: id,
+    //         },
+    //       ],
+    //     },
+    //     { headers: header }
+    //   )
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     console.log(res);
+    //   });
+  
   };
 
   render() {
+    const { savedJobs } = this.state;
+    const savedNumber = savedJobs.length;
+    const savedJobsList = savedJobs.length ? (
+      savedJobs.map((job) => {
+        return (
+          <div key={job.id}>
+            <div className="col s12 m12 l12" >
+              <div className="card darken-1 hoverable">
+                <Popup
+                  trigger={
+                    <div className="card-content">
+                      <h5>
+                        <strong>{job.jobType}</strong>
+                      </h5>
+                      <div className="row">
+                        <div className="col s12 m4 l4">
+                          <br></br>
+                          <strong className="black-text">
+                            Job position-
+                            <span className="grey-text">{job.jobType}</span>
+                          </strong>
+                          <br></br>
+                          <br></br>
+                          <strong className="black-text">
+                            Language-
+                            <span className="grey-text">{job.language}</span>
+                          </strong>
+                          <br></br>
+                          <br></br>
+                          <strong className="black-text">
+                            Valid Upto-
+                            <span className="grey-text">{job.validUpto}</span>
+                          </strong>
+                        </div>
+                        <div className="col s12 m4 l4">
+                          <br></br>
+                          <strong className="black-text">
+                            Experiance-
+                            <span className="grey-text">{job.experience}</span>
+                          </strong>
+                          <br></br>
+                          <br></br>
+                          <strong className="black-text">
+                            Age limit-
+                            <span className="grey-text">{job.experience}</span>
+                          </strong>
+                          <br></br>
+                          <br></br>
+                          <strong className="black-text">
+                            Location-
+                            <span className="grey-text">{job.serviceArea}</span>
+                          </strong>
+                        </div>
+                        <div className="col s12 m4 l4">
+                          <br></br>
+                          <strong className="black-text">
+                            Vacancy-
+                            <span className="grey-text">{job.vacancy}</span>
+                          </strong>
+                          <br></br>
+                          <br></br>
+                          <strong className="black-text">
+                            Salary range-
+                            <span className="grey-text">{job.salaryRange}</span>
+                          </strong>
+                          <br></br>
+                          <br></br>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  modal
+                >
+                  {(close) => (
+                    <div className="popup-content">
+                      <div className="col s12 m12 l12">
+                        <div className="right-align">
+                          <i
+                            className="material-icons"
+                            id="dashcancelbtn"
+                            onClick={() => {
+                              close();
+                            }}
+                          >
+                            clear
+                          </i>
+                        </div>
+
+                        <h4 className="center align grey-text">View Details</h4>
+
+                        <div className="row">
+                          <div className="col s12 m4 l4">
+                            <br></br>
+                            <strong className="black-text">
+                              Job position-
+                              <span className="grey-text">{job.jobType}</span>
+                            </strong>
+                            <br></br>
+                            <br></br>
+                            <strong className="black-text">
+                              Language-
+                              <span className="grey-text">{job.language}</span>
+                            </strong>
+                            <br></br>
+                            <br></br>
+                            <strong className="black-text">
+                              Valid Upto-
+                              <span className="grey-text">{job.validUpto}</span>
+                            </strong>
+                            <br></br>
+                            <br></br>
+                            <strong className="black-text">
+                              Salary range-
+                              <span className="grey-text">
+                                {job.salaryRange}
+                              </span>
+                            </strong>
+                          </div>
+                          <div className="col s12 m4 l4">
+                            <br></br>
+                            <strong className="black-text">
+                              Experiance-
+                              <span className="grey-text">
+                                {job.experience}
+                              </span>
+                            </strong>
+                            <br></br>
+                            <br></br>
+                            <strong className="black-text">
+                              Age limit-
+                              <span className="grey-text">
+                                {job.experience}
+                              </span>
+                            </strong>
+                            <br></br>
+                            <br></br>
+                            <strong className="black-text">
+                              Location-
+                              <span className="grey-text">
+                                {job.serviceArea}
+                              </span>
+                            </strong>
+                            <br></br>
+                            <br></br>
+                            <strong className="black-text">
+                              Vacancy-
+                              <span className="grey-text">{job.vacancy}</span>
+                            </strong>
+                          </div>
+                        </div>
+                        <div>
+                          <strong>Description</strong>
+                          <br></br>
+                          <p className="grey-text">
+                            Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry. since the 1500s, when an
+                            unknown
+                          </p>
+                        </div>
+                        <div className="center">
+                          <a className="btn center" id="savebtn">
+                            <i className="material-icons left">turned_in</i>
+                            saved
+                          </a>
+                          <a
+                            className="btn center"
+                            onClick={() => this.handleApply(job.id)}
+                            id="applybtn"
+                          >
+                            Apply
+                          </a>
+                        </div>
+
+                        <br></br>
+                      </div>
+                    </div>
+                  )}
+                </Popup>
+                <div className="card-action">
+                  <strong className="left">{job.createdAt}</strong>
+                  <div className="right">
+                    <strong
+                      className="right"
+                      onClick={() => this.handleSave(job.id)}
+                    >
+                      <i className="material-icons teal-text left">turned_in</i>
+                      saved
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })
+    ) : (
+      <h5>
+        No saved jobs
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+      </h5>
+    );
+
     console.log(this.state);
     return (
       <div id="back">
@@ -175,12 +389,13 @@ export class RecomendedJobs extends Component {
                 <strong>Saved jobs for you</strong>
               </h5>
               <strong className="right">
-                <div className="numberCircle left">10</div>
+                <div className="numberCircle left">{savedNumber}</div>
                 <h5 className="right">jobs</h5>
               </strong>
             </div>
             <br></br>
             <br></br>
+            {savedJobsList}
           </div>
 
           <div className="footer-copyright" id="footer">
@@ -195,4 +410,4 @@ export class RecomendedJobs extends Component {
   }
 }
 
-export default withRouter(RecomendedJobs);
+export default withRouter(SavedJobs);

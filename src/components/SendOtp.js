@@ -86,7 +86,7 @@ class SendOtp extends Component {
     console.log(this.state.countryCode);
     return (
       <div id="body">
-        <div className="row" id="main1">
+        <div className="row center" id="main1">
           <center id="center">
             <img
               className="center"

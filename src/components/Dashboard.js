@@ -78,6 +78,8 @@ class Dashboard extends Component {
       recomendedJobs: [],
       appliedJobs: [],
       savedJobs: [],
+      newJobs: [''],
+      saveNumber:'',
       recomendedJobsLength: "",
     };
   }
@@ -148,17 +150,32 @@ class Dashboard extends Component {
             console.log("No jobs present");
           }
         });
-    }, 2000);
-    axios
-      .get("/stskFmsApi/jobseeker/getSavedJobs/" + 27, {
-        headers: header,
-      })
-      .then((res) => {
-        console.log(res.data.data);
-        this.setState({
-          savedJobs: res.data.data,
-        });
+         axios
+    .get("/stskFmsApi/jobseeker/getSavedJobs/"+ 27, {
+      headers: header,
+    })
+    .then((res) => {
+      console.log(res.data);
+      this.setState({
+        savedJobs: res.data.data
       });
+    });
+
+    axios
+    .get("/stskFmsApi/jobs/newJobs/"+ 27, {
+      headers: header,
+    })
+    .then((res) => {
+      console.log(res.data);
+      this.setState({
+        newJobs: res.data.data,
+      });
+    });
+
+   
+    
+    }, 2000);
+   
 
     const timer1 = setTimeout(() => {
       axios
@@ -169,6 +186,10 @@ class Dashboard extends Component {
           });
         });
     }, 3000);
+    
+   
+   
+
     //   const timer2 = setTimeout(() => {
     //     axios
     //       .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
@@ -527,14 +548,19 @@ class Dashboard extends Component {
   };
 
   render() {
-    /*saved jobs */
-    const { savedJobs } = this.state;
-    const saveNumber = savedJobs.length;
+     /*saved jobs */
+     const { savedJobs } = this.state;
+     const saveNumber=savedJobs.length;
+     
+    /*new jobs */
+    
+  
 
     /*recomended jobs*/
 
     const { recomendedJobs } = this.state;
     const nmbr = recomendedJobs.length;
+   
     const recommendedList = recomendedJobs.length ? (
       recomendedJobs.slice(0, 3).map((job) => {
         return (
@@ -585,7 +611,7 @@ class Dashboard extends Component {
     );
 
     /*applied jobs*/
-    console.log(this.state.appliedJobs);
+    console.log(this.state);
     const { appliedJobs } = this.state;
     const appliedJobsNmbr = appliedJobs.length;
     const appliedJobsList = appliedJobs.length ? (
@@ -943,7 +969,7 @@ class Dashboard extends Component {
                             onChange={this.handleChange}
                           />
                           <label
-                            for="embedpollfileinput"
+                            htmlFor="embedpollfileinput"
                             className="ui huge white right floated button"
                             id="white"
                           >
@@ -1152,7 +1178,7 @@ class Dashboard extends Component {
                 <div className="col s12 m12 l12">
                   <strong>
                     <div className="numberCircle left">{appliedJobsNmbr}</div>
-                    <h5 className="left">jobs recommended</h5>
+                    <h5 className="left">jobs </h5>
                   </strong>
                   <a className="btn right" id="viewMore">
                     View more

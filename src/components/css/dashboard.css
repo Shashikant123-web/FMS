@@ -216,9 +216,10 @@ nav .nav-wrapper {
   margin-right: 4px;
 }
 .newJobs {
-  background-image: linear-gradient(#97dbd7, #3fb2aa);
+  background-image: linear-gradient(#6CAFE2, #23BECF);
 }
 #recommendedList {
   display: flex;
   flex-direction: row;
 }
+

@@ -14,7 +14,7 @@ export class RecomendedJobs extends Component {
   state = {
     // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
     recomendedJobs: [],
-    saved: [],
+    saved: [9, 122],
   };
   componentDidMount() {
     this.setState({
@@ -23,7 +23,6 @@ export class RecomendedJobs extends Component {
   }
 
   handleHide = (id) => {
-    console.log(id);
     const recomendedJobs = this.state.recomendedJobs.filter((job) => {
       return job.id !== id;
     });
@@ -40,8 +39,8 @@ export class RecomendedJobs extends Component {
           jobs: [
             {
               id: id,
-            },
-          ],
+            }
+          ]
         },
         { headers: header }
       )
@@ -51,33 +50,37 @@ export class RecomendedJobs extends Component {
       });
   };
   handleSave = (id) => {
-    axios
-      .post(
-        "/stskFmsApi/jobseeker/saveJobs",
-        {
-          id: 27,
-          jobs: [
-            {
-              id: id,
-            },
-          ],
-        },
-        { headers: header }
-      )
-      .then((res) => {
-        console.log(res.data);
-        console.log(res);
-      });
+    // axios
+    //   .post(
+    //     "/stskFmsApi/jobseeker/saveJobs",
+    //     {
+    //       id: 27,
+    //       jobs: [
+    //         {
+    //           id: id,
+    //         }
+    //       ]
+    //     },
+    //     { headers: header }
+    //   )
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     console.log(res);
+    //   });
+    this.setState({
+      saved: [...this.state.saved, id],
+    });
   };
 
   render() {
+    console.log(this.state);
     const { recomendedJobs } = this.state;
     const nmbr = recomendedJobs.length;
     const recommendedList = recomendedJobs.length ? (
       recomendedJobs.map((job) => {
         return (
-          <div>
-            <div className="col s12 m12 l12" key={job.id}>
+          <div key={job.id}>
+            <div className="col s12 m12 l12">
               <div className="card darken-1 hoverable">
                 <Popup
                   trigger={
@@ -252,15 +255,30 @@ export class RecomendedJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    <strong
-                      className="right"
-                      onClick={() => this.handleSave(job.id)}
-                    >
-                      <i className="material-icons teal-text left">
-                        turned_in_not
-                      </i>
-                      save
-                    </strong>
+                    {this.state.saved.map((id) => {
+                      if (id === job.id) {
+                        return (
+                          <strong className="right">
+                            <i className="material-icons teal-text left">
+                              turned_in
+                            </i>
+                            saved
+                          </strong>
+                        );
+                      } else {
+                        return (
+                          <strong
+                            className="right"
+                            onClick={() => this.handleSave(job.id)}
+                          >
+                            <i className="material-icons teal-text left">
+                              turned_in_not
+                            </i>
+                            save
+                          </strong>
+                        );
+                      }
+                    })}
                     <strong
                       className="right"
                       onClick={() => {
