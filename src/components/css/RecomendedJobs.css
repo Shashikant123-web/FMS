@@ -19,3 +19,6 @@ i.left {
   background: teal;
   color: white;
 }
+.recomendedJobs{
+  cursor: pointer;
+}

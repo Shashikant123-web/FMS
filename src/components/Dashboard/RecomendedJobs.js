@@ -14,7 +14,7 @@ export class RecomendedJobs extends Component {
   state = {
     // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
     recomendedJobs: [],
-    saved: [9, 122],
+    saved: [9,],
   };
   componentDidMount() {
     this.setState({
@@ -31,23 +31,24 @@ export class RecomendedJobs extends Component {
     });
   };
   handleApply = (id) => {
-    axios
-      .post(
-        "/stskFmsApi/jobseeker/applyJobs",
-        {
-          id: 27,
-          jobs: [
-            {
-              id: id,
-            }
-          ]
-        },
-        { headers: header }
-      )
-      .then((res) => {
-        console.log(res.data);
-        console.log(res);
-      });
+    // axios
+    //   .post(
+    //     "/stskFmsApi/jobseeker/applyJobs",
+    //     {
+    //       id: 27,
+    //       jobs: [
+    //         {
+    //           id: id,
+    //         }
+    //       ]
+    //     },
+    //     { headers: header }
+    //   )
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     console.log(res);
+    //   });
+   
   };
   handleSave = (id) => {
     // axios
@@ -67,9 +68,10 @@ export class RecomendedJobs extends Component {
     //     console.log(res.data);
     //     console.log(res);
     //   });
+    console.log(id)
     this.setState({
-      saved: [...this.state.saved, id],
-    });
+      saved:[...this.state.saved, id]
+    })
   };
 
   render() {
@@ -84,7 +86,7 @@ export class RecomendedJobs extends Component {
               <div className="card darken-1 hoverable">
                 <Popup
                   trigger={
-                    <div className="card-content">
+                    <div className="card-content recomendedJobs">
                       <h5>
                         <strong>{job.jobType}</strong>
                       </h5>
@@ -263,9 +265,13 @@ export class RecomendedJobs extends Component {
                               turned_in
                             </i>
                             saved
+                            
                           </strong>
+                        
                         );
-                      } else {
+                
+                      }
+                   else {
                         return (
                           <strong
                             className="right"
@@ -276,9 +282,9 @@ export class RecomendedJobs extends Component {
                             </i>
                             save
                           </strong>
-                        );
+                        ); 
                       }
-                    })}
+                  } )}
                     <strong
                       className="right"
                       onClick={() => {

@@ -80,7 +80,11 @@ nav ul li a {
 }
 #dashinput {
   font-family: "Lato";
-  padding: 26px;
+  padding: 25px;
+  margin-top: 3px;
+  width: 96%;
+  margin-left: -16px;
+  border-radius: 1px;
 }
 #headinggg {
   margin-left: 8px;
