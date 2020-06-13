@@ -1,6 +1,11 @@
 i.left {
-  margin-right: 6px;
   cursor: pointer;
+  margin-left: 4px;
+  margin-right: 0px;
+}
+i.left {
+  float: left;
+  /* margin-right: -5px; */
 }
 #savebtn,
 #applybtn {
@@ -19,6 +24,23 @@ i.left {
   background: teal;
   color: white;
 }
-.recomendedJobs{
+.recomendedJobs {
   cursor: pointer;
+}
+#marginLeft {
+  margin-left: 20px;
+}
+.card .card-content {
+  padding: 12px;
+  border-radius: 0 0 2px 2px;
+}
+#recomendedJobsMain {
+  border-top: 14px solid rgba(199, 192, 192, 0.2);
+  border-radius: 10px;
+}
+#recomendedJobsMain:hover {
+  border-top: 14px solid teal;
+}
+.card .card-action {
+  padding: 7px 24px;
 }

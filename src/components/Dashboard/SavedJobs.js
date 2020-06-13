@@ -78,7 +78,7 @@ export class SavedJobs extends Component {
         return (
           <div key={job.id}>
             <div className="col s12 m12 l12" >
-              <div className="card darken-1 hoverable">
+              <div className="card darken-1 hoverable recomendedJobsMain">
                 <Popup
                   trigger={
                     <div className="card-content">

@@ -7,7 +7,7 @@
   overflow: auto;
 }
 #profile {
-  height: 500px;
+  height: 400px;
   margin-bottom: 31px;
 }
 #container {
@@ -81,7 +81,6 @@ nav ul li a {
   text-transform: initial;
 }
 #logout {
-  margin-top: 10%;
   font-family: "Lato";
   text-transform: capitalize;
 }
@@ -135,12 +134,11 @@ nav ul li a {
 }
 .popup-content {
   position: relative;
-  width: -1%;
+  width: 95%;
   height: auto;
   border-radius: 12px;
   margin: auto;
   border: none;
-  padding: 5px;
 }
 .popup-overlay {
   overflow: scroll;

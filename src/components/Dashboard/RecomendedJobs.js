@@ -16,7 +16,7 @@ export class RecomendedJobs extends Component {
     // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
     recomendedJobs: [],
     appliedJobs: [],
-    saved: [9, 123],
+    saved: [9],
   };
   componentDidMount() {
     console.log(this.props.location.state.appliedJobs.appliedJobs);
@@ -42,9 +42,9 @@ export class RecomendedJobs extends Component {
           id: 27,
           jobs: [
             {
-              id: id
-            }
-          ]
+              id: id,
+            },
+          ],
         },
         { headers: header }
       )
@@ -95,43 +95,45 @@ export class RecomendedJobs extends Component {
         return (
           <div key={job.id}>
             <div className="col s12 m12 l12">
-              <div className="card darken-1 hoverable">
+              <div className="card darken-1 hoverable " id="recomendedJobsMain">
                 <Popup
                   trigger={
-                    <div className="card-content recomendedJobs">
+                    <div className="card-content recomendedJobs ">
                       <>
-                        <strong className="left">{job.jobType}</strong>
-                        {this.state.appliedJobs.map((id) => {
-                          if (id.id === job.id) {
-                            return (
-                              <h6 className="right teal-text" key={job.id}>
-                                <img
-                                  src={rightMark}
-                                  width="20"
-                                  height="20"
-                                ></img>
-                                Applied
-                              </h6>
-                            );
-                          }
-                        })}
+                        <div>
+                          <h5>
+                            <strong className="left">{job.jobType}</strong>
+                          </h5>
+                          {this.state.appliedJobs.map((id) => {
+                            if (id.id === job.id) {
+                              return (
+                                <h6 className="right teal-text" key={job.id}>
+                                  <img
+                                    src={rightMark}
+                                    width="20"
+                                    height="20"
+                                  ></img>
+                                  Applied
+                                </h6>
+                              );
+                            }
+                          })}
+                          <br></br>
+                        </div>
                       </>
                       <br></br>
 
                       <div className="row">
-                        <div className="col s12 m4 l4">
-                          <br></br>
+                        <div className="col s12 m4 l4" id="marginLeft">
                           <strong className="black-text">
                             Job position-
                             <span className="grey-text">{job.jobType}</span>
                           </strong>
                           <br></br>
-                          <br></br>
                           <strong className="black-text">
                             Language-
                             <span className="grey-text">{job.language}</span>
                           </strong>
-                          <br></br>
                           <br></br>
                           <strong className="black-text">
                             Valid Upto-
@@ -139,18 +141,15 @@ export class RecomendedJobs extends Component {
                           </strong>
                         </div>
                         <div className="col s12 m4 l4">
-                          <br></br>
                           <strong className="black-text">
                             Experiance-
                             <span className="grey-text">{job.experience}</span>
                           </strong>
                           <br></br>
-                          <br></br>
                           <strong className="black-text">
                             Age limit-
                             <span className="grey-text">{job.experience}</span>
                           </strong>
-                          <br></br>
                           <br></br>
                           <strong className="black-text">
                             Location-
@@ -158,18 +157,15 @@ export class RecomendedJobs extends Component {
                           </strong>
                         </div>
                         <div className="col s12 m4 l4">
-                          <br></br>
                           <strong className="black-text">
                             Vacancy-
                             <span className="grey-text">{job.vacancy}</span>
                           </strong>
                           <br></br>
-                          <br></br>
                           <strong className="black-text">
                             Salary range-
                             <span className="grey-text">{job.salaryRange}</span>
                           </strong>
-                          <br></br>
                           <br></br>
                         </div>
                       </div>

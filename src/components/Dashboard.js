@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./css/dashboard.css";
+import './css/RecomendedJobs.css'
 import mainLogo from "./Images/Mainlogo.png";
 import dashboard from "./Images/dashboard.png";
 import { withRouter, Link, NavLink } from "react-router-dom";
@@ -141,7 +142,6 @@ class Dashboard extends Component {
         })
         .then((res) => {
           console.log(res.data.data);
-          console.log(res.data.success);
           if (res.data.success === 1) {
             this.setState({
               recomendedJobs: res.data.data,
@@ -181,16 +181,23 @@ class Dashboard extends Component {
         });
       }
     });
-    }, 2000);
+    },1000 );
    
-
+   
     const timer1 = setTimeout(() => {
       axios
         .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
         .then((res) => {
-          this.setState({
-            appliedJobs: res.data.data.jobs,
-          });
+          console.log(res.data)
+          if (res.data.success === 1) {
+            this.setState({
+              appliedJobs: res.data.data.jobs
+            });
+          } else {
+            this.setState({
+              appliedJobs:0
+            });
+          }
         });
     }, 3000);
     
@@ -310,16 +317,7 @@ class Dashboard extends Component {
         console.log(res.data);
         console.log(res);
       });
-    axios
-      .get("/stskFmsApi/jobseeker/getById/" + this.state.userId, {
-        headers: header,
-      })
-      .then((res) => {
-        console.log(res.data);
-        this.setState({
-          appliedJobs: res.data.data.jobs,
-        });
-      });
+   
     const posts = this.state.posts.filter((job) => {
       return job.id !== id;
     });
@@ -573,25 +571,22 @@ class Dashboard extends Component {
       recomendedJobs.slice(0, 3).map((job) => {
         return (
           <div className="col 12 m6 l4" key={job.id}>
-            <div className="card darken-1 hoverable">
-              <div className="card-content">
+            <div className="card darken-1 hoverable ">
+              <div className="card-content " id="recomendedJobsMain">
                 <strong className="black-text">
                   Job position-
                   <span className="grey-text">{job.jobType}</span>
                 </strong>
-                <br></br>
                 <br></br>
                 <strong className="black-text">
                   Experience-
                   <span className="grey-text">{job.experience}</span>
                 </strong>
                 <br></br>
-                <br></br>
                 <strong className="black-text">
                   Location-
                   <span className="grey-text">{job.serviceArea}</span>
                 </strong>
-                <br></br>
                 <br></br>
               </div>
               <div className="card-action">
@@ -628,24 +623,21 @@ class Dashboard extends Component {
         return (
           <div className="col 12 m6 l4" key={applied.id}>
             <div className="card darken-1 hoverable">
-              <div className="card-content">
+              <div className="card-content " id="recomendedJobsMain">
                 <strong className="black-text">
                   Job position-
                   <span className="grey-text">{applied.jobType}</span>
                 </strong>
-                <br></br>
                 <br></br>
                 <strong className="black-text">
                   Experience-
                   <span className="grey-text">{applied.experience}</span>
                 </strong>
                 <br></br>
-                <br></br>
                 <strong className="black-text">
                   Location-
                   <span className="grey-text">{applied.serviceArea}</span>
                 </strong>
-                <br></br>
                 <br></br>
               </div>
               <div className="card-action">
