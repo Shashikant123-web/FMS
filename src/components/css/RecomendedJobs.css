@@ -3,10 +3,6 @@ i.left {
   margin-left: 4px;
   margin-right: 0px;
 }
-i.left {
-  float: left;
-  /* margin-right: -5px; */
-}
 #savebtn,
 #applybtn {
   width: 130px;

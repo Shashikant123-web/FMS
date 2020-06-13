@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./css/dashboard.css";
-import './css/RecomendedJobs.css'
 import mainLogo from "./Images/Mainlogo.png";
 import dashboard from "./Images/dashboard.png";
 import { withRouter, Link, NavLink } from "react-router-dom";
@@ -80,7 +79,7 @@ class Dashboard extends Component {
       appliedJobs: [],
       savedJobs: [],
       newJobs: [],
-      saveNumber:'',
+      saveNumber: "",
       recomendedJobsLength: "",
     };
   }
@@ -150,59 +149,55 @@ class Dashboard extends Component {
             console.log("No jobs present");
           }
         });
-         axios
-    .get("/stskFmsApi/jobseeker/getSavedJobs/"+ 27, {
-      headers: header,
-    })
-    .then((res) => {
-      if (res.data.success === 1) {
-        this.setState({
-          savedJobs: res.data.data,
+      axios
+        .get("/stskFmsApi/jobseeker/getSavedJobs/" + 27, {
+          headers: header,
+        })
+        .then((res) => {
+          if (res.data.success === 1) {
+            this.setState({
+              savedJobs: res.data.data,
+            });
+          } else {
+            this.setState({
+              savedJobs: "",
+            });
+          }
         });
-      } else {
-        this.setState({
-          savedJobs:''
-        });
-      }
-    });
 
-    axios
-    .get("/stskFmsApi/jobs/newJobs/"+ 27, {
-      headers: header,
-    })
-    .then((res) => {
-      if (res.data.success === 1) {
-        this.setState({
-          newJobs: res.data.data,
+      axios
+        .get("/stskFmsApi/jobs/newJobs/" + 27, {
+          headers: header,
+        })
+        .then((res) => {
+          if (res.data.success === 1) {
+            this.setState({
+              newJobs: res.data.data,
+            });
+          } else {
+            this.setState({
+              newJobs: "",
+            });
+          }
         });
-      } else {
-        this.setState({
-          newJobs:''
-        });
-      }
-    });
-    },1000 );
-   
-   
+    }, 1000);
+
     const timer1 = setTimeout(() => {
       axios
         .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
         .then((res) => {
-          console.log(res.data)
+          console.log(res.data);
           if (res.data.success === 1) {
             this.setState({
-              appliedJobs: res.data.data.jobs
+              appliedJobs: res.data.data.jobs,
             });
           } else {
             this.setState({
-              appliedJobs:0
+              appliedJobs: 0,
             });
           }
         });
     }, 3000);
-    
-   
-   
 
     //   const timer2 = setTimeout(() => {
     //     axios
@@ -317,7 +312,7 @@ class Dashboard extends Component {
         console.log(res.data);
         console.log(res);
       });
-   
+
     const posts = this.state.posts.filter((job) => {
       return job.id !== id;
     });
@@ -553,20 +548,19 @@ class Dashboard extends Component {
   };
 
   render() {
-     /*saved jobs */
-     const { savedJobs } = this.state;
-     const saveNumber=savedJobs.length;
-     
+    /*saved jobs */
+    const { savedJobs } = this.state;
+    const saveNumber = savedJobs.length;
+
     /*new jobs */
     const { newJobs } = this.state;
-    const newNumber=newJobs.length;
-  
+    const newNumber = newJobs.length;
 
     /*recomended jobs*/
 
     const { recomendedJobs } = this.state;
     const nmbr = recomendedJobs.length;
-   
+
     const recommendedList = recomendedJobs.length ? (
       recomendedJobs.slice(0, 3).map((job) => {
         return (
@@ -598,7 +592,7 @@ class Dashboard extends Component {
                       pathname: "/recomendedJobs",
                       state: {
                         recomendedJobs: this.state,
-                        appliedJobs:this.state
+                        appliedJobs: this.state,
                       },
                     })
                   }
@@ -1113,7 +1107,7 @@ class Dashboard extends Component {
                             pathname: "/recomendedJobs",
                             state: {
                               recomendedJobs: this.state,
-                              appliedJobs:this.state
+                              appliedJobs: this.state,
                             },
                           })
                         }
