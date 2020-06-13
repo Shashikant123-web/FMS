@@ -5,6 +5,7 @@ import dashboard from "../Images/dashboard.png";
 import { withRouter, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import axios from "axios";
+import rightMark from "../Images/tic.png";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -14,11 +15,14 @@ export class RecomendedJobs extends Component {
   state = {
     // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
     recomendedJobs: [],
-    saved: [9,],
+    appliedJobs: [],
+    saved: [9, 123],
   };
   componentDidMount() {
+    console.log(this.props.location.state.appliedJobs.appliedJobs);
     this.setState({
       recomendedJobs: this.props.location.state.recomendedJobs.recomendedJobs,
+      appliedJobs: this.props.location.state.appliedJobs.appliedJobs,
     });
   }
 
@@ -31,24 +35,32 @@ export class RecomendedJobs extends Component {
     });
   };
   handleApply = (id) => {
-    // axios
-    //   .post(
-    //     "/stskFmsApi/jobseeker/applyJobs",
-    //     {
-    //       id: 27,
-    //       jobs: [
-    //         {
-    //           id: id,
-    //         }
-    //       ]
-    //     },
-    //     { headers: header }
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     console.log(res);
-    //   });
-   
+    axios
+      .post(
+        "/stskFmsApi/jobseeker/applyJobs",
+        {
+          id: 27,
+          jobs: [
+            {
+              id: id
+            }
+          ]
+        },
+        { headers: header }
+      )
+      .then((res) => {
+        console.log(res.data);
+        console.log(res);
+      });
+    const timer1 = setTimeout(() => {
+      axios
+        .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
+        .then((res) => {
+          this.setState({
+            appliedJobs: res.data.data.jobs,
+          });
+        });
+    }, 1000);
   };
   handleSave = (id) => {
     // axios
@@ -68,10 +80,10 @@ export class RecomendedJobs extends Component {
     //     console.log(res.data);
     //     console.log(res);
     //   });
-    console.log(id)
+    console.log(id);
     this.setState({
-      saved:[...this.state.saved, id]
-    })
+      saved: [...this.state.saved, id],
+    });
   };
 
   render() {
@@ -87,9 +99,25 @@ export class RecomendedJobs extends Component {
                 <Popup
                   trigger={
                     <div className="card-content recomendedJobs">
-                      <h5>
-                        <strong>{job.jobType}</strong>
-                      </h5>
+                      <>
+                        <strong className="left">{job.jobType}</strong>
+                        {this.state.appliedJobs.map((id) => {
+                          if (id.id === job.id) {
+                            return (
+                              <h6 className="right teal-text" key={job.id}>
+                                <img
+                                  src={rightMark}
+                                  width="20"
+                                  height="20"
+                                ></img>
+                                Applied
+                              </h6>
+                            );
+                          }
+                        })}
+                      </>
+                      <br></br>
+
                       <div className="row">
                         <div className="col s12 m4 l4">
                           <br></br>
@@ -260,20 +288,17 @@ export class RecomendedJobs extends Component {
                     {this.state.saved.map((id) => {
                       if (id === job.id) {
                         return (
-                          <strong className="right">
+                          <strong className="right" key={job.id}>
                             <i className="material-icons teal-text left">
                               turned_in
                             </i>
                             saved
-                            
                           </strong>
-                        
                         );
-                
-                      }
-                   else {
+                      } else {
                         return (
                           <strong
+                            key={id}
                             className="right"
                             onClick={() => this.handleSave(job.id)}
                           >
@@ -282,9 +307,9 @@ export class RecomendedJobs extends Component {
                             </i>
                             save
                           </strong>
-                        ); 
+                        );
                       }
-                  } )}
+                    })}
                     <strong
                       className="right"
                       onClick={() => {

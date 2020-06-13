@@ -78,7 +78,7 @@ class Dashboard extends Component {
       recomendedJobs: [],
       appliedJobs: [],
       savedJobs: [],
-      newJobs: [''],
+      newJobs: [],
       saveNumber:'',
       recomendedJobsLength: "",
     };
@@ -155,10 +155,15 @@ class Dashboard extends Component {
       headers: header,
     })
     .then((res) => {
-      console.log(res.data);
-      this.setState({
-        savedJobs: res.data.data
-      });
+      if (res.data.success === 1) {
+        this.setState({
+          savedJobs: res.data.data,
+        });
+      } else {
+        this.setState({
+          savedJobs:''
+        });
+      }
     });
 
     axios
@@ -166,14 +171,16 @@ class Dashboard extends Component {
       headers: header,
     })
     .then((res) => {
-      console.log(res.data);
-      this.setState({
-        newJobs: res.data.data,
-      });
+      if (res.data.success === 1) {
+        this.setState({
+          newJobs: res.data.data,
+        });
+      } else {
+        this.setState({
+          newJobs:''
+        });
+      }
     });
-
-   
-    
     }, 2000);
    
 
@@ -553,7 +560,8 @@ class Dashboard extends Component {
      const saveNumber=savedJobs.length;
      
     /*new jobs */
-    
+    const { newJobs } = this.state;
+    const newNumber=newJobs.length;
   
 
     /*recomended jobs*/
@@ -595,6 +603,7 @@ class Dashboard extends Component {
                       pathname: "/recomendedJobs",
                       state: {
                         recomendedJobs: this.state,
+                        appliedJobs:this.state
                       },
                     })
                   }
@@ -1112,6 +1121,7 @@ class Dashboard extends Component {
                             pathname: "/recomendedJobs",
                             state: {
                               recomendedJobs: this.state,
+                              appliedJobs:this.state
                             },
                           })
                         }
@@ -1129,7 +1139,7 @@ class Dashboard extends Component {
                     <div className="card white newJobs">
                       <div className="card-content white-text">
                         <span className="card-title right" id="number">
-                          10
+                          {newNumber}
                         </span>
                         <h5>New jobs</h5>
                         <br></br>
