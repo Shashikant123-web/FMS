@@ -7,6 +7,7 @@ import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
 import M from "materialize-css/dist/js/materialize.min.js";
+import NavbarJobseeker from "../NavbarJobseeker";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -18,7 +19,7 @@ export class RecomendedJobs extends Component {
     recomendedJobs: [],
     appliedJobs: [],
     savedJobs: [],
-    saved:[9]
+    saved: [6, 87, 122],
   };
   componentDidMount() {
     console.log(this.props.location.state.appliedJobs.appliedJobs);
@@ -30,7 +31,7 @@ export class RecomendedJobs extends Component {
   }
 
   handleHide = (id) => {
-    M.toast({ Forhtml: "I am a toast", classes: "rounded" });
+    // M.toast({ Forhtml: "I am a toast", classes: "rounded" });
     const recomendedJobs = this.state.recomendedJobs.filter((job) => {
       return job.id !== id;
     });
@@ -85,10 +86,19 @@ export class RecomendedJobs extends Component {
     //     console.log(res);
     //   });
 
+    var flag = document.getElementById(id).innerHTML;
+
+    if (flag === "turned_in_not") {
+      var a = (document.getElementById(id).innerHTML = "turned_in");
+      flag = 1;
+    } else {
+      var a = (document.getElementById(id).innerHTML = "turned_in_not");
+    }
+
     console.log(id);
-    this.setState({
-      saved: [...this.state.saved, id],
-    });
+    // this.setState({
+    //   saved: [...this.state.saved, id],
+    // });
   };
 
   render() {
@@ -100,7 +110,7 @@ export class RecomendedJobs extends Component {
         return (
           <div key={job.id}>
             <div className="col s12 m12 l12">
-              <div className="card darken-1 hoverable " id="recomendedJobsMain">
+              <div className="card darken-1 hoverable" id="recomendedJobsMain">
                 <Popup
                   trigger={
                     <div className="card-content recomendedJobs ">
@@ -258,11 +268,7 @@ export class RecomendedJobs extends Component {
                         <div>
                           <strong>Description</strong>
                           <br></br>
-                          <p className="grey-text">
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. since the 1500s, when an
-                            unknown
-                          </p>
+                          <p className="grey-text">{job.description}</p>
                         </div>
                         <div className="center">
                           <a className="btn center" id="savebtn">
@@ -286,24 +292,26 @@ export class RecomendedJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    {this.state.saved.map((id,index) => {
-                      if (id.id === job.id) {
-                        return (
+                    {this.state.saved.map((id, index) => {
+                      if (job.id === id) {
+                        const saveBtn = true;
+                        return saveBtn ? (
                           <strong className="right" key={index}>
                             <i className="material-icons teal-text left">
                               turned_in
                             </i>
                             saved
                           </strong>
-                        );
-                      } else  {
-                        return (
+                        ) : (
                           <strong
-                            key={id}
-                            className="right" key={index}
+                            className="right"
+                            key={index}
                             onClick={() => this.handleSave(job.id)}
                           >
-                            <i className="material-icons teal-text left">
+                            <i
+                              id={job.id}
+                              className="material-icons teal-text left"
+                            >
                               turned_in_not
                             </i>
                             save
@@ -347,53 +355,7 @@ export class RecomendedJobs extends Component {
     return (
       <div id="back">
         <div>
-          <div className="navbar-fixed">
-            <nav className="white">
-              <div className="nav-wrapper white container">
-                <a className="brand-logo left jobnav" id="img">
-                  <img
-                    className="center"
-                    src={mainLogo}
-                    width="50"
-                    height="50"
-                  ></img>
-                </a>
-                <ul id="nav-mobile jonnav" className="right">
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="waves-effect waves-light btn-small"
-                      id="btnnav"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      id="home"
-                      to={{
-                        pathname: "/help",
-                        state: {
-                          mobileNumber: this.state,
-                        },
-                      }}
-                    >
-                      Help
-                    </Link>
-                  </li>
-                  <img
-                    src={this.state.profileimagepath}
-                    style={{
-                      height: "63px",
-                      width: "63px",
-                      borderRadius: "50px",
-                    }}
-                  ></img>
-                </ul>
-              </div>
-            </nav>
-          </div>
-
+          <NavbarJobseeker />
           <div className="row">
             <img className="center" id="dashboard" src={dashboard}></img>
             <div className="center-align">
@@ -427,7 +389,7 @@ export class RecomendedJobs extends Component {
             </nav>
           </div>
 
-          <div className="container">
+          <div className="container mainContainer">
             <div className="left">
               <strong
                 className="waves-effect waves-light"

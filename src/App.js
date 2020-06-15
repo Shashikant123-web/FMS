@@ -44,6 +44,7 @@ class App extends Component {
             <Route exact path="/userLogin" component={UserLogin} />
             <Route exact path="/forgotPwd" component={ForgetPwd} />
             <Route exact path="/changePwd" component={ChangePwd} />
+
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/dropdown" component={Dropdown} />
             <Route exact path="/preregister" component={PreRegister} />

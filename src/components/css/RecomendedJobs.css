@@ -1,6 +1,5 @@
 i.left {
   cursor: pointer;
-  margin-left: 4px;
   margin-right: 0px;
 }
 #savebtn,
@@ -39,4 +38,7 @@ i.left {
 }
 .card .card-action {
   padding: 7px 24px;
+}
+.mainContainer{
+  margin-top: -51px;
 }
