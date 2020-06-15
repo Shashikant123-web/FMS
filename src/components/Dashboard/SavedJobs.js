@@ -5,6 +5,7 @@ import dashboard from "../Images/dashboard.png";
 import { withRouter, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import axios from "axios";
+import rightMark from "../Images/tic.png";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -14,10 +15,12 @@ export class SavedJobs extends Component {
   state = {
     // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
     savedJobs: [],
+    appliedJobs: [],
   };
   componentDidMount() {
     this.setState({
       savedJobs: this.props.location.state.savedJobs.savedJobs,
+      appliedJobs: this.props.location.state.appliedJobs.appliedJobs,
     });
   }
 
@@ -67,7 +70,6 @@ export class SavedJobs extends Component {
     //     console.log(res.data);
     //     console.log(res);
     //   });
-  
   };
 
   render() {
@@ -77,28 +79,46 @@ export class SavedJobs extends Component {
       savedJobs.map((job) => {
         return (
           <div key={job.id}>
-            <div className="col s12 m12 l12" >
-              <div className="card darken-1 hoverable recomendedJobsMain">
+            <div className="col s12 m12 l12">
+              <div className="card darken-1 hoverable " id="recomendedJobsMain">
                 <Popup
                   trigger={
-                    <div className="card-content">
-                      <h5>
-                        <strong>{job.jobType}</strong>
-                      </h5>
-                      <div className="row">
-                        <div className="col s12 m4 l4">
+                    <div className="card-content recomendedJobs ">
+                      <>
+                        <div>
+                          <h5>
+                            <strong className="left">{job.jobType}</strong>
+                          </h5>
+                          {this.state.appliedJobs.map((id) => {
+                            if (id.id === job.id) {
+                              return (
+                                <h6 className="right teal-text" key={job.id}>
+                                  <img
+                                    src={rightMark}
+                                    width="20"
+                                    height="20"
+                                  ></img>
+                                  Applied
+                                </h6>
+                              );
+                            }
+                          })}
                           <br></br>
+                        </div>
+                      </>
+                      <br></br>
+
+                      <div className="row">
+                        <div className="col s12 m4 l4" id="marginLeft">
                           <strong className="black-text">
                             Job position-
                             <span className="grey-text">{job.jobType}</span>
                           </strong>
                           <br></br>
-                          <br></br>
                           <strong className="black-text">
                             Language-
                             <span className="grey-text">{job.language}</span>
                           </strong>
-                          <br></br>
                           <br></br>
                           <strong className="black-text">
                             Valid Upto-
@@ -106,18 +126,15 @@ export class SavedJobs extends Component {
                           </strong>
                         </div>
                         <div className="col s12 m4 l4">
-                          <br></br>
                           <strong className="black-text">
                             Experiance-
                             <span className="grey-text">{job.experience}</span>
                           </strong>
                           <br></br>
-                          <br></br>
                           <strong className="black-text">
                             Age limit-
                             <span className="grey-text">{job.experience}</span>
                           </strong>
-                          <br></br>
                           <br></br>
                           <strong className="black-text">
                             Location-
@@ -125,18 +142,15 @@ export class SavedJobs extends Component {
                           </strong>
                         </div>
                         <div className="col s12 m4 l4">
-                          <br></br>
                           <strong className="black-text">
                             Vacancy-
                             <span className="grey-text">{job.vacancy}</span>
                           </strong>
                           <br></br>
-                          <br></br>
                           <strong className="black-text">
                             Salary range-
                             <span className="grey-text">{job.salaryRange}</span>
                           </strong>
-                          <br></br>
                           <br></br>
                         </div>
                       </div>
@@ -252,10 +266,7 @@ export class SavedJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    <strong
-                      className="right"
-                      onClick={() => this.handleSave(job.id)}
-                    >
+                    <strong className="right" key={job.id}>
                       <i className="material-icons teal-text left">turned_in</i>
                       saved
                     </strong>
@@ -267,8 +278,8 @@ export class SavedJobs extends Component {
         );
       })
     ) : (
-      <h5>
-        No saved jobs
+      <div>
+        Loading please wait...
         <br></br>
         <br></br>
         <br></br>
@@ -280,8 +291,7 @@ export class SavedJobs extends Component {
         <br></br>
         <br></br>
         <br></br>
-        <br></br>
-      </h5>
+      </div>
     );
 
     console.log(this.state);

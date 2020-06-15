@@ -71,7 +71,7 @@ export class dashboardHelp extends Component {
     const jobseekerList = jobseker.length ? (
       jobseker.map((Qes) => {
         return (
-          <div>
+          <div key={Qes.id}>
             <ul
               className="collapsible container"
               data-collapsible="accordion"

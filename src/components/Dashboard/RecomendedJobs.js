@@ -6,6 +6,7 @@ import { withRouter, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
+import M from "materialize-css/dist/js/materialize.min.js";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -16,17 +17,20 @@ export class RecomendedJobs extends Component {
     // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
     recomendedJobs: [],
     appliedJobs: [],
-    saved: [9],
+    savedJobs: [],
+    saved:[9]
   };
   componentDidMount() {
     console.log(this.props.location.state.appliedJobs.appliedJobs);
     this.setState({
       recomendedJobs: this.props.location.state.recomendedJobs.recomendedJobs,
       appliedJobs: this.props.location.state.appliedJobs.appliedJobs,
+      savedJobs: this.props.location.state.savedJobs.savedJobs,
     });
   }
 
   handleHide = (id) => {
+    M.toast({ Forhtml: "I am a toast", classes: "rounded" });
     const recomendedJobs = this.state.recomendedJobs.filter((job) => {
       return job.id !== id;
     });
@@ -80,6 +84,7 @@ export class RecomendedJobs extends Component {
     //     console.log(res.data);
     //     console.log(res);
     //   });
+
     console.log(id);
     this.setState({
       saved: [...this.state.saved, id],
@@ -104,10 +109,10 @@ export class RecomendedJobs extends Component {
                           <h5>
                             <strong className="left">{job.jobType}</strong>
                           </h5>
-                          {this.state.appliedJobs.map((id) => {
+                          {this.state.appliedJobs.map((id, index) => {
                             if (id.id === job.id) {
                               return (
-                                <h6 className="right teal-text" key={job.id}>
+                                <h6 className="right teal-text" key={index}>
                                   <img
                                     src={rightMark}
                                     width="20"
@@ -281,21 +286,21 @@ export class RecomendedJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    {this.state.saved.map((id) => {
-                      if (id === job.id) {
+                    {this.state.saved.map((id,index) => {
+                      if (id.id === job.id) {
                         return (
-                          <strong className="right" key={job.id}>
+                          <strong className="right" key={index}>
                             <i className="material-icons teal-text left">
                               turned_in
                             </i>
                             saved
                           </strong>
                         );
-                      } else {
+                      } else  {
                         return (
                           <strong
                             key={id}
-                            className="right"
+                            className="right" key={index}
                             onClick={() => this.handleSave(job.id)}
                           >
                             <i className="material-icons teal-text left">
@@ -325,10 +330,20 @@ export class RecomendedJobs extends Component {
         );
       })
     ) : (
-      <div>Loading please wait...</div>
+      <div>
+        Loading please wait...
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+      </div>
     );
 
-    console.log(this.state);
     return (
       <div id="back">
         <div>

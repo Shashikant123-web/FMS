@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import axios from "axios";
 import "./css/dashboard.css";
 import mainLogo from "./Images/Mainlogo.png";
@@ -24,6 +25,7 @@ import {
   FormGroup,
   ControlLabel,
 } from "react-bootstrap";
+
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
 
@@ -1107,6 +1109,7 @@ class Dashboard extends Component {
                             pathname: "/recomendedJobs",
                             state: {
                               recomendedJobs: this.state,
+                              savedJobs: this.state,
                               appliedJobs: this.state,
                             },
                           })
@@ -1157,6 +1160,7 @@ class Dashboard extends Component {
                             pathname: "/savedJobs",
                             state: {
                               savedJobs: this.state,
+                              appliedJobs: this.state,
                             },
                           })
                         }
