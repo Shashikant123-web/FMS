@@ -6,7 +6,6 @@ import { withRouter, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
-import NavbarJobseeker from "../NavbarJobseeker";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -299,7 +298,53 @@ export class SavedJobs extends Component {
     return (
       <div id="back">
         <div>
-          <NavbarJobseeker />
+          <div className="navbar-fixed">
+            <nav className="white">
+              <div className="nav-wrapper white container">
+                <a className="brand-logo left jobnav" id="img">
+                  <img
+                    className="center"
+                    src={mainLogo}
+                    width="50"
+                    height="50"
+                  ></img>
+                </a>
+                <ul id="nav-mobile jonnav" className="right">
+                  <li>
+                    <Link
+                      to="/dashboard"
+                      className="waves-effect waves-light btn-small"
+                      id="btnnav"
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      id="home"
+                      to={{
+                        pathname: "/help",
+                        state: {
+                          mobileNumber: this.state,
+                        },
+                      }}
+                    >
+                      Help
+                    </Link>
+                  </li>
+                  <img
+                    src={this.state.profileimagepath}
+                    style={{
+                      height: "63px",
+                      width: "63px",
+                      borderRadius: "50px",
+                    }}
+                  ></img>
+                </ul>
+              </div>
+            </nav>
+          </div>
+
           <div className="row">
             <img className="center" id="dashboard" src={dashboard}></img>
             <div className="center-align">

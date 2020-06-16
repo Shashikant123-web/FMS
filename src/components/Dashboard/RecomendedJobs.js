@@ -7,7 +7,6 @@ import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
 import M from "materialize-css/dist/js/materialize.min.js";
-import NavbarJobseeker from "../NavbarJobseeker";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -67,7 +66,7 @@ export class RecomendedJobs extends Component {
         });
     }, 1000);
   };
-  handleSave = (id) => {
+  handleClick = (id) => {
     // axios
     //   .post(
     //     "/stskFmsApi/jobseeker/saveJobs",
@@ -85,16 +84,18 @@ export class RecomendedJobs extends Component {
     //     console.log(res.data);
     //     console.log(res);
     //   });
+    {
+      this.state.saved.map((savedId) => {
+        var flag = document.getElementById(id).innerHTML;
 
-    var flag = document.getElementById(id).innerHTML;
-
-    if (flag === "turned_in_not") {
-      var a = (document.getElementById(id).innerHTML = "turned_in");
-      flag = 1;
-    } else {
-      var a = (document.getElementById(id).innerHTML = "turned_in_not");
+        if (flag === "turned_in_not" && id == savedId) {
+          var a = (document.getElementById(id).innerHTML = "turned_in");
+          flag = 1;
+        } else {
+          var a = (document.getElementById(id).innerHTML = "turned_in_not");
+        }
+      });
     }
-
     console.log(id);
     // this.setState({
     //   saved: [...this.state.saved, id],
@@ -292,33 +293,20 @@ export class RecomendedJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    {this.state.saved.map((id, index) => {
-                      if (job.id === id) {
-                        const saveBtn = true;
-                        return saveBtn ? (
-                          <strong className="right" key={index}>
-                            <i className="material-icons teal-text left">
-                              turned_in
-                            </i>
-                            saved
-                          </strong>
-                        ) : (
-                          <strong
-                            className="right"
-                            key={index}
-                            onClick={() => this.handleSave(job.id)}
-                          >
-                            <i
-                              id={job.id}
-                              className="material-icons teal-text left"
-                            >
-                              turned_in_not
-                            </i>
-                            save
-                          </strong>
-                        );
-                      }
-                    })}
+                    <button
+                      value={job.id}
+                      type="button"
+                      onClick={() => this.handleClick(job.id)}
+                    >
+                      <i
+                        id={job.id}
+                        value="0"
+                        className="material-icons teal-text left"
+                      >
+                        turned_in_not
+                      </i>
+                    </button>
+                    ;
                     <strong
                       className="right"
                       onClick={() => {
@@ -355,7 +343,53 @@ export class RecomendedJobs extends Component {
     return (
       <div id="back">
         <div>
-          <NavbarJobseeker />
+          <div className="navbar-fixed">
+            <nav className="white">
+              <div className="nav-wrapper white container">
+                <a className="brand-logo left jobnav" id="img">
+                  <img
+                    className="center"
+                    src={mainLogo}
+                    width="50"
+                    height="50"
+                  ></img>
+                </a>
+                <ul id="nav-mobile jonnav" className="right">
+                  <li>
+                    <Link
+                      to="/dashboard"
+                      className="waves-effect waves-light btn-small"
+                      id="btnnav"
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      id="home"
+                      to={{
+                        pathname: "/help",
+                        state: {
+                          mobileNumber: this.state,
+                        },
+                      }}
+                    >
+                      Help
+                    </Link>
+                  </li>
+                  <img
+                    src={this.state.profileimagepath}
+                    style={{
+                      height: "63px",
+                      width: "63px",
+                      borderRadius: "50px",
+                    }}
+                  ></img>
+                </ul>
+              </div>
+            </nav>
+          </div>
+
           <div className="row">
             <img className="center" id="dashboard" src={dashboard}></img>
             <div className="center-align">
