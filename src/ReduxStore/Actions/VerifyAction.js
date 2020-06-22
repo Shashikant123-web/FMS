@@ -20,6 +20,8 @@ export const VerifyAction = (verifyOtp) => {
     dispatch({
       type: VERIFY_INIT,
     });
+    return <Redirect to="/" />;
+
     //history.push("/dashboard");
     //make api call
     // const { mobileNumber } = verifyOtp;
