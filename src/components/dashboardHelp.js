@@ -19,9 +19,6 @@ import UserLogin from "./UserLogin";
 import NavbarBottom from "./NavbarJobseeker/NavbarBottom";
 
 export class dashboardHelp extends Component {
-  state = {
-    mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-  };
   componentDidMount() {
     document.addEventListener("DOMContentLoaded", function() {
       var elems = document.querySelectorAll(".collapsible");

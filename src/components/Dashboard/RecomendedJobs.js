@@ -18,7 +18,7 @@ export class RecomendedJobs extends Component {
     recomendedJobs: [],
     appliedJobs: [],
     savedJobs: [],
-    saved: [6, 87, 122],
+    saved: [6, 2, 3],
   };
   componentDidMount() {
     console.log(this.props.location.state.appliedJobs.appliedJobs);
@@ -66,7 +66,7 @@ export class RecomendedJobs extends Component {
         });
     }, 1000);
   };
-  handleClick = (id) => {
+  handleSave = (id) => {
     // axios
     //   .post(
     //     "/stskFmsApi/jobseeker/saveJobs",
@@ -84,22 +84,22 @@ export class RecomendedJobs extends Component {
     //     console.log(res.data);
     //     console.log(res);
     //   });
-    {
-      this.state.saved.map((savedId) => {
-        var flag = document.getElementById(id).innerHTML;
+    // {
+    //   this.state.saved.map((savedId) => {
+    //     var flag = document.getElementById(id).innerHTML;
 
-        if (flag === "turned_in_not" && id == savedId) {
-          var a = (document.getElementById(id).innerHTML = "turned_in");
-          flag = 1;
-        } else {
-          var a = (document.getElementById(id).innerHTML = "turned_in_not");
-        }
-      });
-    }
+    //     if (flag === "turned_in_not" && id == savedId) {
+    //       var a = (document.getElementById(id).innerHTML = "turned_in");
+    //       flag = 1;
+    //     } else {
+    //       var a = (document.getElementById(id).innerHTML = "turned_in_not");
+    //     }
+    //   });
+    // }
     console.log(id);
-    // this.setState({
-    //   saved: [...this.state.saved, id],
-    // });
+    this.setState({
+      saved: [...this.state.saved, id],
+    });
   };
 
   render() {
@@ -120,20 +120,21 @@ export class RecomendedJobs extends Component {
                           <h5>
                             <strong className="left">{job.jobType}</strong>
                           </h5>
-                          {this.state.appliedJobs.map((id, index) => {
-                            if (id.id === job.id) {
-                              return (
-                                <h6 className="right teal-text" key={index}>
-                                  <img
-                                    src={rightMark}
-                                    width="20"
-                                    height="20"
-                                  ></img>
-                                  Applied
-                                </h6>
-                              );
-                            }
-                          })}
+                          {this.state.appliedJobs &&
+                            this.state.appliedJobs.map((id, index) => {
+                              if (id.id === job.id) {
+                                return (
+                                  <h6 className="right teal-text" key={index}>
+                                    <img
+                                      src={rightMark}
+                                      width="20"
+                                      height="20"
+                                    ></img>
+                                    Applied
+                                  </h6>
+                                );
+                              }
+                            })}
                           <br></br>
                         </div>
                       </>
@@ -293,20 +294,32 @@ export class RecomendedJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    <button
-                      value={job.id}
-                      type="button"
-                      onClick={() => this.handleClick(job.id)}
-                    >
-                      <i
-                        id={job.id}
-                        value="0"
-                        className="material-icons teal-text left"
-                      >
-                        turned_in_not
-                      </i>
-                    </button>
-                    ;
+                    {this.state.saved &&
+                      this.state.saved.map((id, index) => {
+                        if (id === job.id) {
+                          return (
+                            <strong className="right" key={index}>
+                              <i className="material-icons teal-text left">
+                                turned_in
+                              </i>
+                              saved
+                            </strong>
+                          );
+                        } else {
+                          return (
+                            <strong
+                              key={index}
+                              className="right"
+                              onClick={() => this.handleSave(job.id)}
+                            >
+                              <i className="material-icons teal-text left">
+                                turned_in_not
+                              </i>
+                              save
+                            </strong>
+                          );
+                        }
+                      })}
                     <strong
                       className="right"
                       onClick={() => {

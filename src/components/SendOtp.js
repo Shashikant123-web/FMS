@@ -5,6 +5,9 @@ import back from "./Images/Background.png";
 import { Form, FormControl } from "react-bootstrap";
 import logo from "./Images/Mainlogo.png";
 
+import { connect } from "react-redux";
+import { createProject } from "../ReduxStore/Actions/SendOtpAction";
+
 //import PhoneInput from 'react-phone-number-input'
 //import OTPInput from 'react-otp-input';
 
@@ -18,7 +21,6 @@ class SendOtp extends Component {
     this.state = {
       countryCode: "91",
       mobileNumber: " ",
-      loading: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -60,30 +62,29 @@ class SendOtp extends Component {
     this.setState({
       loading: true,
     });
+    this.props.createProject(this.state);
+
     this.props.history.push({
       pathname: "/verify",
-      state: {
-        mobileNumber: this.state,
-        countryCode: this.state,
-      },
     });
 
-    axios
-      .post("/stskFmsApi/otpServices/sendOtpBySMS", this.state, {
-        headers: header,
-      })
-      .then((Response) => {
-        console.log(Response);
-        console.log(Response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .post("/stskFmsApi/otpServices/sendOtpBySMS", this.state, {
+    //     headers: header,
+    //   })
+    //   .then((Response) => {
+    //     console.log(Response);
+    //     console.log(Response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
   render() {
     const { loading } = this.state;
     const countries = require("./countryphonecode.json");
-    console.log(this.state.countryCode);
+    // console.log(this.state);
+    console.log(this.props.sendOtp);
     return (
       <div id="body">
         <div className="row center" id="main1">
@@ -154,4 +155,15 @@ class SendOtp extends Component {
     );
   }
 }
-export default SendOtp;
+const mapStateToProps = (state) => {
+  return {
+    sendOtp: state.SendOtp.SendOtp,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createProject: (project) => dispatch(createProject(project)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SendOtp);

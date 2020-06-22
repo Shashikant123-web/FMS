@@ -13,10 +13,6 @@ import NavbarJobseeker from "../NavbarJobseeker";
 import NavbarBottom from "../NavbarJobseeker/NavbarBottom";
 
 export class dashboardHelp extends Component {
-  state = {
-    mobileNumber: "",
-  };
-
   handleVendor = (e) => {
     this.props.history.push({
       pathname: "/vendorHelp",
@@ -49,11 +45,6 @@ export class dashboardHelp extends Component {
       },
     });
   };
-  componentDidMount() {
-    this.setState({
-      mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-    });
-  }
   render() {
     const jobseker = require("../Json/Resident.json");
     const jobseekerList = jobseker.length ? (

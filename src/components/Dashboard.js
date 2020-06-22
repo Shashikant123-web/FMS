@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import axios from "axios";
 import "./css/dashboard.css";
 import mainLogo from "./Images/Mainlogo.png";
@@ -18,13 +17,9 @@ import mail from "./Images/mail.png";
 import file from "./Images/file.png";
 import uploadfile from "./Images/upload.png";
 import { Multiselect } from "multiselect-react-dropdown";
-import {
-  Form,
-  FormControl,
-  Button,
-  FormGroup,
-  ControlLabel,
-} from "react-bootstrap";
+import { Form } from "react-bootstrap";
+
+import { connect } from "react-redux";
 
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
@@ -65,7 +60,7 @@ class Dashboard extends Component {
       editProfile: [],
       userId: "",
       LoggedIn: "true",
-      mobileNumber: "",
+      mobileNumber: this.props.sendOtp.mobileNumber,
       search: "",
       appliedJobs: "",
       searchedJobs: [],
@@ -97,44 +92,43 @@ class Dashboard extends Component {
   }
 
   componentDidMount(e) {
-    //   fetch("http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes", {
+    // fetch("http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes", {
+    //   headers: header,
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     let TypesFromApi = data.data.map((Type) => {
+    //       return { id: Type.id, name: Type.name };
+    //     });
+    //     this.setState({
+    //       Types: [
+    //         {
+    //           id: "",
+    //           name: "(Select your desire job)",
+    //         },
+    //       ].concat(TypesFromApi),
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // this._isMounted = true;
+    // this.setState({
+    //   mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
+    // });
+    // axios
+    //   .get("/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber, {
     //     headers: header,
     //   })
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       let TypesFromApi = data.data.map((Type) => {
-    //         return { id: Type.id, name: Type.name };
-    //       });
-    //       this.setState({
-    //         Types: [
-    //           {
-    //             id: "",
-    //             name: "(Select your desire job)",
-    //           },
-    //         ].concat(TypesFromApi),
-    //       });
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     this.setState({
+    //       userId: res.data.data.id,
+    //       details: res.data.data,
+    //       editProfile: res.data.data,
+    //       userLoginMobile: res.data.data.mob,
     //     });
-    //   this._isMounted = true;
-    //   this.setState({
-    //     mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
     //   });
-    //   axios
-    //     .get(
-    //       "/stskFmsApi/jobseeker/getByMob/" +
-    //         this.props.location.state.mobileNumber.mobileNumber,
-    //       { headers: header }
-    //     )
-    //     .then((res) => {
-    //       this.setState({
-    //         userId: res.data.data.id,
-    //         details: res.data.data,
-    //         editProfile: res.data.data,
-    //         userLoginMobile: res.data.data.mob,
-    //       });
-    //     });
 
     const timer = setTimeout(() => {
       axios
@@ -182,7 +176,7 @@ class Dashboard extends Component {
             });
           }
         });
-    }, 1000);
+    }, 3000);
 
     const timer1 = setTimeout(() => {
       axios
@@ -201,95 +195,99 @@ class Dashboard extends Component {
         });
     }, 3000);
 
-    //   const timer2 = setTimeout(() => {
-    //     axios
-    //       .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
-    //         headers: header,
-    //       })
-    //       .then((res) => {
-    //         console.log(res.data.data[0].docId);
-    //         this.setState({
-    //           docId: res.data.data[0].docId,
-    //         });
-    //       });
-    //   }, 4000);
-    //   const timer3 = setTimeout(() => {
-    //     axios
-    //       .get("/stskFmsApi/jobseekerdoc/retriveWithPath/" + this.state.docId, {
-    //         headers: header,
-    //       })
-    //       .then((res) => {
-    //         console.log(res.data.data.path);
-    //         this.setState({
-    //           path: res.data.data.path,
-    //           fileName: res.data.data.docName,
-    //         });
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }, 5000);
-    //   const timer4 = setTimeout(() => {
-    //     axios
-    //       .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
-    //         headers: header,
-    //       })
-    //       .then((res) => {
-    //         console.log(res.data.data.id);
-    //         this.setState({
-    //           mobileNumberUserloginId: res.data.data.id,
-    //         });
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }, 6000);
-    //   const timer5 = setTimeout(() => {
-    //     axios
-    //       .get(
-    //         "/stskFmsApi/imageDoc/getByLoginId/" +
-    //           this.state.mobileNumberUserloginId,
-    //         { headers: header }
-    //       )
-    //       .then((res) => {
-    //         console.log(res.data.data[0].docId);
-    //         this.setState({
-    //           profileimageretrievedocId: res.data.data[0].docId,
-    //         });
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }, 7000);
-    //   const timer6 = setTimeout(() => {
-    //     axios
-    //       .get(
-    //         "/stskFmsApi/imageDoc/retriveWithPath/" +
-    //           this.state.profileimageretrievedocId,
-    //         { headers: header }
-    //       )
-    //       .then((res) => {
-    //         console.log(res);
-    //         this.setState({
-    //           profileimagepath: res.data.data.path,
-    //         });
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }, 8000);
-    // axios.get('/stskFmsApi/jobseekerdoc/getByJobSeekerId'+this.state.userId,{headers:header})
-    // .then(res => {
-    //     console.log(res.data.data.docId)
-    //     console.log(res)
-    //     this.setState
-    //     ({
-    //         docId:res.data.data.docId
-    //     })
-    //  })
     // const timer2 = setTimeout(() => {
-    // axios.get('/stskFmsApi/jobseekerdoc/getByJobSeekerId/3'+this.state.userId,{headers:header})
-    // .then(res => {
-    //     console.log(res.data.data.docId)
-    //     console.log(res)
-    //     this.setState
-    //     ({
-    //         docId:res.data.data.docId
+    //   axios
+    //     .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
+    //       headers: header,
     //     })
-    //  })
-    //  }, 4000);
+    //     .then((res) => {
+    //       console.log(res.data.data[0].docId);
+    //       this.setState({
+    //         docId: res.data.data[0].docId,
+    //       });
+    //     });
+    // }, 4000);
+    // const timer3 = setTimeout(() => {
+    //   axios
+    //     .get("/stskFmsApi/jobseekerdoc/retriveWithPath/" + this.state.docId, {
+    //       headers: header,
+    //     })
+    //     .then((res) => {
+    //       console.log(res.data.data.path);
+    //       this.setState({
+    //         path: res.data.data.path,
+    //         fileName: res.data.data.docName,
+    //       });
+    //     })
+    //     .catch((err) => console.log(err));
+    // }, 5000);
+    // const timer4 = setTimeout(() => {
+    //   axios
+    //     .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
+    //       headers: header,
+    //     })
+    //     .then((res) => {
+    //       console.log(res.data.data.id);
+    //       this.setState({
+    //         mobileNumberUserloginId: res.data.data.id,
+    //       });
+    //     })
+    //     .catch((err) => console.log(err));
+    // }, 6000);
+    // const timer5 = setTimeout(() => {
+    //   axios
+    //     .get(
+    //       "/stskFmsApi/imageDoc/getByLoginId/" +
+    //         this.state.mobileNumberUserloginId,
+    //       { headers: header }
+    //     )
+    //     .then((res) => {
+    //       console.log(res.data.data[0].docId);
+    //       this.setState({
+    //         profileimageretrievedocId: res.data.data[0].docId,
+    //       });
+    //     })
+    //     .catch((err) => console.log(err));
+    // }, 7000);
+    // const timer6 = setTimeout(() => {
+    //   axios
+    //     .get(
+    //       "/stskFmsApi/imageDoc/retriveWithPath/" +
+    //         this.state.profileimageretrievedocId,
+    //       { headers: header }
+    //     )
+    //     .then((res) => {
+    //       console.log(res);
+    //       this.setState({
+    //         profileimagepath: res.data.data.path,
+    //       });
+    //     })
+    //     .catch((err) => console.log(err));
+    // }, 8000);
+    // axios
+    //   .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId" + this.state.userId, {
+    //     headers: header,
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data.data.docId);
+    //     console.log(res);
+    //     this.setState({
+    //       docId: res.data.data.docId,
+    //     });
+    //   });
+    // const timerrr2 = setTimeout(() => {
+    //   axios
+    //     .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
+    //       headers: header,
+    //     })
+    //     .then((res) => {
+    //       console.log(res.data.data.docId);
+    //       console.log(res);
+    //       this.setState({
+    //         docId: res.data.data.docId,
+    //       });
+    //     });
+    // }, 4000);
   }
 
   handleApply = (id) => {
@@ -327,7 +325,7 @@ class Dashboard extends Component {
       //appliedJobsId:[...this.state.appliedJobsId, id],
     });
   };
-  handleLogin = (e) => {
+  handleLogout = (e) => {
     this.setState({
       LoggedIn: false,
     });
@@ -546,10 +544,12 @@ class Dashboard extends Component {
             });
           }
         });
-    }, 1000);
+    }, 3000);
   };
 
   render() {
+    console.log(this.props.sendOtp.mobileNumber);
+
     /*saved jobs */
     const { savedJobs } = this.state;
     const saveNumber = savedJobs.length;
@@ -678,9 +678,6 @@ class Dashboard extends Component {
                     id="home"
                     to={{
                       pathname: "/help",
-                      state: {
-                        mobileNumber: this.state,
-                      },
                     }}
                   >
                     Help
@@ -1073,7 +1070,7 @@ class Dashboard extends Component {
                   <hr></hr>
                   <a
                     className="waves-effect waves-light btn"
-                    onClick={this.handleLogin}
+                    onClick={this.handleLogout}
                     id="logout"
                   >
                     <img
@@ -1084,6 +1081,7 @@ class Dashboard extends Component {
                     ></img>
                     Logout
                   </a>
+                  <br></br>
                 </div>
               </div>
 
@@ -1201,4 +1199,9 @@ class Dashboard extends Component {
     );
   }
 }
-export default withRouter(Dashboard);
+const mapStateToProps = (state) => {
+  return {
+    sendOtp: state.SendOtp.SendOtp,
+  };
+};
+export default connect(mapStateToProps)(withRouter(Dashboard));
