@@ -18,6 +18,7 @@ import file from "./Images/file.png";
 import uploadfile from "./Images/upload.png";
 import { Multiselect } from "multiselect-react-dropdown";
 import { Form } from "react-bootstrap";
+import EditProfile from './Editprofile'
 
 import { connect } from "react-redux";
 
@@ -78,6 +79,7 @@ class Dashboard extends Component {
       newJobs: [],
       saveNumber: "",
       recomendedJobsLength: "",
+      
     };
   }
   handlejobtypes() {}
@@ -747,257 +749,23 @@ class Dashboard extends Component {
                 id="profile"
               >
                 <div id="editicn">
-                  <Popup
+                <Popup contentStyle={{width: "75%"}}
                     modal
-                    trigger={
-                      <div className="right-align">
+                    trigger={ 
+                      <div className="right-align" style={{width:'75%'}}>
                         <img src={edit} width="20" height="20"></img>
-                        <br></br>
+                       
+                       
                       </div>
+                      
                     }
+                    position="center" width='70%'
                   >
-                    <div className="popup-content">
-                      <h4 className="center-align" id="popTitle">
-                        Edit profile
-                      </h4>
-                      <div className="d-flex justify-content-center">
-                        <img
-                          src={this.state.profileimagepath}
-                          style={{
-                            height: "100px",
-                            width: "100px",
-                            borderRadius: "50px",
-                          }}
-                        ></img>
-                        <Popup
-                          trigger={<h3>Update Images</h3>}
-                          position=" center"
-                          id="updateimage"
-                        >
-                          <div className="popup-content1" id="newimage">
-                            <h5 id="change">Change Pictures</h5>
-                            <div className="imageload">
-                              <img
-                                src={this.state.profileimagepath}
-                                style={{
-                                  height: "100px",
-                                  width: "100px",
-                                  borderRadius: "50px",
-                                }}
-                              ></img>
-                            </div>
-
-                            <input
-                              type="file"
-                              className="inputfile"
-                              id="embedpollfileinput"
-                              name="image"
-                              accept="images.jpeg"
-                              onChange={this.handleEditImage}
-                            />
-
-                            <label for="embedpollfileinput" id="hugegreen">
-                              <img src={uploadfile} id="fileimg" />
-                              <span id="docfile">Upload Image</span>
-                            </label>
-                          </div>
-                        </Popup>
-
-                        {/* <img src={this.state.createeditprofileimagepath} style={{height:'100px',width:'100px',borderRadius:'50px'}}></img> */}
-                        {/* <input type="file" id="editImage" onChange={this.handleEditImage}/> */}
-                      </div>
-
-                      <form onSubmit={this.popupsubmit}>
-                        <div className="col s12 m12 l6">
-                          <label>First name</label>
-                          <input
-                            id="inputBorder"
-                            name="name"
-                            required
-                            defaultValue={this.state.editProfile.name}
-                            onChange={this.handlepopup}
-                            type="text"
-                          ></input>
-
-                          <label>Email</label>
-
-                          <input
-                            id="inputBorder"
-                            name="email"
-                            defaultValue={this.state.editProfile.email}
-                            onChange={this.handlepopup}
-                            type="text"
-                          ></input>
-
-                          <label>Pan Number</label>
-
-                          <input
-                            id="inputBorder"
-                            name="panNum"
-                            defaultValue={this.state.editProfile.panNum}
-                            onChange={this.handlepopup}
-                            type="text"
-                          ></input>
-                          <label>Education Qualificatin</label>
-                          <input
-                            id="inputBorder"
-                            name="eduQual"
-                            defaultValue={this.state.editProfile.eduQual}
-                            onChange={this.handlepopup}
-                            type="text"
-                          ></input>
-                          {/* <label>Get job opening updates</label> */}
-                          {/* <input id="inputBorder" name="jobUpdate" defaultValue={this.state.editProfile.jobType} onChange={this.handlepopup}  type="text"></input> */}
-                          <Form.Control
-                            as="select"
-                            onChange={this.handleChange2}
-                            id="update"
-                            defaultValue={this.state.editProfile.jobUpdate}
-                          >
-                            <option value="1">Get job opening updates</option>
-                            {this.state.Updates.map((jobUpdate) => (
-                              <option key={jobUpdate} value={jobUpdate}>
-                                {jobUpdate}
-                              </option>
-                            ))}
-                          </Form.Control>
-                          <input
-                            id="inputBorder"
-                            name="resume"
-                            value={this.state.uploadResume}
-                            onChange={this.handleResume}
-                            accept="images.jpeg"
-                            type="file"
-                          ></input>
-                          {/* <a href="#" onClick={this.downloadEmployeeData}>Download</a> */}
-
-                          {/* <p id="label">Are you fresher?</p>
-
-   <p>
-   <label >
-   <input name="fresher"  value="true" onClick={this.handleRadio} type="radio" id="ra" />
-       <span id="label">Yes</span>
-       </label>
-   </p>
-   <p>
-   <label>
-     <input name="fresher" value="false" onClick={this.handleRadio} type="radio" id="ra"/>
-     <span id="label">No</span>
-   </label>
- </p> */}
-                          {/* <div id="popcancelbtn" onClick={()=>this.setState({popup:false})} className="center-align">cancel</div> */}
-                          <div
-                            id="popcancelbtn"
-                            onClick={this.handleResume1Submit}
-                            className="center-align"
-                          >
-                            cancel
-                          </div>
-                        </div>
-                        <div className="col s12 m12 l6">
-                          <label>Mobile number</label>
-                          <input
-                            id="inputBorder"
-                            name="mob"
-                            defaultValue={this.state.editProfile.mob}
-                            onChange={this.handlepopup}
-                            type="text"
-                          ></input>
-                          <label>No of years experiance</label>
-                          <input
-                            id="inputBorder"
-                            name="experience"
-                            defaultValue={this.state.editProfile.experience}
-                            onChange={this.handlepopup}
-                            type="text"
-                          ></input>
-                          <label>Aadhar Number</label>
-                          <input
-                            id="inputBorder"
-                            name="aadharnum"
-                            defaultValue={this.state.editProfile.aadharNum}
-                            onChange={this.handlepopup}
-                            type="text"
-                          ></input>
-
-                          {/* <label>Applied for</label> */}
-                          {/* <input id="inputBorder" name="" onChange={this.handlepopup}  type="text">
-                               
-                                </input> */}
-                          {/* <input id="inputB" name="aadharnum"  onChange={this.handlejobtypes}  type="text"></input> */}
-
-                          <Popup
-                            trigger={
-                              <div
-                                id="printjobname"
-                                onChange={this.handlejobtypes}
-                              >
-                                <h5 id="valsel">selected</h5>
-                              </div>
-                            }
-                            position=" center"
-                            style={{ width: "250px" }}
-                            defaultValue={this.state.editProfile.jobTypes}
-                          >
-                            <Multiselect
-                              options={this.state.Types}
-                              displayValue="name"
-                              onSelect={this.handleChange2Arg}
-                              id="demo"
-                            />
-                          </Popup>
-                          <label>Address</label>
-                          <input
-                            id="inputBorder"
-                            name="address"
-                            defaultValue={this.state.editProfile.address}
-                            onChange={this.handlepopup}
-                            type="text"
-                          ></input>
-                          <input
-                            type="file"
-                            className="inputfile"
-                            id="embedpollfileinput"
-                            name="image"
-                            accept="images.jpeg"
-                            onChange={this.handleChange}
-                          />
-                          <label
-                            htmlFor="embedpollfileinput"
-                            className="ui huge white right floated button"
-                            id="white"
-                          >
-                            <img src={file} id="fileimg" />
-                            <span id="doc">Upload Resume</span>
-                            <span>
-                              <i
-                                className="far fa-times-circle fa-2x"
-                                id="close"
-                              ></i>
-                            </span>
-                          </label>
-                          {/* <p id="label">Currently working?</p>
-  
-  <p>
-  <label>
-  <input name="working"  value="true" onClick={this.handleRadio1} type="radio" id="ra" />
-      <span id="label">Yes</span>
-      </label>
-  </p>
-  <p>
-  <label>
-    <input name="working" value="false" onClick={this.handleRadio1} type="radio" id="ra"/>
-    <span id="label">No</span>
-  </label>
-</p> */}
-                          <button id="popsavebtn" type="text">
-                            save
-                          </button>
-                        </div>
-                      </form>
+                    <div class="popup-content">
+                    <EditProfile />
                     </div>
-                  </Popup>
-                </div>
+                   </Popup>
+                    </div>
                 <div className="center" id="profile1">
                   <div className="center">
                     <img
