@@ -483,8 +483,7 @@ textarea.materialize-textarea {
   background-image: url("../Images/file.png");
   background-repeat: no-repeat;
 }
-.field input[type="file"] {
-}
+
 .inputfile {
   width: 0.1px;
   height: 0.1px;
