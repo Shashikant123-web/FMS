@@ -101,7 +101,7 @@ export const userLoginAction = (userLogin) => {
           // });
           dispatch({
             type: USERLOGIN_FAILUR,
-            error: "User ID or Password error",
+            error: "Incorrect Password please try again...",
           });
         } else {
           // this.setState({

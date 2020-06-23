@@ -223,18 +223,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Verify);
-
-// <OtpInput className="numInputs"
-// onChange={otp => console.log(otp)}
-// numInputs={6}
-// separator={<span>-</span>}
-// />
-
-// <div className="">
-// <input className="numInputsss" type="text" maxlength="1"/>
-// <input className="numInputsss" type="text" maxlength="1"/>
-// <input className="numInputsss" type="text" maxlength="1"/>
-// <input className="numInputsss" type="text" maxlength="1"/>
-// <input className="numInputsss" type="text" maxlength="1"/>
-// <input className="numInputsss" type="text" maxlength="1"/>
-// </div>

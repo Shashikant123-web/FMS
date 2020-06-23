@@ -7,10 +7,10 @@ import {
   VERIFY_FAILUR,
 } from "../ActionTypes/actionTypes";
 import SendOtp from "../../components/SendOtp";
-import { createBrowserHistory } from "history";
 import { withRouter } from "react-router";
 import UserLogin from "../../components/UserLogin";
-const history = createBrowserHistory();
+
+import history from "../../components/history";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",

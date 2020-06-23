@@ -22,7 +22,6 @@ const intialState = {
     otp: "",
     userId: "",
   },
-
   // verify: {
   //   countryCode: "",
   //   mobileNumber: "",
