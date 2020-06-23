@@ -15,12 +15,12 @@ import history from "../../components/history";
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
-export const VerifyAction = (verifyOtp, props) => {
+export const VerifyAction = (verifyOtp) => {
   return (dispatch, getState) => {
     dispatch({
       type: VERIFY_INIT,
     });
-    return history.push("/dashboard");
+    history.push("/dashboard");
     //make api call
     // const { mobileNumber } = verifyOtp;
     axios

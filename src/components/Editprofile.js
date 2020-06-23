@@ -68,8 +68,9 @@ class Editprofile extends Component {
       .get("/stskFmsApi/jobseeker/getByMob/" + 9462462856, { headers: header })
 
       .then((res) => {
-        console.log(res.data.data.userLogin.id);
         console.log(res.data.data);
+
+        console.log(res.data.data.userLogin.id);
         this.setState({
           userId: res.data.data.id,
           details: res.data.data,
