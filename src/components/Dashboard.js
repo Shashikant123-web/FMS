@@ -18,7 +18,7 @@ import file from "./Images/file.png";
 import uploadfile from "./Images/upload.png";
 import { Multiselect } from "multiselect-react-dropdown";
 import { Form } from "react-bootstrap";
-import EditProfile from './Editprofile'
+import EditProfile from "./Editprofile";
 
 import { connect } from "react-redux";
 
@@ -79,7 +79,6 @@ class Dashboard extends Component {
       newJobs: [],
       saveNumber: "",
       recomendedJobsLength: "",
-      
     };
   }
   handlejobtypes() {}
@@ -331,7 +330,8 @@ class Dashboard extends Component {
     this.setState({
       LoggedIn: false,
     });
-    this.props.history.push("/");
+    this.props.history.push("/userLogin");
+    localStorage.clear();
   };
 
   handleinputSearch = (e) => {
@@ -749,23 +749,22 @@ class Dashboard extends Component {
                 id="profile"
               >
                 <div id="editicn">
-                <Popup contentStyle={{width: "75%"}}
+                  <Popup
+                    contentStyle={{ width: "75%" }}
                     modal
-                    trigger={ 
-                      <div className="right-align" style={{width:'75%'}}>
+                    trigger={
+                      <div className="right-align" style={{ width: "75%" }}>
                         <img src={edit} width="20" height="20"></img>
-                       
-                       
                       </div>
-                      
                     }
-                    position="center" width='70%'
+                    position="center"
+                    width="70%"
                   >
                     <div class="popup-content">
-                    <EditProfile />
+                      <EditProfile />
                     </div>
-                   </Popup>
-                    </div>
+                  </Popup>
+                </div>
                 <div className="center" id="profile1">
                   <div className="center">
                     <img
