@@ -20,7 +20,7 @@ export const VerifyAction = (verifyOtp, props) => {
     dispatch({
       type: VERIFY_INIT,
     });
-    history.push("/dashboard");
+    return history.push("/dashboard");
     //make api call
     // const { mobileNumber } = verifyOtp;
     axios
@@ -53,17 +53,17 @@ export const VerifyAction = (verifyOtp, props) => {
                   )
                   .then((res) => {
                     if (res.data.success === 1) {
-                      this.props.history.push({
+                      history.push({
                         pathname: "/dashboard",
                       });
                     } else {
-                      this.props.history.push({
+                      history.push({
                         pathname: "/userDetails",
                       });
                     }
                   });
               } else {
-                this.props.history.push({
+                history.push({
                   pathname: "/preregister",
                 });
               }

@@ -142,8 +142,7 @@ class Verify extends Component {
   };
   render() {
     const { loading } = this.state;
-    console.log(this.props);
-
+    // console.log(this.props);
     console.log(this.state);
     console.log(this.props.sendOtp.loading);
 
