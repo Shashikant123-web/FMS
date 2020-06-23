@@ -18,7 +18,7 @@ export class RecomendedJobs extends Component {
     recomendedJobs: [],
     appliedJobs: [],
     savedJobs: [],
-    saved: [6, 2, 3],
+    saved: [6],
   };
   componentDidMount() {
     console.log(this.props.location.state.appliedJobs.appliedJobs);

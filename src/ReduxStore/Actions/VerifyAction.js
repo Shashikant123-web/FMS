@@ -8,21 +8,19 @@ import {
 } from "../ActionTypes/actionTypes";
 import SendOtp from "../../components/SendOtp";
 import { createBrowserHistory } from "history";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter } from "react-router";
 import UserLogin from "../../components/UserLogin";
 const history = createBrowserHistory();
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
-export const VerifyAction = (verifyOtp) => {
+export const VerifyAction = (verifyOtp, props) => {
   return (dispatch, getState) => {
     dispatch({
       type: VERIFY_INIT,
     });
-    return <Redirect to="/" />;
-
-    //history.push("/dashboard");
+    history.push("/dashboard");
     //make api call
     // const { mobileNumber } = verifyOtp;
     axios
@@ -71,8 +69,6 @@ export const VerifyAction = (verifyOtp) => {
               }
             });
         } else {
-          console.log("error");
-
           dispatch({
             type: VERIFY_FAILUR,
             error: "OTP miss match",
@@ -82,6 +78,7 @@ export const VerifyAction = (verifyOtp) => {
           //   loading: false,
           // });
           // this.props.history.push("./verify");
+          console.log("error");
         }
       })
       .catch((error) => {
@@ -89,4 +86,3 @@ export const VerifyAction = (verifyOtp) => {
       });
   };
 };
-//export default withRouter(VerifyAction);

@@ -216,7 +216,7 @@ const mapStateToProps = (state) => {
     sendOtp: state.SendOtp.SendOtp,
   };
 };
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     VerifyAction: (verifyOtp) => dispatch(VerifyAction(verifyOtp)),
   };
