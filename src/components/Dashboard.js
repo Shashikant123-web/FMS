@@ -620,8 +620,8 @@ class Dashboard extends Component {
       appliedJobs.slice(0, 3).map((applied) => {
         return (
           <div className="col 12 m6 l4" key={applied.id}>
-            <div className="card darken-1 hoverable">
-              <div className="card-content " id="recomendedJobsMain">
+            <div className="card darken-1 hoverable" id="recomendedJobsMain">
+              <div className="card-content ">
                 <strong className="black-text">
                   Job position-
                   <span className="grey-text">{applied.jobType}</span>
