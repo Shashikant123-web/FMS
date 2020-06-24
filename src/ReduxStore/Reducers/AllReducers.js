@@ -33,14 +33,6 @@ const intialState = {
   //   loading: false,
   // },
   userLogin: {
-    isPasswordShown: "false",
-    email: "",
-    email1: "",
-    password: "",
-    userId: "",
-    error: "",
-    mobileNumber: "",
-    loading: false,
     payLoad: {},
   },
 };
@@ -81,15 +73,7 @@ const sendotpReducer = (state = intialState, action) => {
           error: action.error,
         },
       };
-    case USERLOGIN_INIT:
-      return {
-        ...state,
-        userLogin: {
-          ...state.userLogin,
-          loading: true,
-          error: "",
-        },
-      };
+
     case USERLOGIN_SUCCESS:
       return {
         ...state,
@@ -98,28 +82,6 @@ const sendotpReducer = (state = intialState, action) => {
           payLoad: action.payLoad,
         },
       };
-    case USERLOGIN_FAILUR:
-      return {
-        ...state,
-        userLogin: {
-          ...state.userLogin,
-          loading: false,
-          error: action.error,
-        },
-      };
-    case EYE:
-      return {
-        ...state,
-        userLogin: {
-          ...state.userLogin,
-          isPasswordShown: !state.userLogin.isPasswordShown,
-        },
-      };
-    // case DASHBOARD:
-    //   return {
-    //     ...state,
-    //     dash: action.dash,
-    //   };
   }
   return state;
 };

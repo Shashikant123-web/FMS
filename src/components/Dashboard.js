@@ -59,9 +59,10 @@ class Dashboard extends Component {
       posts: [],
       details: [],
       editProfile: [],
-      userId: "",
+
       LoggedIn: "true",
-      mobileNumber: this.props.sendOtp.mobileNumber,
+      mobileNumber: "",
+      userId: "",
       search: "",
       appliedJobs: "",
       searchedJobs: [],
@@ -81,6 +82,7 @@ class Dashboard extends Component {
       recomendedJobsLength: "",
     };
   }
+
   handlejobtypes() {}
   handleRadioEdit(e) {
     console.log(e.target.value);
@@ -550,7 +552,14 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log(this.props.sendOtp.mobileNumber);
+    const {
+      mobileNumber,
+      userId,
+      details: { name, email, mob, experience, eduQual },
+    } = this.props.dashboard;
+
+    console.log(mobileNumber);
+    console.log(userId);
 
     /*saved jobs */
     const { savedJobs } = this.state;
@@ -778,9 +787,7 @@ class Dashboard extends Component {
                     {/* <i className="material-icons large">person</i> */}
                     <br></br>
                   </div>
-                  <strong className="center-align">
-                    {this.state.details.name}
-                  </strong>
+                  <strong className="center-align">{name}</strong>
                   <div className="left-align">
                     <p>
                       <img
@@ -800,7 +807,7 @@ class Dashboard extends Component {
                         width="20"
                         height="20"
                       ></img>
-                      {this.state.details.email}
+                      {email}
                     </p>
                     <p>
                       <img
@@ -810,7 +817,7 @@ class Dashboard extends Component {
                         width="20"
                         height="20"
                       ></img>
-                      {this.state.details.mob}
+                      {mob}
                     </p>
                     <p>
                       <img
@@ -820,7 +827,7 @@ class Dashboard extends Component {
                         width="20"
                         height="20"
                       ></img>
-                      {this.state.details.experience}
+                      {experience}
                     </p>
                     <p>
                       <img
@@ -830,7 +837,7 @@ class Dashboard extends Component {
                         width="23"
                         height="23"
                       ></img>
-                      {this.state.details.eduQual}
+                      {eduQual}
                     </p>
                   </div>
 
@@ -968,7 +975,7 @@ class Dashboard extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    sendOtp: state.SendOtp.SendOtp,
+    dashboard: state.userLogin.userLogin.payLoad,
   };
 };
 export default connect(mapStateToProps)(withRouter(Dashboard));
