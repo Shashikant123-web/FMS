@@ -203,10 +203,11 @@ button:enabled {
 .form-group {
   width: 40%;
 }
-#country {
+#countries {
   width: 26%;
   margin-left: -194px;
-  top: -34;
+  position: relative;
+  top: -55px;
 }
 #button1 {
   margin-top: -3%;

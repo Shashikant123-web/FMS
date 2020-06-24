@@ -118,7 +118,7 @@ class SendOtp extends Component {
                   as="select"
                   value={this.state.countryCode}
                   onChange={this.handleChange1}
-                  id="country"
+                  id="countries"
                 >
                   {countries.map((country, i) => (
                     <option key={i} value={country.number.slice(1)}>

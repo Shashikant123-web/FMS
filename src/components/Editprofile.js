@@ -5,6 +5,7 @@ import axios from "axios";
 import { Form } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import { Multiselect } from "multiselect-react-dropdown";
+import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
@@ -22,6 +23,7 @@ class Editprofile extends Component {
     super(props);
 
     this.state = {
+      check: false,
       value: "",
       mobileNumber: "9462462856",
       editProfile: [],
@@ -65,7 +67,9 @@ class Editprofile extends Component {
   }
   componentDidMount() {
     axios
-      .get("/stskFmsApi/jobseeker/getByMob/" + 9462462856, { headers: header })
+      .get("/stskFmsApi/jobseeker/getByMob/" + 9462462856, {
+        headers: header,
+      })
 
       .then((res) => {
         console.log(res.data.data);
@@ -81,13 +85,17 @@ class Editprofile extends Component {
       });
     const timer2 = setTimeout(() => {
       axios
-        .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
-          headers: header,
-        })
+        .get(
+          "/stskFmsApi/jobseekerdoc/getByJobSeekerId/40",
+          // + this.state.userId,
+          {
+            headers: header,
+          }
+        )
         .then((res) => {
           console.log(res);
           this.setState({
-            // docId:res.data.data.docId
+            //docId: res.data.data.docId,
           });
         });
     }, 4000);
@@ -101,8 +109,6 @@ class Editprofile extends Component {
     this.setState({
       resume: e.target.files[0],
     });
-  };
-  handleResume1Submit = (e) => {
     let formData = new FormData();
     formData.append("file", this.state.resume);
     axios
@@ -117,6 +123,21 @@ class Editprofile extends Component {
       })
       .catch((err) => console.log(err));
   };
+  // handleResume1Submit = (e) => {
+  //   let formData = new FormData();
+  //   formData.append("file", this.state.resume);
+  //   axios
+  //     .post("/stskFmsApi/jobseekerdoc/editDoc/" + this.state.docId, formData, {
+  //       headers: {
+  //         "x-api-key":
+  //           " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
   handleChange(e) {
     const { editProfile } = { ...this.state };
     const currentState = editProfile;
@@ -130,6 +151,11 @@ class Editprofile extends Component {
     this.setState({
       editprofileimage: e.target.files[0],
       createeditprofileimage: e.target.files[0],
+    });
+  };
+  handleCheck = (e) => {
+    this.setState({
+      check: true,
     });
   };
   handleChange2Arg = (selectedvalue) => {
@@ -362,6 +388,8 @@ class Editprofile extends Component {
                       onChange={this.handleImageChange}
                     />
                   </div>
+                  {/* <Button class="button button1">Green</Button>
+                  <Button class="button button2">Blue</Button> */}
                   <div className="button">
                     <a class="btn" id="btn" onClick={this.handleImageUpdate}>
                       Update Image
@@ -801,11 +829,26 @@ class Editprofile extends Component {
             </div>
             {/*end section-5 */}
             <div class="text-center">
-              <input
+              {/* </div> */}
+              {/* <input type="file" onChange={this.handleResume}></input> */}
+              <div
+                class="btn btn-default image-preview-input"
+                id="btnheight"
+                style={{ marginLeft: "-121px" }}
+              >
+                <img src={file} id="fileimg" />
+                <span class="image-preview-input-title">Update Resume</span>
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg, image/gif"
+                  name="input-file-preview"
+                />
+              </div>
+              {/* <input
                 type="file"
                 className="inputfile"
                 id="embedpollfileinputs"
-                name="image"
+                name="resume "
                 accept="images.jpeg"
                 onChange={this.handleResume}
               />
@@ -816,25 +859,25 @@ class Editprofile extends Component {
               >
                 <img src={file} id="fileimg" />
                 <span id="doc">Upload Resume</span>
-              </label>
+              </label> */}
             </div>
             <div class="profile-header-container" id="submission">
-              <div class="ui checkbox">
-                <center>
-                  {/* <div class="form-group">  */}
+              {/* <div class="ui checkbox"> */}
+              <center>
+                {/* <div class="form-group">  */}
 
-                  {/* </div> */}
-                  <input
-                    name="check"
-                    value="false "
-                    onClick={this.handleCheck}
-                    type="checkbox"
-                  />
-                  <span>Terms and Conditions</span>
+                {/* </div> */}
+                <input
+                  name="check"
+                  onClick={this.handleCheck}
+                  type="checkbox"
+                  value=""
+                />
+                <span>Terms and Conditions</span>
 
-                  {/* <p className="center red-text">{this.state.checkBoxerror}</p> */}
-                </center>
-              </div>
+                {/* <p className="center red-text">{this.state.checkBoxerror}</p> */}
+              </center>
+              {/* </div> */}
             </div>
             {/* start section-6 */}
             <div class="row" id="section-6">
