@@ -7,11 +7,16 @@
   overflow: auto;
 }
 #profile {
-  height: 400px;
+  height: 409px;
   margin-bottom: 31px;
+  border-radius: 5px;
 }
 #container {
   margin-left: 15px;
+  border-radius: 5px;
+}
+.appliedStatus {
+  border-radius: 5px;
 }
 #container2 {
   margin-left: 5%;
@@ -81,6 +86,7 @@ nav ul li a {
   text-transform: initial;
 }
 #logout {
+  margin-top: -5px;
   font-family: "Lato";
   text-transform: capitalize;
 }

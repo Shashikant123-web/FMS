@@ -7,6 +7,8 @@ import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
 
+import { connect } from "react-redux";
+
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
@@ -17,12 +19,6 @@ export class SavedJobs extends Component {
     savedJobs: [],
     appliedJobs: [],
   };
-  componentDidMount() {
-    this.setState({
-      savedJobs: this.props.location.state.savedJobs.savedJobs,
-      appliedJobs: this.props.location.state.appliedJobs.appliedJobs,
-    });
-  }
 
   handleHide = (id) => {
     console.log(id);
@@ -73,6 +69,7 @@ export class SavedJobs extends Component {
   };
 
   render() {
+    console.log(this.props);
     const { savedJobs } = this.state;
     const savedNumber = savedJobs.length;
     const savedJobsList = savedJobs.length ? (
@@ -84,28 +81,27 @@ export class SavedJobs extends Component {
                 <Popup
                   trigger={
                     <div className="card-content recomendedJobs ">
-                      <>
-                        <div>
-                          <h5>
-                            <strong className="left">{job.jobType}</strong>
-                          </h5>
-                          {this.state.appliedJobs.map((id) => {
-                            if (id.id === job.id) {
-                              return (
-                                <h6 className="right teal-text" key={job.id}>
-                                  <img
-                                    src={rightMark}
-                                    width="20"
-                                    height="20"
-                                  ></img>
-                                  Applied
-                                </h6>
-                              );
-                            }
-                          })}
-                          <br></br>
-                        </div>
-                      </>
+                      <div>
+                        <h5>
+                          <strong className="left">{job.jobType}</strong>
+                        </h5>
+                        {this.state.appliedJobs.map((id) => {
+                          if (id.id === job.id) {
+                            return (
+                              <h6 className="right teal-text" key={job.id}>
+                                <img
+                                  src={rightMark}
+                                  width="20"
+                                  height="20"
+                                ></img>
+                                Applied
+                              </h6>
+                            );
+                          }
+                        })}
+                        <br></br>
+                      </div>
+
                       <br></br>
 
                       <div className="row">
@@ -419,5 +415,9 @@ export class SavedJobs extends Component {
     );
   }
 }
-
-export default withRouter(SavedJobs);
+const mapStateToProps = (state) => {
+  return {
+    dashboard: state.userLogin.userLogin,
+  };
+};
+export default connect(mapStateToProps)(withRouter(SavedJobs));

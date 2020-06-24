@@ -1,9 +1,10 @@
 import axios from "axios";
 import {
   USERLOGIN_SUCCESS,
-  USERLOGIN_FAILUR,
-  USERLOGIN_INIT,
-  EYE,
+  NEW_JOBS,
+  RECOMENDED_JOBS,
+  APPLIED_JOBS,
+  SAVED_JOBS,
 } from "../ActionTypes/actionTypes";
 import { createBrowserHistory } from "history";
 import { withRouter, Redirect } from "react-router-dom";
@@ -24,6 +25,71 @@ export const userLoginAction = (userLogin) => {
         details,
       },
     });
+    axios
+      .get("/stskFmsApi/jobs/recommendedJobs/" + userId, {
+        headers: header,
+      })
+      .then((res) => {
+        console.log(res.data.data);
+
+        if (res.data.success === 1) {
+          dispatch({
+            type: RECOMENDED_JOBS,
+            payLoad: res.data.data,
+          });
+          // } else {
+          //   dispatch({
+          //     type: RECOMENDED_JOBS,
+          //     payLoad: 0,
+          //   });
+        }
+      });
+    axios
+      .get("/stskFmsApi/jobseeker/getSavedJobs/" + userId, {
+        headers: header,
+      })
+      .then((res) => {
+        if (res.data.success === 1) {
+          dispatch({
+            type: SAVED_JOBS,
+            payLoad: res.data.data,
+          });
+          // } else {
+          //   dispatch({
+          //     type: SAVED_JOBS,
+          //     payLoad: 0,
+          //   });
+        }
+      });
+
+    axios
+      .get("/stskFmsApi/jobs/newJobs/" + userId, {
+        headers: header,
+      })
+      .then((res) => {
+        if (res.data.success === 1) {
+          dispatch({
+            type: NEW_JOBS,
+            payLoad: res.data.data,
+          });
+          // } else {
+          //   dispatch({
+          //     type: SAVED_JOBS,
+          //     payLoad: 0,
+          //   });
+        }
+      });
+    axios
+      .get("/stskFmsApi/jobseeker/getById/" + userId, { headers: header })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success === 1) {
+          dispatch({
+            type: APPLIED_JOBS,
+            payLoad: res.data.data.jobs,
+          });
+        }
+      });
   };
 };
 // export default withRouter(VerifyAction);

@@ -1,15 +1,15 @@
 import {
   SEND_OTP,
-  DASHBOARD,
-  USERLOGIN_FAILUR,
   USERLOGIN_SUCCESS,
-} from "../ActionTypes/actionTypes";
-import {
+  RECOMENDED_JOBS,
   VERIFY_SUCCESS,
   VERIFY_INIT,
   VERIFY_FAILUR,
+  SAVED_JOBS,
+  NEW_JOBS,
+  APPLIED_JOBS,
 } from "../ActionTypes/actionTypes";
-import { USERLOGIN_INIT, EYE } from "../ActionTypes/actionTypes";
+
 import SendOtp from "../../components/SendOtp";
 
 const intialState = {
@@ -34,6 +34,11 @@ const intialState = {
   // },
   userLogin: {
     payLoad: {},
+    recomendedJobs: [],
+    appliedJobs: [],
+    savedJobs: [],
+    newJobs: [],
+    appliedJobs: [],
   },
 };
 const sendotpReducer = (state = intialState, action) => {
@@ -80,6 +85,38 @@ const sendotpReducer = (state = intialState, action) => {
         userLogin: {
           ...state.userLogin,
           payLoad: action.payLoad,
+        },
+      };
+    case RECOMENDED_JOBS:
+      return {
+        ...state,
+        userLogin: {
+          ...state.userLogin,
+          recomendedJobs: action.payLoad,
+        },
+      };
+    case SAVED_JOBS:
+      return {
+        ...state,
+        userLogin: {
+          ...state.userLogin,
+          savedJobs: action.payLoad,
+        },
+      };
+    case NEW_JOBS:
+      return {
+        ...state,
+        userLogin: {
+          ...state.userLogin,
+          newJobs: action.payLoad,
+        },
+      };
+    case APPLIED_JOBS:
+      return {
+        ...state,
+        userLogin: {
+          ...state.userLogin,
+          appliedJobs: action.payLoad,
         },
       };
   }
