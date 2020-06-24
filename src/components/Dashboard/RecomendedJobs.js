@@ -7,6 +7,7 @@ import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
 import M from "materialize-css/dist/js/materialize.min.js";
+import { connect } from "react-redux";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -20,14 +21,6 @@ export class RecomendedJobs extends Component {
     savedJobs: [],
     saved: [6],
   };
-  componentDidMount() {
-    console.log(this.props.location.state.appliedJobs.appliedJobs);
-    this.setState({
-      recomendedJobs: this.props.location.state.recomendedJobs.recomendedJobs,
-      appliedJobs: this.props.location.state.appliedJobs.appliedJobs,
-      savedJobs: this.props.location.state.savedJobs.savedJobs,
-    });
-  }
 
   handleHide = (id) => {
     // M.toast({ Forhtml: "I am a toast", classes: "rounded" });
@@ -104,6 +97,9 @@ export class RecomendedJobs extends Component {
 
   render() {
     console.log(this.state);
+    console.log(this.props.dashboard);
+    console.log(this.props);
+
     const { recomendedJobs } = this.state;
     const nmbr = recomendedJobs.length;
     const recommendedList = recomendedJobs.length ? (
@@ -115,29 +111,28 @@ export class RecomendedJobs extends Component {
                 <Popup
                   trigger={
                     <div className="card-content recomendedJobs ">
-                      <>
-                        <div>
-                          <h5>
-                            <strong className="left">{job.jobType}</strong>
-                          </h5>
-                          {this.state.appliedJobs &&
-                            this.state.appliedJobs.map((id, index) => {
-                              if (id.id === job.id) {
-                                return (
-                                  <h6 className="right teal-text" key={index}>
-                                    <img
-                                      src={rightMark}
-                                      width="20"
-                                      height="20"
-                                    ></img>
-                                    Applied
-                                  </h6>
-                                );
-                              }
-                            })}
-                          <br></br>
-                        </div>
-                      </>
+                      <div>
+                        <h5>
+                          <strong className="left">{job.jobType}</strong>
+                        </h5>
+                        {this.state.appliedJobs &&
+                          this.state.appliedJobs.map((id, index) => {
+                            if (id.id === job.id) {
+                              return (
+                                <h6 className="right teal-text" key={index}>
+                                  <img
+                                    src={rightMark}
+                                    width="20"
+                                    height="20"
+                                  ></img>
+                                  Applied
+                                </h6>
+                              );
+                            }
+                          })}
+                        <br></br>
+                      </div>
+
                       <br></br>
 
                       <div className="row">
@@ -482,4 +477,9 @@ export class RecomendedJobs extends Component {
   }
 }
 
-export default withRouter(RecomendedJobs);
+const mapStateToProps = (state) => {
+  return {
+    dashboard: state.userLogin.userLogin,
+  };
+};
+export default connect(mapStateToProps)(withRouter(RecomendedJobs));

@@ -1,15 +1,15 @@
 import {
   SEND_OTP,
-  DASHBOARD,
-  USERLOGIN_FAILUR,
   USERLOGIN_SUCCESS,
-} from "../ActionTypes/actionTypes";
-import {
+  RECOMENDED_JOBS,
   VERIFY_SUCCESS,
   VERIFY_INIT,
   VERIFY_FAILUR,
+  SAVED_JOBS,
+  NEW_JOBS,
+  APPLIED_JOBS,
 } from "../ActionTypes/actionTypes";
-import { USERLOGIN_INIT, EYE } from "../ActionTypes/actionTypes";
+
 import SendOtp from "../../components/SendOtp";
 
 const intialState = {
@@ -33,15 +33,12 @@ const intialState = {
   //   loading: false,
   // },
   userLogin: {
-    isPasswordShown: "false",
-    email: "",
-    email1: "",
-    password: "",
-    userId: "",
-    error: "",
-    mobileNumber: "",
-    loading: false,
     payLoad: {},
+    recomendedJobs: [],
+    appliedJobs: [],
+    savedJobs: [],
+    newJobs: [],
+    appliedJobs: [],
   },
 };
 const sendotpReducer = (state = intialState, action) => {
@@ -81,15 +78,7 @@ const sendotpReducer = (state = intialState, action) => {
           error: action.error,
         },
       };
-    case USERLOGIN_INIT:
-      return {
-        ...state,
-        userLogin: {
-          ...state.userLogin,
-          loading: true,
-          error: "",
-        },
-      };
+
     case USERLOGIN_SUCCESS:
       return {
         ...state,
@@ -98,28 +87,38 @@ const sendotpReducer = (state = intialState, action) => {
           payLoad: action.payLoad,
         },
       };
-    case USERLOGIN_FAILUR:
+    case RECOMENDED_JOBS:
       return {
         ...state,
         userLogin: {
           ...state.userLogin,
-          loading: false,
-          error: action.error,
+          recomendedJobs: action.payLoad,
         },
       };
-    case EYE:
+    case SAVED_JOBS:
       return {
         ...state,
         userLogin: {
           ...state.userLogin,
-          isPasswordShown: !state.userLogin.isPasswordShown,
+          savedJobs: action.payLoad,
         },
       };
-    // case DASHBOARD:
-    //   return {
-    //     ...state,
-    //     dash: action.dash,
-    //   };
+    case NEW_JOBS:
+      return {
+        ...state,
+        userLogin: {
+          ...state.userLogin,
+          newJobs: action.payLoad,
+        },
+      };
+    case APPLIED_JOBS:
+      return {
+        ...state,
+        userLogin: {
+          ...state.userLogin,
+          appliedJobs: action.payLoad,
+        },
+      };
   }
   return state;
 };

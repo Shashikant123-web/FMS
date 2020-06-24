@@ -5,8 +5,10 @@ export const VERIFY_FAILUR = "VERIFY_FAILUR";
 export const VERIFY_INIT = "VERIFY_INIT";
 
 export const USERLOGIN_SUCCESS = "USERLOGIN_SUCCESS";
-export const USERLOGIN_FAILUR = "USERLOGIN_FAILUR";
-export const USERLOGIN_INIT = "USERLOGIN_INIT";
-export const EYE = "EYE";
+
+export const RECOMENDED_JOBS = "RECOMENDED_JOBS";
+export const NEW_JOBS = "NEW_JOBS";
+export const SAVED_JOBS = "SAVED_JOBS";
+export const APPLIED_JOBS = "APPLIED_JOBS";
 
 export const DASUSERLOGIN = "DASHBOARD";

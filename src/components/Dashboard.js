@@ -59,9 +59,10 @@ class Dashboard extends Component {
       posts: [],
       details: [],
       editProfile: [],
-      userId: "",
+
       LoggedIn: "true",
-      mobileNumber: this.props.sendOtp.mobileNumber,
+      mobileNumber: "",
+      userId: "",
       search: "",
       appliedJobs: "",
       searchedJobs: [],
@@ -81,6 +82,7 @@ class Dashboard extends Component {
       recomendedJobsLength: "",
     };
   }
+
   handlejobtypes() {}
   handleRadioEdit(e) {
     console.log(e.target.value);
@@ -114,88 +116,68 @@ class Dashboard extends Component {
     //     console.log(error);
     //   });
     // this._isMounted = true;
-    // this.setState({
-    //   mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-    // });
-    // axios
-    //   .get("/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber, {
-    //     headers: header,
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     this.setState({
-    //       userId: res.data.data.id,
-    //       details: res.data.data,
-    //       editProfile: res.data.data,
-    //       userLoginMobile: res.data.data.mob,
+    //const timer = setTimeout(() => {
+    //   axios
+    //     .get("/stskFmsApi/jobs/recommendedJobs/" + 27, {
+    //       headers: header,
+    //     })
+    //     .then((res) => {
+    //       console.log(res.data.data);
+    //       if (res.data.success === 1) {
+    //         this.setState({
+    //           recomendedJobs: res.data.data,
+    //         });
+    //       } else {
+    //         console.log("No jobs present");
+    //       }
     //     });
-    //   });
-
-    const timer = setTimeout(() => {
-      axios
-        .get("/stskFmsApi/jobs/recommendedJobs/" + 27, {
-          headers: header,
-        })
-        .then((res) => {
-          console.log(res.data.data);
-          if (res.data.success === 1) {
-            this.setState({
-              recomendedJobs: res.data.data,
-            });
-          } else {
-            console.log("No jobs present");
-          }
-        });
-      axios
-        .get("/stskFmsApi/jobseeker/getSavedJobs/" + 27, {
-          headers: header,
-        })
-        .then((res) => {
-          if (res.data.success === 1) {
-            this.setState({
-              savedJobs: res.data.data,
-            });
-          } else {
-            this.setState({
-              savedJobs: "",
-            });
-          }
-        });
-
-      axios
-        .get("/stskFmsApi/jobs/newJobs/" + 27, {
-          headers: header,
-        })
-        .then((res) => {
-          if (res.data.success === 1) {
-            this.setState({
-              newJobs: res.data.data,
-            });
-          } else {
-            this.setState({
-              newJobs: "",
-            });
-          }
-        });
-    }, 3000);
-
-    const timer1 = setTimeout(() => {
-      axios
-        .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
-        .then((res) => {
-          console.log(res.data);
-          if (res.data.success === 1) {
-            this.setState({
-              appliedJobs: res.data.data.jobs,
-            });
-          } else {
-            this.setState({
-              appliedJobs: 0,
-            });
-          }
-        });
-    }, 3000);
-
+    //   axios
+    //     .get("/stskFmsApi/jobseeker/getSavedJobs/" + 27, {
+    //       headers: header,
+    //     })
+    //     .then((res) => {
+    //       if (res.data.success === 1) {
+    //         this.setState({
+    //           savedJobs: res.data.data,
+    //         });
+    //       } else {
+    //         this.setState({
+    //           savedJobs: "",
+    //         });
+    //       }
+    //     });
+    //   axios
+    //     .get("/stskFmsApi/jobs/newJobs/" + 27, {
+    //       headers: header,
+    //     })
+    //     .then((res) => {
+    //       if (res.data.success === 1) {
+    //         this.setState({
+    //           newJobs: res.data.data,
+    //         });
+    //       } else {
+    //         this.setState({
+    //           newJobs: "",
+    //         });
+    //       }
+    //     });
+    // }, 1000);
+    // const timer1 = setTimeout(() => {
+    //   axios
+    //     .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
+    //     .then((res) => {
+    //       console.log(res.data);
+    //       if (res.data.success === 1) {
+    //         this.setState({
+    //           appliedJobs: res.data.data.jobs,
+    //         });
+    //       } else {
+    //         this.setState({
+    //           appliedJobs: 0,
+    //         });
+    //       }
+    //     });
+    // }, 1000);
     // const timer2 = setTimeout(() => {
     //   axios
     //     .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
@@ -550,19 +532,31 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log(this.props.sendOtp.mobileNumber);
+    const {
+      mobileNumber,
+      userId,
+      recomendedJobs,
+      savedJobs,
+      newJobs,
+      appliedJobs,
+      payLoad: {
+        details: { name, email, mob, experience, eduQual },
+      },
+    } = this.props.dashboard;
+
+    console.log(this.props);
 
     /*saved jobs */
-    const { savedJobs } = this.state;
+    //const { savedJobs } = this.state;
     const saveNumber = savedJobs.length;
 
     /*new jobs */
-    const { newJobs } = this.state;
+    // const { newJobs } = this.state;
     const newNumber = newJobs.length;
 
     /*recomended jobs*/
 
-    const { recomendedJobs } = this.state;
+    //const { recomendedJobs } = this.state;
     const nmbr = recomendedJobs.length;
 
     const recommendedList = recomendedJobs.length ? (
@@ -594,10 +588,6 @@ class Dashboard extends Component {
                   onClick={() =>
                     this.props.history.push({
                       pathname: "/recomendedJobs",
-                      state: {
-                        recomendedJobs: this.state,
-                        appliedJobs: this.state,
-                      },
                     })
                   }
                 >
@@ -614,7 +604,7 @@ class Dashboard extends Component {
 
     /*applied jobs*/
     console.log(this.state);
-    const { appliedJobs } = this.state;
+    //const { appliedJobs } = this.state;
     const appliedJobsNmbr = appliedJobs.length;
     const appliedJobsList = appliedJobs.length ? (
       appliedJobs.slice(0, 3).map((applied) => {
@@ -778,9 +768,7 @@ class Dashboard extends Component {
                     {/* <i className="material-icons large">person</i> */}
                     <br></br>
                   </div>
-                  <strong className="center-align">
-                    {this.state.details.name}
-                  </strong>
+                  <strong className="center-align">{name}</strong>
                   <div className="left-align">
                     <p>
                       <img
@@ -800,7 +788,7 @@ class Dashboard extends Component {
                         width="20"
                         height="20"
                       ></img>
-                      {this.state.details.email}
+                      {email}
                     </p>
                     <p>
                       <img
@@ -810,7 +798,7 @@ class Dashboard extends Component {
                         width="20"
                         height="20"
                       ></img>
-                      {this.state.details.mob}
+                      {mob}
                     </p>
                     <p>
                       <img
@@ -820,7 +808,7 @@ class Dashboard extends Component {
                         width="20"
                         height="20"
                       ></img>
-                      {this.state.details.experience}
+                      {experience}
                     </p>
                     <p>
                       <img
@@ -830,7 +818,7 @@ class Dashboard extends Component {
                         width="23"
                         height="23"
                       ></img>
-                      {this.state.details.eduQual}
+                      {eduQual}
                     </p>
                   </div>
 
@@ -872,11 +860,6 @@ class Dashboard extends Component {
                         onClick={() =>
                           this.props.history.push({
                             pathname: "/recomendedJobs",
-                            state: {
-                              recomendedJobs: this.state,
-                              savedJobs: this.state,
-                              appliedJobs: this.state,
-                            },
                           })
                         }
                       >
@@ -937,7 +920,7 @@ class Dashboard extends Component {
                 </div>
               </div>
               {/*applied status*/}
-              <div className="col s12 m10 l10 offset-l1 offset-m1 z-depth-1">
+              <div className="col s12 m10 l10 offset-l1 offset-m1 z-depth-1 appliedStatus">
                 <h4 className="grey-text">Appied status</h4>
                 {appliedJobsList}
                 <div className="col s12 m12 l12">
@@ -968,7 +951,7 @@ class Dashboard extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    sendOtp: state.SendOtp.SendOtp,
+    dashboard: state.userLogin.userLogin,
   };
 };
 export default connect(mapStateToProps)(withRouter(Dashboard));
