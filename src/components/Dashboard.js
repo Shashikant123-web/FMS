@@ -21,6 +21,7 @@ import { Form } from "react-bootstrap";
 import EditProfile from "./Editprofile";
 
 import { connect } from "react-redux";
+import NavbarTop from "./NavbarJobseeker/NavbarTop";
 
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
@@ -644,51 +645,7 @@ class Dashboard extends Component {
 
     return (
       <div id="back">
-        <div className="navbar-fixed white">
-          <nav className="white">
-            <div className="nav-wrapper white container">
-              <a className="brand-logo left jobnav" id="img">
-                <img
-                  className="center"
-                  src={mainLogo}
-                  width="50"
-                  height="50"
-                ></img>
-              </a>
-              <ul id="nav-mobile jonnav" className="right">
-                <li>
-                  <Link
-                    to="/dashboard"
-                    className="waves-effect waves-light btn-small"
-                    id="btnnav"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    id="home"
-                    to={{
-                      pathname: "/help",
-                    }}
-                  >
-                    Help
-                  </Link>
-                </li>
-                {/* <li><i className="material-icons grey-text large" id="profileicn">account_circle</i></li> */}
-                <img
-                  src={this.state.profileimagepath}
-                  style={{
-                    height: "63px",
-                    width: "63px",
-                    borderRadius: "50px",
-                  }}
-                ></img>
-              </ul>
-            </div>
-          </nav>
-        </div>
-
+        <NavbarTop />
         <div className="row">
           <div className="">
             <img className="center" id="dashboard" src={dashboard}></img>
@@ -883,7 +840,15 @@ class Dashboard extends Component {
                         <br></br>
                         <br></br>
                         <h5 className="left">Security Guard</h5>
-                        <h6 className="right" id="viewdetailss">
+                        <h6
+                          className="right"
+                          id="viewdetailss"
+                          onClick={() =>
+                            this.props.history.push({
+                              pathname: "/newJobs",
+                            })
+                          }
+                        >
                           View Details
                         </h6>
                       </div>
@@ -906,10 +871,6 @@ class Dashboard extends Component {
                         onClick={() =>
                           this.props.history.push({
                             pathname: "/savedJobs",
-                            state: {
-                              savedJobs: this.state,
-                              appliedJobs: this.state,
-                            },
                           })
                         }
                       >

@@ -6,27 +6,22 @@ import { withRouter, Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
-
+import M from "materialize-css/dist/js/materialize.min.js";
+import NavbarTop from "../NavbarJobseeker/NavbarTop";
 import { connect } from "react-redux";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
 
-export class SavedJobs extends Component {
-  state = {
-    // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-    savedJobs: [],
-    appliedJobs: [],
-  };
-
+export class newJobs extends Component {
   handleHide = (id) => {
-    console.log(id);
-    const SavedJobs = this.state.SavedJobs.filter((job) => {
+    // M.toast({ Forhtml: "I am a toast", classes: "rounded" });
+    const recomendedJobs = this.state.recomendedJobs.filter((job) => {
       return job.id !== id;
     });
     this.setState({
-      SavedJobs,
+      recomendedJobs,
     });
   };
   handleApply = (id) => {
@@ -47,6 +42,15 @@ export class SavedJobs extends Component {
         console.log(res.data);
         console.log(res);
       });
+    const timer1 = setTimeout(() => {
+      axios
+        .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
+        .then((res) => {
+          this.setState({
+            appliedJobs: res.data.data.jobs,
+          });
+        });
+    }, 1000);
   };
   handleSave = (id) => {
     // axios
@@ -57,8 +61,8 @@ export class SavedJobs extends Component {
     //       jobs: [
     //         {
     //           id: id,
-    //         },
-    //       ],
+    //         }
+    //       ]
     //     },
     //     { headers: header }
     //   )
@@ -66,18 +70,34 @@ export class SavedJobs extends Component {
     //     console.log(res.data);
     //     console.log(res);
     //   });
+    // {
+    //   this.state.saved.map((savedId) => {
+    //     var flag = document.getElementById(id).innerHTML;
+
+    //     if (flag === "turned_in_not" && id == savedId) {
+    //       var a = (document.getElementById(id).innerHTML = "turned_in");
+    //       flag = 1;
+    //     } else {
+    //       var a = (document.getElementById(id).innerHTML = "turned_in_not");
+    //     }
+    //   });
+    // }
+    console.log(id);
+    this.setState({
+      saved: [...this.state.saved, id],
+    });
   };
 
   render() {
-    console.log(this.props);
-    const { savedJobs, appliedJobs } = this.props.dashboard;
-    const savedNumber = savedJobs.length;
-    const savedJobsList = savedJobs.length ? (
-      savedJobs.map((job) => {
+    const { newJobs, appliedJobs } = this.props.dashboard;
+
+    const nmbr = newJobs.length;
+    const newJobsList = newJobs.length ? (
+      newJobs.map((job) => {
         return (
           <div key={job.id}>
             <div className="col s12 m12 l12">
-              <div className="card darken-1 hoverable " id="recomendedJobsMain">
+              <div className="card darken-1 hoverable" id="recomendedJobsMain">
                 <Popup
                   trigger={
                     <div className="card-content recomendedJobs ">
@@ -86,10 +106,10 @@ export class SavedJobs extends Component {
                           <strong className="left">{job.jobType}</strong>
                         </h5>
                         {appliedJobs &&
-                          appliedJobs.map((id) => {
+                          appliedJobs.map((id, index) => {
                             if (id.id === job.id) {
                               return (
-                                <h6 className="right teal-text" key={job.id}>
+                                <h6 className="right teal-text" key={index}>
                                   <img
                                     src={rightMark}
                                     width="20"
@@ -235,16 +255,12 @@ export class SavedJobs extends Component {
                         <div>
                           <strong>Description</strong>
                           <br></br>
-                          <p className="grey-text">
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. since the 1500s, when an
-                            unknown
-                          </p>
+                          <p className="grey-text">{job.description}</p>
                         </div>
                         <div className="center">
                           <a className="btn center" id="savebtn">
-                            <i className="material-icons left">turned_in</i>
-                            saved
+                            <i className="material-icons left">turned_in_not</i>
+                            save
                           </a>
                           <a
                             className="btn center"
@@ -263,9 +279,42 @@ export class SavedJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    <strong className="right" key={job.id}>
-                      <i className="material-icons teal-text left">turned_in</i>
-                      saved
+                    {this.state.saved &&
+                      this.state.saved.map((id, index) => {
+                        if (id === job.id) {
+                          return (
+                            <strong className="right" key={index}>
+                              <i className="material-icons teal-text left">
+                                turned_in
+                              </i>
+                              saved
+                            </strong>
+                          );
+                        } else {
+                          return (
+                            <strong
+                              key={index}
+                              className="right"
+                              onClick={() => this.handleSave(job.id)}
+                            >
+                              <i className="material-icons teal-text left">
+                                turned_in_not
+                              </i>
+                              save
+                            </strong>
+                          );
+                        }
+                      })}
+                    <strong
+                      className="right"
+                      onClick={() => {
+                        this.handleHide(job.id);
+                      }}
+                    >
+                      <i className="material-icons teal-text left">
+                        visibility_off
+                      </i>
+                      hide
                     </strong>
                   </div>
                 </div>
@@ -288,60 +337,14 @@ export class SavedJobs extends Component {
         <br></br>
         <br></br>
         <br></br>
+        <br></br>
       </div>
     );
 
-    console.log(this.state);
     return (
       <div id="back">
         <div>
-          <div className="navbar-fixed">
-            <nav className="white">
-              <div className="nav-wrapper white container">
-                <a className="brand-logo left jobnav" id="img">
-                  <img
-                    className="center"
-                    src={mainLogo}
-                    width="50"
-                    height="50"
-                  ></img>
-                </a>
-                <ul id="nav-mobile jonnav" className="right">
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="waves-effect waves-light btn-small"
-                      id="btnnav"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      id="home"
-                      to={{
-                        pathname: "/help",
-                        state: {
-                          mobileNumber: this.state,
-                        },
-                      }}
-                    >
-                      Help
-                    </Link>
-                  </li>
-                  <img
-                    src={this.state.profileimagepath}
-                    style={{
-                      height: "63px",
-                      width: "63px",
-                      borderRadius: "50px",
-                    }}
-                  ></img>
-                </ul>
-              </div>
-            </nav>
-          </div>
-
+          <NavbarTop />
           <div className="row">
             <img className="center" id="dashboard" src={dashboard}></img>
             <div className="center-align">
@@ -374,7 +377,8 @@ export class SavedJobs extends Component {
               </div>
             </nav>
           </div>
-          <div className="container">
+
+          <div className="container mainContainer">
             <div className="left">
               <strong
                 className="waves-effect waves-light"
@@ -386,23 +390,23 @@ export class SavedJobs extends Component {
               </strong>
               <strong className="waves-effect waves-light">
                 <i className="material-icons left">chevron_right</i>
-                <strong className="teal-text">Saved jobs</strong>
+                <strong className="teal-text">New jobs</strong>
               </strong>
             </div>
             <br></br>
             <hr></hr>
             <div>
               <h5 className="left">
-                <strong>Saved jobs for you</strong>
+                <strong>Recomended jobs for you</strong>
               </h5>
               <strong className="right">
-                <div className="numberCircle left">{savedNumber}</div>
+                <div className="numberCircle left">{nmbr}</div>
                 <h5 className="right">jobs</h5>
               </strong>
             </div>
             <br></br>
             <br></br>
-            {savedJobsList}
+            {newJobsList}
           </div>
 
           <div className="footer-copyright" id="footer">
@@ -416,9 +420,10 @@ export class SavedJobs extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     dashboard: state.userLogin.userLogin,
   };
 };
-export default connect(mapStateToProps)(withRouter(SavedJobs));
+export default connect(mapStateToProps)(withRouter(newJobs));

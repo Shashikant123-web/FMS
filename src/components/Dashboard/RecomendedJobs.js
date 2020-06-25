@@ -8,6 +8,7 @@ import axios from "axios";
 import rightMark from "../Images/tic.png";
 import M from "materialize-css/dist/js/materialize.min.js";
 import { connect } from "react-redux";
+import NavbarTop from "../NavbarJobseeker/NavbarTop";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -16,9 +17,9 @@ const header = {
 export class RecomendedJobs extends Component {
   state = {
     // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-    recomendedJobs: [],
-    appliedJobs: [],
-    savedJobs: [],
+    // recomendedJobs: [],
+    // appliedJobs: [],
+    // savedJobs: [],
     saved: [6],
   };
 
@@ -96,11 +97,8 @@ export class RecomendedJobs extends Component {
   };
 
   render() {
-    console.log(this.state);
-    console.log(this.props.dashboard);
-    console.log(this.props);
+    const { recomendedJobs, savedJobs, appliedJobs } = this.props.dashboard;
 
-    const { recomendedJobs } = this.state;
     const nmbr = recomendedJobs.length;
     const recommendedList = recomendedJobs.length ? (
       recomendedJobs.map((job) => {
@@ -115,8 +113,8 @@ export class RecomendedJobs extends Component {
                         <h5>
                           <strong className="left">{job.jobType}</strong>
                         </h5>
-                        {this.state.appliedJobs &&
-                          this.state.appliedJobs.map((id, index) => {
+                        {appliedJobs &&
+                          appliedJobs.map((id, index) => {
                             if (id.id === job.id) {
                               return (
                                 <h6 className="right teal-text" key={index}>
@@ -354,53 +352,7 @@ export class RecomendedJobs extends Component {
     return (
       <div id="back">
         <div>
-          <div className="navbar-fixed">
-            <nav className="white">
-              <div className="nav-wrapper white container">
-                <a className="brand-logo left jobnav" id="img">
-                  <img
-                    className="center"
-                    src={mainLogo}
-                    width="50"
-                    height="50"
-                  ></img>
-                </a>
-                <ul id="nav-mobile jonnav" className="right">
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="waves-effect waves-light btn-small"
-                      id="btnnav"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      id="home"
-                      to={{
-                        pathname: "/help",
-                        state: {
-                          mobileNumber: this.state,
-                        },
-                      }}
-                    >
-                      Help
-                    </Link>
-                  </li>
-                  <img
-                    src={this.state.profileimagepath}
-                    style={{
-                      height: "63px",
-                      width: "63px",
-                      borderRadius: "50px",
-                    }}
-                  ></img>
-                </ul>
-              </div>
-            </nav>
-          </div>
-
+          <NavbarTop />
           <div className="row">
             <img className="center" id="dashboard" src={dashboard}></img>
             <div className="center-align">
