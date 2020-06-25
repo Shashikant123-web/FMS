@@ -12,6 +12,9 @@ import Popup from "reactjs-popup";
 import axios from "axios";
 import file from "./Images/file.png";
 import { Checkbox } from "semantic-ui-react";
+
+import { connect } from "react-redux";
+
 // import { Icon, Popup, Grid } from 'semantic-ui-react'
 
 const header = {
@@ -404,8 +407,9 @@ class UserDetails extends Component {
   };
 
   render() {
-    console.log(this.state);
+    const { mobileNumber, email } = this.props.details;
     console.log(this.state.jobUpdate);
+    console.log(this.props);
     const { selectedValue } = this.state;
     return (
       <div class="container register-form">
@@ -455,7 +459,7 @@ class UserDetails extends Component {
                     type="email"
                     name="email"
                     required
-                    value={this.state.email}
+                    value={email}
                   />
                 </div>
                 <div class="form-group">
@@ -541,7 +545,7 @@ class UserDetails extends Component {
                     type="tel"
                     name="mob"
                     required
-                    value={this.state.mob}
+                    value={mobileNumber}
                   />
                 </div>
                 <div class="form-group">
@@ -865,5 +869,10 @@ class UserDetails extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    details: state.userLogin.userLogin,
+  };
+};
 
-export default UserDetails;
+export default connect(mapStateToProps)(UserDetails);

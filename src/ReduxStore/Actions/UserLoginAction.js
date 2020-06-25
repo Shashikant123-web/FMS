@@ -16,6 +16,8 @@ const header = {
 export const userLoginAction = (userLogin) => {
   const { email1, userId, mobileNumber, details } = userLogin;
   return (dispatch, getState) => {
+    console.log(userId);
+    console.log(details);
     dispatch({
       type: USERLOGIN_SUCCESS,
       payLoad: {
@@ -25,8 +27,9 @@ export const userLoginAction = (userLogin) => {
         details,
       },
     });
+
     axios
-      .get("/stskFmsApi/jobs/recommendedJobs/" + userId, {
+      .get("/stskFmsApi/jobseeker/recommendedJobs/" + userId, {
         headers: header,
       })
       .then((res) => {
@@ -37,11 +40,6 @@ export const userLoginAction = (userLogin) => {
             type: RECOMENDED_JOBS,
             payLoad: res.data.data,
           });
-          // } else {
-          //   dispatch({
-          //     type: RECOMENDED_JOBS,
-          //     payLoad: 0,
-          //   });
         }
       });
     axios
@@ -54,16 +52,11 @@ export const userLoginAction = (userLogin) => {
             type: SAVED_JOBS,
             payLoad: res.data.data,
           });
-          // } else {
-          //   dispatch({
-          //     type: SAVED_JOBS,
-          //     payLoad: 0,
-          //   });
         }
       });
 
     axios
-      .get("/stskFmsApi/jobs/newJobs/" + userId, {
+      .get("/stskFmsApi/jobseeker/newJobs/" + userId, {
         headers: header,
       })
       .then((res) => {
@@ -72,11 +65,6 @@ export const userLoginAction = (userLogin) => {
             type: NEW_JOBS,
             payLoad: res.data.data,
           });
-          // } else {
-          //   dispatch({
-          //     type: SAVED_JOBS,
-          //     payLoad: 0,
-          //   });
         }
       });
     axios
@@ -92,4 +80,3 @@ export const userLoginAction = (userLogin) => {
       });
   };
 };
-// export default withRouter(VerifyAction);
