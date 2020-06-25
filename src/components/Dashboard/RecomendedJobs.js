@@ -279,24 +279,54 @@ export class RecomendedJobs extends Component {
                           <br></br>
                           <p className="grey-text">{job.description}</p>
                         </div>
-                        <div className="text-center">
-                          <h4>Before Applying do you want to Edit?</h4>
-                          <p>
-                            <label>
-                              <input
-                                name="fresher"
-                                value="true"
-                                // onClick={() =>
-                                //   this.props.history.push("/editProfile")
-                                // }
-                                // onClick={this.togglePopup.bind(this)}
-                                onClick={this.handlepopupopen}
-                                type="radio"
-                                id="ra"
-                              />
-                              <span id="label">Yes</span>
-                            </label>
-                          </p>
+                        <div className=".text-left">
+                          <h6>Before Applying do you want to Edit?</h6>
+                          <Popup
+                            contentStyle={{ width: "75%" }}
+                            trigger={
+                              <p>
+                                <label>
+                                  <input
+                                    name="fresher"
+                                    value="true"
+                                    type="radio"
+                                    id="ra"
+                                  />
+                                  <span
+                                    id="label"
+                                    onClick={() => console.log("shsss")}
+                                  >
+                                    Yes
+                                  </span>
+                                </label>
+                              </p>
+                            }
+                            modal
+                            position="center"
+                            width="70%"
+                          >
+                            {(close) => (
+                              <div className="popup-content">
+                                <div className="col s12 m12 l12">
+                                  <div className="right-align">
+                                    <i
+                                      className="material-icons"
+                                      id="dashcancelbtn"
+                                      onClick={() => {
+                                        close();
+                                      }}
+                                    >
+                                      clear
+                                    </i>
+                                  </div>
+                                  <EditProfile />
+
+                                  <br></br>
+                                </div>
+                              </div>
+                            )}
+                          </Popup>
+
                           <p>
                             <label>
                               <input

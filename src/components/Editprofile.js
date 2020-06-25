@@ -6,6 +6,8 @@ import { Form } from "react-bootstrap";
 import Popup from "reactjs-popup";
 import { Multiselect } from "multiselect-react-dropdown";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+
+import { connect } from "react-redux";
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
@@ -288,6 +290,28 @@ class Editprofile extends Component {
     });
   };
   handleSubmit = (e) => {
+    const {
+      name,
+      email,
+      mob,
+      panNum,
+      aadharNum,
+      eduQual,
+      experience,
+      working,
+      jobUpdate,
+      address,
+      fresher,
+      companyName,
+      destination,
+      noticePeriod,
+      noOfDays,
+      currentLocation,
+      negotiable,
+      upTo,
+      jobLocation,
+    } = this.state.editProfile;
+    console.log(name);
     e.preventDefault();
     if (this.state.check === true) {
       axios
@@ -295,25 +319,25 @@ class Editprofile extends Component {
           "/stskFmsApi/jobseeker/editJS",
           {
             id: this.state.userId,
-            name: this.state.editProfile.name,
-            email: this.state.editProfile.email,
-            mob: this.state.editProfile.mob,
-            panNum: this.state.editProfile.panNum,
-            aadharNum: this.state.editProfile.aadharNum,
-            eduQual: this.state.editProfile.eduQual,
-            experience: this.state.editProfile.experience,
-            working: this.state.editProfile.working,
-            jobUpdate: this.state.editProfile.jobUpdate,
-            address: this.state.editProfile.address,
-            fresher: this.state.editProfile.fresher,
-            companyName: this.state.editProfile.companyName,
-            destination: this.state.editProfile.destination,
-            noticeperiod: this.state.editProfile.noticeperiod,
-            noOfDays: this.state.editProfile.noOfDays,
-            currentLocation: this.state.editProfile.currentLocation,
-            negotiable: this.state.editProfile.negotiable,
-            upTo: this.state.editProfile.upTo,
-            jobLocation: this.state.editProfile.jobLocation,
+            name,
+            email,
+            mob,
+            panNum,
+            aadharNum,
+            eduQual,
+            experience,
+            working,
+            jobUpdate,
+            address,
+            fresher,
+            companyName,
+            destination,
+            noticePeriod,
+            noOfDays,
+            currentLocation,
+            negotiable,
+            upTo,
+            jobLocation,
             userLogin: {
               id: this.state.userLogin,
             },
@@ -370,6 +394,7 @@ class Editprofile extends Component {
 
   render() {
     console.log(this.state);
+    console.log(this.props);
     // console.log(this.state.editProfile.userLogin.id)
     // console.log(this.state.editProfile.userLogin.id)
     return (
@@ -927,5 +952,8 @@ class Editprofile extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return { editProfile: state.userLogin.userLogin };
+};
 
-export default Editprofile;
+export default connect(mapStateToProps)(Editprofile);
