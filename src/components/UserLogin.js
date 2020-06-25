@@ -27,7 +27,6 @@ class UserLogin extends Component {
     const { isPasswordShown } = this.state;
     this.setState({ isPasswordShown: !isPasswordShown });
   };
-
   handleChange1 = (e) => {
     this.setState({
       email: "'" + e.target.value + "'",
@@ -126,11 +125,9 @@ class UserLogin extends Component {
               console.log(res.data);
               console.log(res.data.data);
               if (res.data.data === null) {
+                this.props.userLoginAction(this.state);
                 this.props.history.push({
                   pathname: "/userDetails",
-                  state: {
-                    mobileNumber: this.state,
-                  },
                 });
               } else {
                 this.props.userLoginAction(this.state);
@@ -146,7 +143,7 @@ class UserLogin extends Component {
             });
         } else if (Response.data.message === "User ID or Password error") {
           this.setState({
-            error: "User ID or Password error",
+            error: "Password error",
             loading: false,
           });
         } else {

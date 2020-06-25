@@ -7,7 +7,7 @@ import OtpInput from "react-otp-input";
 import "./css/Verify.css";
 
 import { connect } from "react-redux";
-import { VerifyAction } from "../ReduxStore/Actions/VerifyAction";
+import { userLoginAction } from "../ReduxStore/Actions/UserLoginAction";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -16,37 +16,20 @@ const header = {
 class Verify extends Component {
   state = {
     countryCode: this.props.sendOtp.countryCode,
-    mobileNumber: this.props.sendOtp.mobileNumber,
+    //mobileNumber: this.props.sendOtp.mobileNumber,
+    mobileNumber: 9484646454,
+    email1: "",
+    userId: "",
     error: "",
     otp: "",
     userId: "",
-    loading: this.props.sendOtp.loading,
+    loading: false,
   };
   handleChange = (otp) => {
     this.setState({
       otp,
     });
   };
-  // handleResend = (e) => {
-  //   e.preventDefault();
-
-  //   axios
-  //     .post(
-  //       "/stskFmsApi/otpServices/sendOtpBySMS",
-  //       {
-  //         countryCode: this.state.countryCode,
-  //         mobileNumber: this.state.mobileNumber,
-  //       },
-  //       { headers: header }
-  //     )
-  //     .then((Response) => {
-  //       console.log(Response);
-  //       console.log(Response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
   handleResend = (e) => {
     axios
       .post(
@@ -63,82 +46,87 @@ class Verify extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.VerifyAction(this.state);
-    // this.setState({
-    //   otp_input: "",
-    //   loading: true,
-    // });
-    // axios
-    //   .post(
-    //     "/stskFmsApi/otpServices/verifyOtpBySMS",
-    //     {
-    //       countryCode: 91,
-    //       mobileNumber: this.state.mobileNumber,
-    //       otp_input: this.state.otp,
-    //     },
-    //     { headers: header }
-    //   )
-    //   .then((Response) => {
-    //     console.log(Response);
-    //     console.log(Response.data);
+    this.setState({
+      error: "",
+      loading: true,
+    });
 
-    //     if (Response.data.type === "success") {
-    //       axios
-    //         .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
-    //           headers: header,
-    //         })
-    //         .then((Response) => {
-    //           console.log(Response.data);
-    //           if (Response.data.success === 1) {
-    //             console.log("Dashboard");
-    //             axios
-    //               .get(
-    //                 "/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber,
-    //                 { headers: header }
-    //               )
-    //               .then((res) => {
-    //                 if (res.data.success === 1) {
-    //                   this.setState({
-    //                     userId: res.data.data.id,
-    //                   });
-    //                   this.props.history.push({
-    //                     pathname: "/dashboard",
-    //                     // state: {
-    //                     //   mobileNumber: this.state,
-    //                     //   userId: this.state.userId,
-    //                     // },
-    //                   });
-    //                 } else {
-    //                   this.props.history.push({
-    //                     pathname: "/userDetails",
-    //                     state: {
-    //                       mobileNumber: this.state,
-    //                     },
-    //                   });
-    //                 }
-    //               });
-    //           } else {
-    //             this.props.history.push({
-    //               pathname: "/preregister",
-    //               state: {
-    //                 mobileNumber: this.state,
-    //               },
-    //             });
-    //           }
-    //         });
-    //     } else {
-    //       console.log("error");
-    //       this.setState({
-    //         error: "otp miss-match",
-    //         loading: false,
-    //       });
-    //       this.props.history.push("./verify");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     console.log(this.props.number);
-    //   });
+    axios
+      .post(
+        "/stskFmsApi/otpServices/verifyOtpBySMS",
+        {
+          countryCode: 91,
+          mobileNumber: this.state.mobileNumber,
+          otp_input: this.state.otp,
+        },
+        { headers: header }
+      )
+      .then((Response) => {
+        console.log(Response);
+        console.log(Response.data);
+
+        if (Response.data.type === "success") {
+          axios
+            .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
+              headers: header,
+            })
+            .then((Response) => {
+              console.log(Response.data);
+              console.log(Response.data);
+              this.setState({
+                email1: Response.data.data.email,
+                mobileNumber: Response.data.data.mob,
+              });
+              if (Response.data.success === 1) {
+                console.log("Dashboard");
+                axios
+                  .get(
+                    "/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber,
+                    {
+                      headers: header,
+                    }
+                  )
+                  .then((res) => {
+                    console.log(res.data);
+
+                    if (res.data.success === 1) {
+                      this.setState({
+                        userId: res.data.data.id,
+                        details: res.data.data,
+                      });
+                      const time = setTimeout(() => {
+                        this.props.userLoginAction(this.state);
+                      }, 1000);
+                      this.props.history.push({
+                        pathname: "/dashboard",
+                      });
+                    } else {
+                      this.props.userLoginAction(this.state);
+                      this.props.history.push({
+                        pathname: "/userDetails",
+                      });
+                    }
+                  });
+              } else {
+                this.props.userLoginAction(this.state);
+                this.props.history.push({
+                  pathname: "/preregister",
+                });
+              }
+            });
+        } else {
+          console.log("error");
+          this.setState({
+            error: "otp miss-match",
+            loading: false,
+          });
+          this.props.history.push("./verify");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(this.props.number);
+      });
   };
   render() {
     const { loading } = this.state;
@@ -204,12 +192,7 @@ class Verify extends Component {
     );
   }
 }
-// const mapStateToProps = (state) => {
-//   return {
-//     sendOtp: state.SendOtp.SendOtp,
-//     verify,
-//   };
-// };
+
 const mapStateToProps = (state) => {
   return {
     sendOtp: state.SendOtp.SendOtp,
@@ -217,8 +200,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    VerifyAction: (verifyOtp) => dispatch(VerifyAction(verifyOtp)),
+    userLoginAction: (UserLogin) => dispatch(userLoginAction(UserLogin)),
   };
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(Verify);

@@ -25,7 +25,7 @@ export class RecomendedJobs extends Component {
 
   handleHide = (id) => {
     // M.toast({ Forhtml: "I am a toast", classes: "rounded" });
-    const recomendedJobs = this.state.recomendedJobs.filter((job) => {
+    const recomendedJobs = this.props.dashboard.recomendedJobs.filter((job) => {
       return job.id !== id;
     });
     this.setState({

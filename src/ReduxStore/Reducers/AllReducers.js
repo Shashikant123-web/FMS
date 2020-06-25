@@ -33,6 +33,8 @@ const intialState = {
   //   loading: false,
   // },
   userLogin: {
+    mobileNumber: "",
+    email: "",
     payLoad: {},
     recomendedJobs: [],
     appliedJobs: [],
@@ -84,6 +86,8 @@ const sendotpReducer = (state = intialState, action) => {
         ...state,
         userLogin: {
           ...state.userLogin,
+          mobileNumber: action.payLoad.mobileNumber,
+          email: action.payLoad.email1,
           payLoad: action.payLoad,
         },
       };
