@@ -698,6 +698,38 @@ class Dashboard extends Component {
                 <div id="editicn">
                   <Popup
                     contentStyle={{ width: "75%" }}
+                    trigger={
+                      <div className="right-align" style={{ width: "75%" }}>
+                        <img src={edit} width="20" height="20"></img>
+                      </div>
+                    }
+                    modal
+                    position="center"
+                    width="70%"
+                  >
+                    {(close) => (
+                      <div className="popup-content">
+                        <div className="col s12 m12 l12">
+                          <div className="right-align">
+                            <i
+                              className="material-icons"
+                              id="dashcancelbtn"
+                              onClick={() => {
+                                close();
+                              }}
+                            >
+                              clear
+                            </i>
+                          </div>
+                          <EditProfile />
+
+                          <br></br>
+                        </div>
+                      </div>
+                    )}
+                  </Popup>
+                  {/* <Popup
+                    contentStyle={{ width: "75%" }}
                     modal
                     trigger={
                       <div className="right-align" style={{ width: "75%" }}>
@@ -707,10 +739,17 @@ class Dashboard extends Component {
                     position="center"
                     width="70%"
                   >
-                    <div class="popup-content">
-                      <EditProfile />
-                    </div>
-                  </Popup>
+                    {(close) => (
+                      <div
+                        class="popup-content"
+                        onClick={() => {
+                          close();
+                        }}
+                      >
+                        <EditProfile />
+                      </div>
+                    )}
+                  </Popup> */}
                 </div>
                 <div className="center" id="profile1">
                   <div className="center">

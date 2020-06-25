@@ -23,6 +23,7 @@ class Editprofile extends Component {
     super(props);
 
     this.state = {
+      Popup_open: true,
       check: false,
       value: "",
       mobileNumber: "9462462856",
@@ -40,6 +41,8 @@ class Editprofile extends Component {
       uploadedResume: "",
       docId: "",
     };
+    // preserve the initial state in a new object
+    this.baseState = this.state;
   }
   componentWillMount() {
     fetch("http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes", {
@@ -100,6 +103,9 @@ class Editprofile extends Component {
         });
     }, 4000);
   }
+  handleCancel = () => {
+    document.getElementById("mydiv").style.display = "none";
+  };
   handleResume = (e) => {
     e.preventDefault();
 
@@ -367,7 +373,7 @@ class Editprofile extends Component {
     // console.log(this.state.editProfile.userLogin.id)
     // console.log(this.state.editProfile.userLogin.id)
     return (
-      <div class="container register-form">
+      <div class="container register-form" id="mydiv">
         <div class="forms z-depth-1">
           <div class="note">
             <div class="profile-header-container align-self-center">
@@ -391,7 +397,12 @@ class Editprofile extends Component {
                   {/* <Button class="button button1">Green</Button>
                   <Button class="button button2">Blue</Button> */}
                   <div className="button">
-                    <a class="btn" id="btn" onClick={this.handleImageUpdate}>
+                    <a
+                      class="btn"
+                      id="btn"
+                      onClick={this.handleImageUpdate}
+                      style={{ color: "black" }}
+                    >
                       Update Image
                     </a>
                     <a class="btn red" onClick={this.handleImageRemove}>
@@ -882,7 +893,7 @@ class Editprofile extends Component {
             {/* start section-6 */}
             <div class="row" id="section-6">
               <div class="col-md-6">
-                <button type="button" onSubmit={this.handleCancel} id="cancel">
+                <button type="button" onClick={this.handleCancel} id="cancel">
                   Cancel
                 </button>
               </div>

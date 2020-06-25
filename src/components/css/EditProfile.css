@@ -130,9 +130,7 @@
 #white {
   margin-left: -138px;
 }
-.grid.container {
-  /* //margin-top: 5em; */
-}
+
 .inputfile {
   width: 0.1px;
   height: 0.1px;
@@ -185,9 +183,7 @@
 .btn:hover,
 .btn-large:hover,
 .btn-small:hover {
-  background-color: none;
-  opacity: 1;
-  box-shadow: none;
+  background-color: #fff;
 }
 /* .btn:hover.btn-large:hover.btn-small:hover {
   background-color: none;

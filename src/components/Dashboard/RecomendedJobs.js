@@ -9,6 +9,7 @@ import rightMark from "../Images/tic.png";
 import M from "materialize-css/dist/js/materialize.min.js";
 import { connect } from "react-redux";
 import NavbarTop from "../NavbarJobseeker/NavbarTop";
+import EditProfile from "../Editprofile";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -21,6 +22,7 @@ export class RecomendedJobs extends Component {
     // appliedJobs: [],
     // savedJobs: [],
     saved: [6],
+    showPopup: false,
   };
 
   handleHide = (id) => {
@@ -32,6 +34,18 @@ export class RecomendedJobs extends Component {
       recomendedJobs,
     });
   };
+  // togglePopup() {
+  //   console.log("alka");
+  //   this.setState({
+  //     showPopup: !this.state.showPopup,
+  //   });
+  // }
+  handlepopupopen() {
+    // document.getElementById("popupopen").Style.display = "block";
+    // window.open("./editprofile");
+    var popup = document.getElementById("popupopen");
+    popup.classList.toggle("show");
+  }
   handleApply = (id) => {
     axios
       .post(
@@ -264,6 +278,49 @@ export class RecomendedJobs extends Component {
                           <strong>Description</strong>
                           <br></br>
                           <p className="grey-text">{job.description}</p>
+                        </div>
+                        <div className="text-center">
+                          <h4>Before Applying do you want to Edit?</h4>
+                          <p>
+                            <label>
+                              <input
+                                name="fresher"
+                                value="true"
+                                // onClick={() =>
+                                //   this.props.history.push("/editProfile")
+                                // }
+                                // onClick={this.togglePopup.bind(this)}
+                                onClick={this.handlepopupopen}
+                                type="radio"
+                                id="ra"
+                              />
+                              <span id="label">Yes</span>
+                            </label>
+                          </p>
+                          <p>
+                            <label>
+                              <input
+                                name="fresher"
+                                value="false"
+                                onClick={this.handleRadio}
+                                type="radio"
+                                id="ra"
+                              />
+                              <span id="label">No</span>
+                            </label>
+                          </p>
+                          {/* {this.state.showPopup ? ( */}
+                          <Popup
+                            contentStyle={{ width: "75%" }}
+                            trigger={<div id="popupopen"></div>}
+                            modal
+                            position="center"
+                            width="70%"
+                          >
+                            <div className="popup-content">
+                              <EditProfile />
+                            </div>
+                          </Popup>
                         </div>
                         <div className="center">
                           <a className="btn center" id="savebtn">
