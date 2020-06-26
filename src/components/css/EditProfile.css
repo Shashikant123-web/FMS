@@ -198,3 +198,6 @@ a:not([href]) {
 
   box-shadow: none;
 }
+#resumepath {
+  margin-left: -126px;
+}

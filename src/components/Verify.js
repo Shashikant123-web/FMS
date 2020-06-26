@@ -72,10 +72,7 @@ class Verify extends Component {
             .then((Response) => {
               console.log(Response.data);
               console.log(Response.data);
-              this.setState({
-                email1: Response.data.data.email,
-                mobileNumber: Response.data.data.mob,
-              });
+
               if (Response.data.success === 1) {
                 console.log("Dashboard");
                 axios
