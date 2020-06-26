@@ -12,6 +12,7 @@ import NavbarTop from "../NavbarJobseeker/NavbarTop";
 import EditProfile from "../Editprofile";
 
 import { HIDE_JOBS } from "../../ReduxStore/ActionTypes/actionTypes";
+import { handleSave } from "../../ReduxStore/Actions/RecomendedJobsAction";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -26,16 +27,16 @@ export class RecomendedJobs extends Component {
     saved: [6],
     showPopup: false,
   };
-  componentDidMount() {
-    axios
-      .get("stskFmsApi//jobseeker/getSavedJobs/27", { headers: header })
-      .then((res) => {
-        console.log(res);
-      });
-  }
 
   handleHide = (id) => {
     this.props.hideJobs(id);
+  };
+  handleSave = (id) => {
+    console.log(id, "save");
+    this.props.handleSave(id);
+  };
+  handleUnsave = (id) => {
+    console.log(id, "saved");
   };
   handlepopupopen() {
     // document.getElementById("popupopen").Style.display = "block";
@@ -71,48 +72,55 @@ export class RecomendedJobs extends Component {
         });
     }, 1000);
   };
-  handleSave = (id) => {
-    // axios
-    //   .post(
-    //     "/stskFmsApi/jobseeker/saveJobs",
-    //     {
-    //       id: 27,
-    //       jobs: [
-    //         {
-    //           id: id,
-    //         }
-    //       ]
-    //     },
-    //     { headers: header }
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     console.log(res);
-    //   });
-    // {
-    //   this.state.saved.map((savedId) => {
-    //     var flag = document.getElementById(id).innerHTML;
+  //handleSave = (id) => {
+  // axios
+  //   .post(
+  //     "/stskFmsApi/jobseeker/saveJobs",
+  //     {
+  //       id: 27,
+  //       jobs: [
+  //         {
+  //           id: id,
+  //         }
+  //       ]
+  //     },
+  //     { headers: header }
+  //   )
+  //   .then((res) => {
+  //     console.log(res.data);
+  //     console.log(res);
+  //   });
+  // {
+  //   this.state.saved.map((savedId) => {
+  //     var flag = document.getElementById(id).innerHTML;
 
-    //     if (flag === "turned_in_not" && id == savedId) {
-    //       var a = (document.getElementById(id).innerHTML = "turned_in");
-    //       flag = 1;
-    //     } else {
-    //       var a = (document.getElementById(id).innerHTML = "turned_in_not");
-    //     }
-    //   });
-    // }
-    console.log(id);
-    this.setState({
-      saved: [...this.state.saved, id],
-    });
-  };
+  //     if (flag === "turned_in_not" && id == savedId) {
+  //       var a = (document.getElementById(id).innerHTML = "turned_in");
+  //       flag = 1;
+  //     } else {
+  //       var a = (document.getElementById(id).innerHTML = "turned_in_not");
+  //     }
+  //   });
+  // }
+  //   console.log(id);
+  //   this.setState({
+  //     saved: [...this.state.saved, id],
+  //   });
+  // };
 
   render() {
-    const { recomendedJobs, savedJobs, appliedJobs } = this.props.dashboard;
-
+    console.log(this.props.dashboard);
+    const {
+      payLoad: { userId },
+      recomendedJobs,
+      savedJobs,
+      appliedJobs,
+    } = this.props.dashboard;
+    console.log(userId);
     const nmbr = recomendedJobs.length;
     const recommendedList = recomendedJobs.length ? (
       recomendedJobs.map((job) => {
+        console.log(job.isApplied);
         return (
           <div key={job.id}>
             <div className="col s12 m12 l12">
@@ -371,32 +379,28 @@ export class RecomendedJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    {this.state.saved &&
-                      this.state.saved.map((id, index) => {
-                        if (id === job.id) {
-                          return (
-                            <strong className="right" key={index}>
-                              <i className="material-icons teal-text left">
-                                turned_in
-                              </i>
-                              saved
-                            </strong>
-                          );
-                        } else {
-                          return (
-                            <strong
-                              key={index}
-                              className="right"
-                              onClick={() => this.handleSave(job.id)}
-                            >
-                              <i className="material-icons teal-text left">
-                                turned_in_not
-                              </i>
-                              save
-                            </strong>
-                          );
-                        }
-                      })}
+                    {job.isSaved ? (
+                      <strong
+                        className="right"
+                        onClick={() => this.handleUnsave(job.id)}
+                      >
+                        <i className="material-icons teal-text left">
+                          turned_in
+                        </i>
+                        saved
+                      </strong>
+                    ) : null}
+                    {job.isSaved ? null : (
+                      <strong
+                        className="right"
+                        onClick={() => this.handleSave(job.id, userId)}
+                      >
+                        <i className="material-icons teal-text left">
+                          turned_in_not
+                        </i>
+                        save
+                      </strong>
+                    )}
                     <strong
                       className="right"
                       onClick={() => {
@@ -518,8 +522,9 @@ const mapStateToProps = (state) => {
     dashboard: state.userLogin.userLogin,
   };
 };
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, userId) => {
   return {
+    handleSave: (id) => dispatch(handleSave(id)),
     hideJobs: (id) => dispatch({ type: HIDE_JOBS, id: id }),
   };
 };

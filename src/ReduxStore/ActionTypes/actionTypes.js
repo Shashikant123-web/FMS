@@ -12,4 +12,8 @@ export const SAVED_JOBS = "SAVED_JOBS";
 export const APPLIED_JOBS = "APPLIED_JOBS";
 export const HIDE_JOBS = "HIDE_JOBS";
 
+export const HANDLE_SAVE_JOBS = "HANDLE_SAVE_JOBS";
+export const HANDLE_UNSAVE_JOBS = "HANDLE_SAVE_JOBS";
+export const HANDLE_APPLIED_JOBS = "HANDLE_APPLIED_JOBS";
+
 export const DASUSERLOGIN = "DASHBOARD";

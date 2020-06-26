@@ -29,7 +29,7 @@ export const userLoginAction = (userLogin) => {
     });
 
     axios
-      .get("/stskFmsApi/jobseeker/recommendedJobs/" + userId, {
+      .get("/stskFmsApi/jobseeker/RecommendedJobsWithStatus/" + userId, {
         headers: header,
       })
       .then((res) => {
@@ -55,18 +55,18 @@ export const userLoginAction = (userLogin) => {
         }
       });
 
-    axios
-      .get("/stskFmsApi/jobseeker/newJobs/" + userId, {
-        headers: header,
-      })
-      .then((res) => {
-        if (res.data.success === 1) {
-          dispatch({
-            type: NEW_JOBS,
-            payLoad: res.data.data,
-          });
-        }
-      });
+    // axios
+    //   .get("/stskFmsApi/jobseeker/newJobs/" + userId, {
+    //     headers: header,
+    //   })
+    //   .then((res) => {
+    //     if (res.data.success === 1) {
+    //       dispatch({
+    //         type: NEW_JOBS,
+    //         payLoad: res.data.data,
+    //       });
+    //     }
+    //   });
     axios
       .get("/stskFmsApi/jobseeker/getById/" + userId, { headers: header })
       .then((res) => {

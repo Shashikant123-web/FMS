@@ -159,7 +159,6 @@ class UserLogin extends Component {
   };
 
   render() {
-    console.log(this.state);
     const { loading } = this.state;
     const { isPasswordShown } = this.state;
     return (
