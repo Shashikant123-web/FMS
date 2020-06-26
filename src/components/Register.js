@@ -5,6 +5,7 @@ import logo from "./Images/Mainlogo.png";
 import axios from "axios";
 import $ from "jquery";
 import jQuery from "jquery";
+import { connect } from "react-redux";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -13,8 +14,8 @@ const header = {
 class Register extends Component {
   state = {
     isPasswordShown: "false",
-    mob: "",
-    mobileNumber: "",
+    mob: this.props.details.mobileNumber,
+    mobileNumber: this.props.details.mobileNumber,
     email: "",
     password: "",
     userRoles: {
@@ -23,18 +24,14 @@ class Register extends Component {
     conformPwd: "",
     error: "",
   };
-
   componentDidMount() {
     this.setState({
-      mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-      mob: this.props.location.state.mobileNumber.mobileNumber,
       userRoles: {
         id: this.props.match.params.id,
         name: this.props.match.params.name,
       },
     });
   }
-
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state);
@@ -67,9 +64,6 @@ class Register extends Component {
           console.log(this.state);
           this.props.history.push({
             pathname: "/userDetails",
-            state: {
-              mobileNumber: this.state,
-            },
           });
         })
         .catch((error) => {
@@ -115,6 +109,7 @@ class Register extends Component {
     const { mob, email, password, userRoles } = this.state;
     const { isPasswordShown } = this.state;
     console.log(this.state);
+    console.log(this.props.details.mobileNumber);
     // const { formErrors } = this.state;
 
     return (
@@ -215,5 +210,9 @@ class Register extends Component {
     );
   }
 }
-
-export default withRouter(Register);
+const mapStateToProps = (state) => {
+  return {
+    details: state.userLogin.userLogin,
+  };
+};
+export default connect(mapStateToProps)(withRouter(Register));

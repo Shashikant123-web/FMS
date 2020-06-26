@@ -28,7 +28,7 @@ class Editprofile extends Component {
       Popup_open: true,
       check: false,
       value: "",
-      mobileNumber: "9462462856",
+      mobileNumber: this.props.editProfile.mobileNumber,
       editProfile: [],
       userId: "",
       details: [],
@@ -42,6 +42,8 @@ class Editprofile extends Component {
       resume: null,
       uploadedResume: "",
       docId: "",
+      path: "",
+      fileName: "",
     };
     // preserve the initial state in a new object
     this.baseState = this.state;
@@ -71,28 +73,30 @@ class Editprofile extends Component {
       });
   }
   componentDidMount() {
-    axios
-      .get("/stskFmsApi/jobseeker/getByMob/" + 9462462856, {
-        headers: header,
-      })
+    const timer1 = setTimeout(() => {
+      axios
+        .get("/stskFmsApi/jobseeker/getByMob/" + 8825290842, {
+          headers: header,
+        })
 
-      .then((res) => {
-        console.log(res.data.data);
+        .then((res) => {
+          console.log(res.data.data);
 
-        console.log(res.data.data.userLogin.id);
-        this.setState({
-          userId: res.data.data.id,
-          details: res.data.data,
-          editProfile: res.data.data,
-          userLoginMobile: res.data.data.mob,
-          userLogin: res.data.data.userLogin.id,
+          console.log(res.data.data.userLogin.id);
+          this.setState({
+            userId: res.data.data.id,
+            details: res.data.data,
+            editProfile: res.data.data,
+            userLoginMobile: res.data.data.mob,
+            userLogin: res.data.data.userLogin.id,
+          });
         });
-      });
+    }, 1000);
     const timer2 = setTimeout(() => {
       axios
         .get(
-          "/stskFmsApi/jobseekerdoc/getByJobSeekerId/40",
-          // + this.state.userId,
+          "/stskFmsApi/jobseekerdoc/getByJobSeekerId/28",
+          // +this.state.userId
           {
             headers: header,
           }
@@ -100,13 +104,29 @@ class Editprofile extends Component {
         .then((res) => {
           console.log(res);
           this.setState({
-            //docId: res.data.data.docId,
+            // docId: res.data.data.docId,
           });
         });
-    }, 4000);
+    }, 2000);
+    const timer3 = setTimeout(() => {
+      axios
+        .get(
+          "/stskFmsApi/jobseekerdoc/retriveWithPath/7",
+          // +this.state.docId
+          { headers: header }
+        )
+        .then((res) => {
+          console.log(res.data.data.path);
+          this.setState({
+            path: res.data.data.path,
+            fileName: res.data.data.docName,
+          });
+        })
+        .catch((err) => console.log(err));
+    }, 3000);
   }
   handleCancel = () => {
-    document.getElementById("mydiv").style.display = "none";
+    // document.getElementById("mydiv").style.display = "none";
   };
   handleResume = (e) => {
     e.preventDefault();
@@ -131,21 +151,7 @@ class Editprofile extends Component {
       })
       .catch((err) => console.log(err));
   };
-  // handleResume1Submit = (e) => {
-  //   let formData = new FormData();
-  //   formData.append("file", this.state.resume);
-  //   axios
-  //     .post("/stskFmsApi/jobseekerdoc/editDoc/" + this.state.docId, formData, {
-  //       headers: {
-  //         "x-api-key":
-  //           " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+
   handleChange(e) {
     const { editProfile } = { ...this.state };
     const currentState = editProfile;
@@ -395,6 +401,7 @@ class Editprofile extends Component {
   render() {
     console.log(this.state);
     console.log(this.props);
+    console.log(this.props.editProfile.mobileNumber);
     // console.log(this.state.editProfile.userLogin.id)
     // console.log(this.state.editProfile.userLogin.id)
     return (
@@ -410,6 +417,8 @@ class Editprofile extends Component {
                     //src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120"
                     src={this.state.createeditprofileimagepath}
                   />
+                  {/* <i class="large material-icons teal">account_circle</i> */}
+
                   <div class="rank-label-container">
                     <input
                       type="file"
@@ -878,8 +887,14 @@ class Editprofile extends Component {
                   type="file"
                   accept="image/png, image/jpeg, image/gif"
                   name="input-file-preview"
+                  //  value={this.state.uploadResume}
+                  onChange={this.handleResume}
                 />
               </div>
+              <br /> <br />
+              <a className="text-left" href={this.state.path} id="resumepath">
+                {this.state.fileName}
+              </a>
               {/* <input
                 type="file"
                 className="inputfile"

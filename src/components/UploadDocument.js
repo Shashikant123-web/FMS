@@ -4,6 +4,7 @@ import file from "./Images/file.png";
 import doclogo from "./Images/doclogo.png";
 import { Button, Checkbox, Form } from "semantic-ui-react";
 import axios from "axios";
+import { connect } from "react-redux";
 
 const config = {
   headers: {
@@ -18,7 +19,7 @@ class UploadDocument extends Component {
 
     this.state = {
       image: null,
-      mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
+      mobileNumber: this.props.details.mobileNumber,
       userId: "",
       // docId:''
     };
@@ -81,6 +82,7 @@ class UploadDocument extends Component {
   };
   render() {
     console.log(this.state);
+    console.log(this.props);
     return (
       <Form onSubmit={this.handleSubmit}>
         <div class="row">
@@ -113,5 +115,9 @@ class UploadDocument extends Component {
     );
   }
 }
-
-export default UploadDocument;
+const mapStateToProps = (state) => {
+  return {
+    details: state.userLogin.userLogin,
+  };
+};
+export default connect(mapStateToProps)(UploadDocument);

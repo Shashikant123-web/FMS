@@ -49,7 +49,7 @@ class UserDetails extends Component {
       name: null,
       email: "",
       mob: "",
-      mobileNumber: "",
+      mobileNumber: this.props.details.mobileNumber,
       panNum: null,
       aadharNum: null,
       experience: null,
@@ -106,10 +106,10 @@ class UserDetails extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentWillMount() {
-    this.setState({
-      // mob:this.props.location.state.mobileNumber.mobileNumber,
-      // mobileNumber:this.props.location.state.mobileNumber.mobileNumber
-    });
+    // this.setState({
+    //   mob: this.props.location.state.mobileNumber.mobileNumber,
+    //   mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
+    // });
     fetch("http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes", {
       headers: header,
     })
@@ -134,14 +134,20 @@ class UserDetails extends Component {
       });
   }
   componentDidMount() {
-    // axios.get('/stskFmsApi/userLogin/getByMob/'+this.props.location.state.mobileNumber.mobileNumber,{headers:header})
-    //   .then(res=>{
-    //     console.log(res.data)
-    //      this.setState({
-    //           userId:res.data.data.id,
-    //           email:res.data.data.email
-    //       })
-    //   })
+    axios
+      .get(
+        "/stskFmsApi/userLogin/getByMob/" + this.props.details.mobileNumber,
+        {
+          headers: header,
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          userId: res.data.data.id,
+          email: res.data.data.email,
+        });
+      });
   }
   // for handle jobtypes
   handleChange1Arg = (selectedvalue) => {
@@ -422,6 +428,7 @@ class UserDetails extends Component {
                   class="img-circle"
                   //src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120"
                   src={this.state.profileimagepath}
+                  onerror="this.style.display='none'"
                 />
                 <div class="rank-label-container">
                   <input
@@ -436,7 +443,7 @@ class UserDetails extends Component {
             </div>
           </div>
 
-          <div class="form-content">
+          <div class="form-content" id="formcontainer">
             <div class="row" id="section-1">
               <div class="col-md-6">
                 <div class="form-group">
@@ -459,7 +466,7 @@ class UserDetails extends Component {
                     type="email"
                     name="email"
                     required
-                    value={email}
+                    value={this.state.email}
                   />
                 </div>
                 <div class="form-group">

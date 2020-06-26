@@ -30,7 +30,7 @@ export class Register extends Component {
         console.log(res.data.data);
         this.setState({
           userRoless: res.data.data,
-          mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
+          // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
         });
       });
   }
