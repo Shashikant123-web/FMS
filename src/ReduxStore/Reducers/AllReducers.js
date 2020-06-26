@@ -8,9 +8,8 @@ import {
   SAVED_JOBS,
   NEW_JOBS,
   APPLIED_JOBS,
+  HIDE_JOBS,
 } from "../ActionTypes/actionTypes";
-
-import SendOtp from "../../components/SendOtp";
 
 const intialState = {
   SendOtp: {
@@ -123,30 +122,41 @@ const sendotpReducer = (state = intialState, action) => {
           appliedJobs: action.payLoad,
         },
       };
-  }
-  return state;
-};
-export const verify = (state = intialState, action) => {
-  console.log(action.verify);
-  switch (action.type) {
-    case VERIFY_INIT:
-      return {
-        sendOtp: action.loading,
-      };
-    case VERIFY_SUCCESS:
+    case HIDE_JOBS:
+      let jobs = state.userLogin.recomendedJobs.filter((job) => {
+        return action.id !== job.id;
+      });
       return {
         ...state,
-        verify: action.project,
-      };
-    case VERIFY_FAILUR:
-      return {
-        ...state,
-        verify: action.verifyOtp,
-        verify: {
-          loading: true,
+        userLogin: {
+          ...state.userLogin,
+          recomendedJobs: jobs,
         },
       };
   }
   return state;
 };
+// export const verify = (state = intialState, action) => {
+//   console.log(action.verify);
+//   switch (action.type) {
+//     case VERIFY_INIT:
+//       return {
+//         sendOtp: action.loading,
+//       };
+//     case VERIFY_SUCCESS:
+//       return {
+//         ...state,
+//         verify: action.project,
+//       };
+//     case VERIFY_FAILUR:
+//       return {
+//         ...state,
+//         verify: action.verifyOtp,
+//         verify: {
+//           loading: true,
+//         },
+//       };
+//   }
+//   return state;
+// };
 export default sendotpReducer;

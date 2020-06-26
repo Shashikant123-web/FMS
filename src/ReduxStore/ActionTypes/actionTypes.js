@@ -10,5 +10,6 @@ export const RECOMENDED_JOBS = "RECOMENDED_JOBS";
 export const NEW_JOBS = "NEW_JOBS";
 export const SAVED_JOBS = "SAVED_JOBS";
 export const APPLIED_JOBS = "APPLIED_JOBS";
+export const HIDE_JOBS = "HIDE_JOBS";
 
 export const DASUSERLOGIN = "DASHBOARD";

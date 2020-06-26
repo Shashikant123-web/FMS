@@ -16,8 +16,7 @@ const header = {
 class Verify extends Component {
   state = {
     countryCode: this.props.sendOtp.countryCode,
-    //mobileNumber: this.props.sendOtp.mobileNumber,
-    mobileNumber: 9484646454,
+    mobileNumber: this.props.sendOtp.mobileNumber,
     email1: "",
     userId: "",
     error: "",

@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 import NavbarTop from "../NavbarJobseeker/NavbarTop";
 import EditProfile from "../Editprofile";
 
+import { HIDE_JOBS } from "../../ReduxStore/ActionTypes/actionTypes";
+
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
@@ -24,22 +26,17 @@ export class RecomendedJobs extends Component {
     saved: [6],
     showPopup: false,
   };
+  componentDidMount() {
+    axios
+      .get("stskFmsApi//jobseeker/getSavedJobs/27", { headers: header })
+      .then((res) => {
+        console.log(res);
+      });
+  }
 
   handleHide = (id) => {
-    // M.toast({ Forhtml: "I am a toast", classes: "rounded" });
-    const recomendedJobs = this.props.dashboard.recomendedJobs.filter((job) => {
-      return job.id !== id;
-    });
-    this.setState({
-      recomendedJobs,
-    });
+    this.props.hideJobs(id);
   };
-  // togglePopup() {
-  //   console.log("alka");
-  //   this.setState({
-  //     showPopup: !this.state.showPopup,
-  //   });
-  // }
   handlepopupopen() {
     // document.getElementById("popupopen").Style.display = "block";
     // window.open("./editprofile");
@@ -521,4 +518,12 @@ const mapStateToProps = (state) => {
     dashboard: state.userLogin.userLogin,
   };
 };
-export default connect(mapStateToProps)(withRouter(RecomendedJobs));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    hideJobs: (id) => dispatch({ type: HIDE_JOBS, id: id }),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(RecomendedJobs));
