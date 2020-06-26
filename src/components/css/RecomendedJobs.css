@@ -30,7 +30,7 @@ i.left {
   border-radius: 0 0 2px 2px;
 }
 #recomendedJobsMain {
-  border-top: 14px solid rgba(199, 192, 192, 0.2);
+  border-top: 14px solid white;
   border-radius: 10px;
 }
 #recomendedJobsMain:hover {
@@ -39,6 +39,6 @@ i.left {
 .card .card-action {
   padding: 7px 24px;
 }
-.mainContainer{
+.mainContainer {
   margin-top: -51px;
 }

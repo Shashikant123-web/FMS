@@ -204,6 +204,7 @@ nav .nav-wrapper {
 }
 #viewdetailss {
   text-decoration: underline;
+  cursor: pointer;
 }
 #number {
   font-size: 47px;

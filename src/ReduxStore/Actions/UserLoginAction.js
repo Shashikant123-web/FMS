@@ -43,7 +43,7 @@ export const userLoginAction = (userLogin) => {
         }
       });
     axios
-      .get("/stskFmsApi/jobseeker/getSavedJobs/" + userId, {
+      .get("/stskFmsApi/jobseeker/getSavedJobsWithStatus/" + userId, {
         headers: header,
       })
       .then((res) => {
