@@ -7,6 +7,11 @@ import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
 
+import {
+  handleSave,
+  handleUnsave,
+  handleApply,
+} from "../../ReduxStore/Actions/RecomendedJobsAction";
 import { connect } from "react-redux";
 
 const header = {
@@ -15,57 +20,24 @@ const header = {
 
 export class SavedJobs extends Component {
   state = {
-    // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-    savedJobs: [],
-    appliedJobs: [],
-  };
-
-  handleHide = (id) => {
-    console.log(id);
-    const SavedJobs = this.state.SavedJobs.filter((job) => {
-      return job.id !== id;
-    });
-    this.setState({
-      SavedJobs,
-    });
+    id: "",
+    userId: this.props.dashboard.payLoad.details.id,
   };
   handleApply = (id) => {
-    axios
-      .post(
-        "/stskFmsApi/jobseeker/applyJobs",
-        {
-          id: 27,
-          jobs: [
-            {
-              id: id,
-            },
-          ],
-        },
-        { headers: header }
-      )
-      .then((res) => {
-        console.log(res.data);
-        console.log(res);
-      });
+    this.setState({
+      id,
+    });
+    const time3 = setTimeout(() => {
+      this.props.handleApply(this.state);
+    }, 1000);
   };
-  handleSave = (id) => {
-    // axios
-    //   .post(
-    //     "/stskFmsApi/jobseeker/saveJobs",
-    //     {
-    //       id: 27,
-    //       jobs: [
-    //         {
-    //           id: id,
-    //         },
-    //       ],
-    //     },
-    //     { headers: header }
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     console.log(res);
-    //   });
+  handleUnsave = (id) => {
+    this.setState({
+      id,
+    });
+    const time2 = setTimeout(() => {
+      this.props.handleUnsave(this.state);
+    }, 1000);
   };
 
   render() {
@@ -85,21 +57,12 @@ export class SavedJobs extends Component {
                         <h5>
                           <strong className="left">{job.jobType}</strong>
                         </h5>
-                        {appliedJobs &&
-                          appliedJobs.map((id) => {
-                            if (id.id === job.id) {
-                              return (
-                                <h6 className="right teal-text" key={job.id}>
-                                  <img
-                                    src={rightMark}
-                                    width="20"
-                                    height="20"
-                                  ></img>
-                                  Applied
-                                </h6>
-                              );
-                            }
-                          })}
+                        {job.isApplied ? (
+                          <h6 className="right teal-text">
+                            <img src={rightMark} width="20" height="20"></img>
+                            Applied
+                          </h6>
+                        ) : null}
                         <br></br>
                       </div>
 
@@ -242,17 +205,27 @@ export class SavedJobs extends Component {
                           </p>
                         </div>
                         <div className="center">
-                          <a className="btn center" id="savebtn">
+                          <a
+                            className="btn center"
+                            id="savebtn"
+                            onClick={() => this.handleUnsave(job.id)}
+                          >
                             <i className="material-icons left">turned_in</i>
                             saved
                           </a>
-                          <a
-                            className="btn center"
-                            onClick={() => this.handleApply(job.id)}
-                            id="applybtn"
-                          >
-                            Apply
-                          </a>
+                          {job.isApplied ? (
+                            <a className="btn center" id="applybtn">
+                              Applied
+                            </a>
+                          ) : (
+                            <a
+                              className="btn center"
+                              onClick={() => this.handleApply(job.id)}
+                              id="applybtn"
+                            >
+                              Apply
+                            </a>
+                          )}
                         </div>
 
                         <br></br>
@@ -293,7 +266,7 @@ export class SavedJobs extends Component {
 
     console.log(this.state);
     return (
-      <div id="back">
+      <div id="back" className="grey lighten-5">
         <div>
           <div className="navbar-fixed">
             <nav className="white">
@@ -374,7 +347,7 @@ export class SavedJobs extends Component {
               </div>
             </nav>
           </div>
-          <div className="container">
+          <div className="container mainContainer">
             <div className="left">
               <strong
                 className="waves-effect waves-light"
@@ -421,4 +394,14 @@ const mapStateToProps = (state) => {
     dashboard: state.userLogin.userLogin,
   };
 };
-export default connect(mapStateToProps)(withRouter(SavedJobs));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleUnsave: (id) => dispatch(handleUnsave(id)),
+    handleApply: (id) => dispatch(handleApply(id)),
+    // hideJobs: (id) => dispatch({ type: HIDE_JOBS, id: id }),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(SavedJobs));

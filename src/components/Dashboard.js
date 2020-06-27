@@ -644,7 +644,11 @@ class Dashboard extends Component {
     );
 
     return (
-      <div id="back">
+      <div
+        id="back"
+        className="grey lighten-5
+      "
+      >
         <NavbarTop />
         <div className="row">
           <div className="">
@@ -692,7 +696,7 @@ class Dashboard extends Component {
           <div className="row">
             <div className="col s12 m12 l12">
               <div
-                className="col s10 m3 l2 offset-m1 offset-l1 offset-s1 z-depth-1"
+                className="col s10 m3 l2 offset-m1 offset-l1 offset-s1 z-depth-1 white"
                 id="profile"
               >
                 <div id="editicn">

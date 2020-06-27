@@ -12,7 +12,11 @@ import NavbarTop from "../NavbarJobseeker/NavbarTop";
 import EditProfile from "../Editprofile";
 
 import { HIDE_JOBS } from "../../ReduxStore/ActionTypes/actionTypes";
-import { handleSave } from "../../ReduxStore/Actions/RecomendedJobsAction";
+import {
+  handleSave,
+  handleUnsave,
+  handleApply,
+} from "../../ReduxStore/Actions/RecomendedJobsAction";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -20,23 +24,44 @@ const header = {
 
 export class RecomendedJobs extends Component {
   state = {
-    // mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-    // recomendedJobs: [],
-    // appliedJobs: [],
-    // savedJobs: [],
-    saved: [6],
     showPopup: false,
+    id: "",
+    userId: this.props.dashboard.payLoad.details.id,
   };
 
   handleHide = (id) => {
+    console.log(id);
+
     this.props.hideJobs(id);
   };
   handleSave = (id) => {
-    console.log(id, "save");
-    this.props.handleSave(id);
+    console.log("shashi");
+    this.setState({
+      id,
+    });
+    // this.props.handleSave({ id }, { userId: 12 });
+    // this.props.handleSave(this.state);
+
+    const time = setTimeout(() => {
+      this.props.handleSave(this.state);
+    }, 50);
   };
   handleUnsave = (id) => {
-    console.log(id, "saved");
+    this.setState({
+      id,
+    });
+    const time2 = setTimeout(() => {
+      this.props.handleUnsave(this.state);
+    }, 1000);
+  };
+
+  handleApply = (id) => {
+    this.setState({
+      id,
+    });
+    const time3 = setTimeout(() => {
+      this.props.handleApply(this.state);
+    }, 1000);
   };
   handlepopupopen() {
     // document.getElementById("popupopen").Style.display = "block";
@@ -44,34 +69,6 @@ export class RecomendedJobs extends Component {
     var popup = document.getElementById("popupopen");
     popup.classList.toggle("show");
   }
-  handleApply = (id) => {
-    axios
-      .post(
-        "/stskFmsApi/jobseeker/applyJobs",
-        {
-          id: 27,
-          jobs: [
-            {
-              id: id,
-            },
-          ],
-        },
-        { headers: header }
-      )
-      .then((res) => {
-        console.log(res.data);
-        console.log(res);
-      });
-    const timer1 = setTimeout(() => {
-      axios
-        .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
-        .then((res) => {
-          this.setState({
-            appliedJobs: res.data.data.jobs,
-          });
-        });
-    }, 1000);
-  };
   //handleSave = (id) => {
   // axios
   //   .post(
@@ -109,18 +106,17 @@ export class RecomendedJobs extends Component {
   // };
 
   render() {
-    console.log(this.props.dashboard);
+    console.log(this.props.dashboard.payLoad.details.id);
+    console.log(this.state);
     const {
       payLoad: { userId },
       recomendedJobs,
       savedJobs,
       appliedJobs,
     } = this.props.dashboard;
-    console.log(userId);
     const nmbr = recomendedJobs.length;
     const recommendedList = recomendedJobs.length ? (
       recomendedJobs.map((job) => {
-        console.log(job.isApplied);
         return (
           <div key={job.id}>
             <div className="col s12 m12 l12">
@@ -132,21 +128,12 @@ export class RecomendedJobs extends Component {
                         <h5>
                           <strong className="left">{job.jobType}</strong>
                         </h5>
-                        {appliedJobs &&
-                          appliedJobs.map((id, index) => {
-                            if (id.id === job.id) {
-                              return (
-                                <h6 className="right teal-text" key={index}>
-                                  <img
-                                    src={rightMark}
-                                    width="20"
-                                    height="20"
-                                  ></img>
-                                  Applied
-                                </h6>
-                              );
-                            }
-                          })}
+                        {job.isApplied ? (
+                          <h6 className="right teal-text">
+                            <img src={rightMark} width="20" height="20"></img>
+                            Applied
+                          </h6>
+                        ) : null}
                         <br></br>
                       </div>
 
@@ -358,17 +345,40 @@ export class RecomendedJobs extends Component {
                           </Popup>
                         </div>
                         <div className="center">
-                          <a className="btn center" id="savebtn">
-                            <i className="material-icons left">turned_in_not</i>
-                            save
-                          </a>
-                          <a
-                            className="btn center"
-                            onClick={() => this.handleApply(job.id)}
-                            id="applybtn"
-                          >
-                            Apply
-                          </a>
+                          {job.isSaved ? (
+                            <a
+                              className="btn center"
+                              id="savebtn"
+                              onClick={() => this.handleUnsave(job.id)}
+                            >
+                              <i className="material-icons left">turned_in</i>
+                              saved
+                            </a>
+                          ) : (
+                            <a
+                              className="btn center"
+                              id="savebtn"
+                              onClick={() => this.handleSave(job.id)}
+                            >
+                              <i className="material-icons left">
+                                turned_in_not
+                              </i>
+                              save
+                            </a>
+                          )}
+                          {job.isApplied ? (
+                            <a className="btn center" id="applybtn">
+                              Applied
+                            </a>
+                          ) : (
+                            <a
+                              className="btn center"
+                              onClick={() => this.handleApply(job.id)}
+                              id="applybtn"
+                            >
+                              Apply
+                            </a>
+                          )}
                         </div>
 
                         <br></br>
@@ -393,7 +403,7 @@ export class RecomendedJobs extends Component {
                     {job.isSaved ? null : (
                       <strong
                         className="right"
-                        onClick={() => this.handleSave(job.id, userId)}
+                        onClick={() => this.handleSave(job.id)}
                       >
                         <i className="material-icons teal-text left">
                           turned_in_not
@@ -438,7 +448,7 @@ export class RecomendedJobs extends Component {
     );
 
     return (
-      <div id="back">
+      <div id="back" className="grey lighten-5">
         <div>
           <NavbarTop />
           <div className="row">
@@ -522,9 +532,11 @@ const mapStateToProps = (state) => {
     dashboard: state.userLogin.userLogin,
   };
 };
-const mapDispatchToProps = (dispatch, userId) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     handleSave: (id) => dispatch(handleSave(id)),
+    handleUnsave: (id) => dispatch(handleUnsave(id)),
+    handleApply: (id) => dispatch(handleApply(id)),
     hideJobs: (id) => dispatch({ type: HIDE_JOBS, id: id }),
   };
 };
