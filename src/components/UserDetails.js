@@ -48,7 +48,7 @@ class UserDetails extends Component {
       check: false,
       name: null,
       email: "",
-      mob: "",
+      mob: this.props.details.mobileNumber,
       mobileNumber: this.props.details.mobileNumber,
       panNum: null,
       aadharNum: null,
@@ -77,8 +77,8 @@ class UserDetails extends Component {
         profileimage: null,
         name: "",
         email: "",
-        mob: "",
-        mobileNumber: "",
+        mob: this.props.details.mobileNumber,
+        mobileNumber: this.props.details.mobileNumber,
         panNum: "",
         aadharNum: "",
         experience: "",
@@ -443,13 +443,13 @@ class UserDetails extends Component {
             </div>
           </div>
 
-          <div class="form-content" id="formcontainer">
-            <div class="row" id="section-1">
-              <div class="col-md-6">
-                <div class="form-group">
+          <div className="form-content" id="formcontainer">
+            <div className="row" id="section-1">
+              <div className="col-md-6">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Enter Full Name *"
                     name="name"
                     required
@@ -461,7 +461,7 @@ class UserDetails extends Component {
                 <div class="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Enter Email *"
                     type="email"
                     name="email"
@@ -472,7 +472,7 @@ class UserDetails extends Component {
                 <div class="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Pan Number *"
                     type="text"
                     name="panNum"
@@ -487,13 +487,13 @@ class UserDetails extends Component {
                   contentStyle={{ height: "200px", width: "400px" }}
                   trigger={
                     <div
-                      class="form-group"
+                      className="form-group"
                       id="printjobname"
                       onChange={this.handleCheckLength}
                     >
                       <h6 id="valse">Applied For</h6>
                       <i
-                        class="fa fa-sort-down"
+                        className="fa fa-sort-down"
                         style={{
                           fontSize: "30px",
                           color: "#3fb2aa",
@@ -514,7 +514,7 @@ class UserDetails extends Component {
                 </Popup>
                 {/* <h5  id="valsel"></h5> */}
                 {/* </div> */}
-                <div class="form-group">
+                <div className="form-group">
                   <p id="label">Are you fresher?</p>
 
                   <p>
@@ -543,8 +543,8 @@ class UserDetails extends Component {
                   </p>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
+              <div className="col-md-6">
+                <div className="form-group">
                   <input
                     type="text"
                     class="form-control"
@@ -555,10 +555,10 @@ class UserDetails extends Component {
                     value={mobileNumber}
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Aadhar Card Number *"
                     type="text"
                     name="aadharNum"
@@ -569,10 +569,10 @@ class UserDetails extends Component {
                     title="4 digit space 4 digit space 4digit"
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Education Qualification *"
                     type="text"
                     name="eduQual"
@@ -580,7 +580,7 @@ class UserDetails extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   {/* <input type="text" class="form-control" placeholder="Job Updates *" value=""/> */}
                   <Form.Control
                     as="select"
@@ -608,9 +608,9 @@ class UserDetails extends Component {
             </div>
             {/* end section-1 */}
             {/* start section-2 */}
-            <div class="row" id="section-2">
-              <div class="col-md-6">
-                <div class="form-group">
+            <div className="row" id="section-2">
+              <div className="col-md-6">
+                <div className="form-group">
                   <p id="label">Currently working?</p>
 
                   <p>
@@ -640,12 +640,12 @@ class UserDetails extends Component {
             </div>
             {/* end section-2 */}
             {/* start section-3 if currently working yes*/}
-            <div class="row" id="section-3">
-              <div class="col-md-6">
-                <div class="form-group">
+            <div className="row" id="section-3">
+              <div className="col-md-6">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Years of Experience *"
                     name="experience"
                     pattern="[0-9]*"
@@ -654,10 +654,10 @@ class UserDetails extends Component {
                     maxLength="2"
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Job Location *"
                     name="jobLocation"
                     onChange={this.handleChange}
@@ -666,10 +666,10 @@ class UserDetails extends Component {
                     title="only alphabetical values are allowed"
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Current Location *"
                     name="currentLocation"
                     onChange={this.handleChange}
@@ -679,8 +679,8 @@ class UserDetails extends Component {
                   />
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
+              <div className="col-md-6">
+                <div className="form-group">
                   <input
                     type="text"
                     class="form-control"
@@ -689,10 +689,10 @@ class UserDetails extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Designation *"
                     name="designation"
                     onChange={this.handleChange}
@@ -700,7 +700,7 @@ class UserDetails extends Component {
                     title="only alphabetical values are allowed"
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <p id="label">Are you serving notice period?</p>
                   <p>
                     <label>
@@ -731,21 +731,21 @@ class UserDetails extends Component {
             </div>
             {/* end section-3 */}
             {/* start section-4 if serving notice period */}
-            <div class="row" id="section-4">
-              <div class="col-md-6">
-                <div class="form-group">
+            <div className="row" id="section-4">
+              <div className="col-md-6">
+                <div className="form-group">
                   <input
-                    class="form-control"
+                    className="form-control"
                     placeholder="Days *"
                     type="number"
                     name="noOfDays"
                     onChange={this.handleChange}
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="UpTo *"
                     type="number"
                     name="upTo"
@@ -753,8 +753,8 @@ class UserDetails extends Component {
                   />
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
+              <div className="col-md-6">
+                <div className="form-group">
                   <p id="label">Is it negotiable?</p>
 
                   <p>
@@ -786,12 +786,12 @@ class UserDetails extends Component {
             </div>
             {/*end section-4 */}
             {/*start section-5 */}
-            <div class="row" id="section-5">
-              <div class="col-md-6">
-                <div class="form-group">
+            <div className="row" id="section-5">
+              <div className="col-md-6">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Years of Experience *"
                     name="experience"
                     pattern="[0-9]*"
@@ -800,10 +800,10 @@ class UserDetails extends Component {
                     maxLength="2"
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Previous Job Location *"
                     name="prevjobLocation"
                     onChange={this.handleChange}
@@ -814,7 +814,7 @@ class UserDetails extends Component {
                 <div class="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Current Location *"
                     name="currentLocation"
                     onChange={this.handleChange}
@@ -823,8 +823,8 @@ class UserDetails extends Component {
                   />
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
+              <div className="col-md-6">
+                <div className="form-group">
                   <input
                     type="text"
                     class="form-control"
@@ -834,10 +834,10 @@ class UserDetails extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Previous Designation *"
                     name="prevdesignation"
                     onChange={this.handleChange}
@@ -848,8 +848,8 @@ class UserDetails extends Component {
               </div>
             </div>
             {/*end section-5 */}
-            <div class="profile-header-container" id="submission">
-              <div class="ui checkbox">
+            <div className="profile-header-container" id="submission">
+              <div className="ui checkbox">
                 <label>
                   <input
                     name="check"

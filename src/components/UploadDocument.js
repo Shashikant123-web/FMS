@@ -26,7 +26,10 @@ class UploadDocument extends Component {
   }
   componentDidMount() {
     axios
-      .get("/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber, config)
+      .get(
+        "/stskFmsApi/jobseeker/getByMob/" + this.props.details.mobileNumber,
+        config
+      )
 
       .then((res) => {
         console.log(res.data.data.id);

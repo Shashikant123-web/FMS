@@ -38,6 +38,8 @@ class Editprofile extends Component {
       createeditprofileimage: "",
       createeditprofileimagedocId: "",
       createeditprofileimagepath: "",
+      profileimageretrievedocId: "",
+      profileimagepath: "",
       Updates: ["Send Mail", "SMS", "Both", "None"],
       resume: null,
       uploadedResume: "",
@@ -75,7 +77,7 @@ class Editprofile extends Component {
   componentDidMount() {
     const timer1 = setTimeout(() => {
       axios
-        .get("/stskFmsApi/jobseeker/getByMob/" + 8825290842, {
+        .get("/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber, {
           headers: header,
         })
 
@@ -86,35 +88,33 @@ class Editprofile extends Component {
           this.setState({
             userId: res.data.data.id,
             details: res.data.data,
-            editProfile: res.data.data,
-            userLoginMobile: res.data.data.mob,
-            userLogin: res.data.data.userLogin.id,
+            // editProfile: res.data.data,
+            // userLoginMobile: res.data.data.mob,
+            // userLogin: res.data.data.userLogin.id,
           });
         });
     }, 1000);
     const timer2 = setTimeout(() => {
       axios
         .get(
-          "/stskFmsApi/jobseekerdoc/getByJobSeekerId/28",
-          // +this.state.userId
+          "/stskFmsApi/jobseekerdoc/getByJobSeekerId/" +
+            this.props.editProfile.payLoad.details.id,
           {
             headers: header,
           }
         )
         .then((res) => {
-          console.log(res);
+          console.log(res.data.data[0].docId);
           this.setState({
-            // docId: res.data.data.docId,
+            docId: res.data.data[0].docId,
           });
         });
     }, 2000);
     const timer3 = setTimeout(() => {
       axios
-        .get(
-          "/stskFmsApi/jobseekerdoc/retriveWithPath/7",
-          // +this.state.docId
-          { headers: header }
-        )
+        .get("/stskFmsApi/jobseekerdoc/retriveWithPath/" + this.state.docId, {
+          headers: header,
+        })
         .then((res) => {
           console.log(res.data.data.path);
           this.setState({
@@ -124,6 +124,36 @@ class Editprofile extends Component {
         })
         .catch((err) => console.log(err));
     }, 3000);
+    const timer5 = setTimeout(() => {
+      axios
+        .get(
+          "/stskFmsApi/imageDoc/getByLoginId/" +
+            this.props.editProfile.payLoad.details.userLogin.id,
+          { headers: header }
+        )
+        .then((res) => {
+          console.log(res.data.data[0].docId);
+          this.setState({
+            profileimageretrievedocId: res.data.data[0].docId,
+          });
+        })
+        .catch((err) => console.log(err));
+    }, 7000);
+    const timer6 = setTimeout(() => {
+      axios
+        .get(
+          "/stskFmsApi/imageDoc/retriveWithPath/" +
+            this.state.profileimageretrievedocId,
+          { headers: header }
+        )
+        .then((res) => {
+          console.log(res);
+          this.setState({
+            profileimagepath: res.data.data.path,
+          });
+        })
+        .catch((err) => console.log(err));
+    }, 8000);
   }
   handleCancel = () => {
     // document.getElementById("mydiv").style.display = "none";
@@ -137,19 +167,26 @@ class Editprofile extends Component {
     this.setState({
       resume: e.target.files[0],
     });
-    let formData = new FormData();
-    formData.append("file", this.state.resume);
-    axios
-      .post("/stskFmsApi/jobseekerdoc/editDoc/" + this.state.docId, formData, {
-        headers: {
-          "x-api-key":
-            " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    const timer4 = setTimeout(() => {
+      let formData = new FormData();
+      formData.append("file", this.state.resume);
+
+      axios
+        .post(
+          "/stskFmsApi/jobseekerdoc/editDoc/" + this.state.docId,
+          formData,
+          {
+            headers: {
+              "x-api-key":
+                " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }, 4000);
   };
 
   handleChange(e) {
@@ -401,7 +438,31 @@ class Editprofile extends Component {
   render() {
     console.log(this.state);
     console.log(this.props);
-    console.log(this.props.editProfile.mobileNumber);
+    const {
+      name,
+      email,
+      aadharNum,
+      address,
+      companyName,
+      currentLocation,
+      designation,
+      eduQual,
+      experience,
+      fresher,
+      jobLocation,
+      jobUpdate,
+      mob,
+      negotiable,
+      noOfDays,
+      noticePeriod,
+      panNum,
+      prevcompanyName,
+      prevdesignation,
+      prevjobLocation,
+      upTo,
+      working,
+    } = this.props.editProfile.payLoad.details;
+    console.log(name);
     // console.log(this.state.editProfile.userLogin.id)
     // console.log(this.state.editProfile.userLogin.id)
     return (
@@ -415,7 +476,8 @@ class Editprofile extends Component {
                   <img
                     class="img-circle"
                     //src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120"
-                    src={this.state.createeditprofileimagepath}
+                    // src={this.state.createeditprofileimagepath}
+                    src={this.state.profileimagepath}
                   />
                   {/* <i class="large material-icons teal">account_circle</i> */}
 
@@ -424,6 +486,7 @@ class Editprofile extends Component {
                       type="file"
                       name="image"
                       class="image_src"
+                      id="proimage"
                       accept="images.jpeg"
                       onChange={this.handleImageChange}
                     />
@@ -461,7 +524,7 @@ class Editprofile extends Component {
                     onChange={this.handleChange.bind(this)}
                     pattern="[A-Za-z\\s]*"
                     title="only alphabetical values are allowed"
-                    defaultValue={this.state.editProfile.name}
+                    defaultValue={name}
                   />
                 </div>
                 <div class="form-group">
@@ -475,6 +538,7 @@ class Editprofile extends Component {
                     required
                     onChange={this.handleChange.bind(this)}
                     //value={this.state.email}
+                    defaultValue={email}
                   />
                 </div>
                 <div class="form-group">
@@ -488,7 +552,7 @@ class Editprofile extends Component {
                     onChange={this.handleChange.bind(this)}
                     pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
                     title="Enter valid pannumber"
-                    defaultValue={this.state.editProfile.panNum}
+                    defaultValue={panNum}
                   />
                 </div>
                 <div class="form-group">
@@ -534,6 +598,7 @@ class Editprofile extends Component {
                         onClick={this.handleRadio}
                         type="radio"
                         id="ra"
+                        defaultValue={fresher}
                       />
                       <span id="label">Yes</span>
                     </label>
@@ -546,6 +611,7 @@ class Editprofile extends Component {
                         onClick={this.handleRadio}
                         type="radio"
                         id="ra"
+                        defaultValue={fresher}
                       />
                       <span id="label">No</span>
                     </label>
@@ -561,7 +627,7 @@ class Editprofile extends Component {
                     type="tel"
                     name="mob"
                     required
-                    defaultValue={this.state.editProfile.mob}
+                    defaultValue={mob}
                     onChange={this.handleChange.bind(this)}
                   />
                 </div>
@@ -577,7 +643,7 @@ class Editprofile extends Component {
                     pattern="^\d{4}\d{4}\d{4}$"
                     title="Addhar Card"
                     title="4 digit space 4 digit space 4digit"
-                    defaultValue={this.state.editProfile.aadharNum}
+                    defaultValue={aadharNum}
                   />
                 </div>
                 <div class="form-group">
@@ -589,7 +655,7 @@ class Editprofile extends Component {
                     name="eduQual"
                     required
                     onChange={this.handleChange.bind(this)}
-                    defaultValue={this.state.editProfile.eduQual}
+                    defaultValue={eduQual}
                   />
                 </div>
                 <div class="form-group">
@@ -598,6 +664,7 @@ class Editprofile extends Component {
                     as="select"
                     onChange={this.handleChange2}
                     id="update"
+                    //defaultValue={email}
                   >
                     <option value="1">Get job opening updates</option>
                     {this.state.Updates.map((jobUpdate) => (
@@ -614,7 +681,7 @@ class Editprofile extends Component {
                     placeholder="Address *"
                     onChange={this.handleChange.bind(this)}
                     id="textarea"
-                    defaultValue={this.state.editProfile.address}
+                    defaultValue={address}
                   ></textarea>
                 </div>
               </div>
@@ -633,6 +700,7 @@ class Editprofile extends Component {
                         value="true"
                         onClick={this.handleRadio1}
                         type="radio"
+                        defaultValue={working}
                       />
                       <span id="label">Yes</span>
                     </label>
@@ -644,6 +712,7 @@ class Editprofile extends Component {
                         value="false"
                         onClick={this.handleRadio1}
                         type="radio"
+                        defaultValue={working}
                       />
                       <span id="label">No</span>
                     </label>
@@ -665,7 +734,7 @@ class Editprofile extends Component {
                     title="It should be Numeric"
                     onChange={this.handleChange.bind(this)}
                     maxLength="2"
-                    defaultValue={this.state.editProfile.experience}
+                    defaultValue={experience}
                   />
                 </div>
                 <div class="form-group">
@@ -678,7 +747,7 @@ class Editprofile extends Component {
                     id="input"
                     pattern="[A-Za-z\\s]*"
                     title="only alphabetical values are allowed"
-                    defaultValue={this.state.editProfile.jobLocation}
+                    defaultValue={jobLocation}
                   />
                 </div>
                 <div class="form-group">
@@ -691,7 +760,7 @@ class Editprofile extends Component {
                     id="input"
                     pattern="[A-Za-z\\s]*"
                     title="only alphabetical values are allowed"
-                    defaultValue={this.state.editProfile.currentLocation}
+                    defaultValue={currentLocation}
                   />
                 </div>
               </div>
@@ -703,7 +772,7 @@ class Editprofile extends Component {
                     placeholder="Enter Current Company Name *"
                     name="companyName"
                     onChange={this.handleChange.bind(this)}
-                    defaultValue={this.state.editProfile.companyName}
+                    defaultValue={companyName}
                   />
                 </div>
                 <div class="form-group">
@@ -715,7 +784,7 @@ class Editprofile extends Component {
                     onChange={this.handleChange.bind(this)}
                     pattern="[A-Za-z\\s]*"
                     title="only alphabetical values are allowed"
-                    defaultValue={this.state.editProfile.designation}
+                    defaultValue={designation}
                   />
                 </div>
                 <div class="form-group">
@@ -728,6 +797,7 @@ class Editprofile extends Component {
                         onClick={this.handleRadio2}
                         type="radio"
                         id="ra"
+                        defaultValue={noticePeriod}
                       />
                       <span id="label">Yes</span>
                     </label>
@@ -740,6 +810,7 @@ class Editprofile extends Component {
                         onClick={this.handleRadio2}
                         type="radio"
                         id="ra"
+                        defaultValue={noticePeriod}
                       />
                       <span id="label">No</span>
                     </label>
@@ -758,7 +829,7 @@ class Editprofile extends Component {
                     type="number"
                     name="noOfDays"
                     onChange={this.handleChange.bind(this)}
-                    defaultValue={this.state.editProfile.noOfDays}
+                    defaultValue={noOfDays}
                   />
                 </div>
                 <div class="form-group">
@@ -769,7 +840,7 @@ class Editprofile extends Component {
                     type="number"
                     name="upTo"
                     onChange={this.handleChange.bind(this)}
-                    defaultValue={this.state.editProfile.upTo}
+                    defaultValue={upTo}
                   />
                 </div>
               </div>
@@ -785,6 +856,7 @@ class Editprofile extends Component {
                         onClick={this.handleRadio3}
                         type="radio"
                         id="ra"
+                        defaultValue={negotiable}
                       />
                       <span id="label">Yes</span>
                     </label>
@@ -797,6 +869,7 @@ class Editprofile extends Component {
                         onClick={this.handleRadio3}
                         type="radio"
                         id="ra"
+                        defaultValue={negotiable}
                       />
                       <span id="label">No</span>
                     </label>
@@ -818,7 +891,7 @@ class Editprofile extends Component {
                     title="It should be Numeric"
                     onChange={this.handleChange.bind(this)}
                     maxLength="2"
-                    defaultValue={this.state.editProfile.experience}
+                    defaultValue={experience}
                   />
                 </div>
                 <div class="form-group">
@@ -830,7 +903,7 @@ class Editprofile extends Component {
                     onChange={this.handleChange.bind(this)}
                     pattern="[A-Za-z\\s]*"
                     title="only alphabetical values are allowed"
-                    defaultValue={this.state.editProfile.prevjobLocation}
+                    defaultValue={prevjobLocation}
                   />
                 </div>
                 <div class="form-group">
@@ -842,7 +915,7 @@ class Editprofile extends Component {
                     onChange={this.handleChange.bind(this)}
                     pattern="[A-Za-z\\s]*"
                     title="only alphabetical values are allowed"
-                    defaultValue={this.state.editProfile.currentLocation}
+                    defaultValue={currentLocation}
                   />
                 </div>
               </div>
@@ -855,7 +928,7 @@ class Editprofile extends Component {
                     type="text"
                     name="prevcompanyName"
                     onChange={this.handleChange.bind(this)}
-                    defaultValue={this.state.editProfile.prevcompanyName}
+                    ddefaultValue={prevcompanyName}
                   />
                 </div>
                 <div class="form-group">
@@ -867,7 +940,7 @@ class Editprofile extends Component {
                     onChange={this.handleChange.bind(this)}
                     pattern="[A-Za-z\\s]*"
                     title="only alphabetical values are allowed"
-                    defaultValue={this.state.editProfile.prevdesignation}
+                    defaultValue={prevdesignation}
                   />
                 </div>
               </div>
