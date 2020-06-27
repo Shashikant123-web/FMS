@@ -49,80 +49,122 @@ class Verify extends Component {
       error: "",
       loading: true,
     });
-
     axios
-      .post(
-        "/stskFmsApi/otpServices/verifyOtpBySMS",
-        {
-          countryCode: 91,
-          mobileNumber: this.state.mobileNumber,
-          otp_input: this.state.otp,
-        },
-        { headers: header }
-      )
+      .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
+        headers: header,
+      })
       .then((Response) => {
-        console.log(Response);
+        console.log(Response.data);
         console.log(Response.data);
 
-        if (Response.data.type === "success") {
+        if (Response.data.success === 1) {
+          console.log("Dashboard");
           axios
-            .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
+            .get("/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber, {
               headers: header,
             })
-            .then((Response) => {
-              console.log(Response.data);
-              console.log(Response.data);
+            .then((res) => {
+              console.log(res.data);
 
-              if (Response.data.success === 1) {
-                console.log("Dashboard");
-                axios
-                  .get(
-                    "/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber,
-                    {
-                      headers: header,
-                    }
-                  )
-                  .then((res) => {
-                    console.log(res.data);
-
-                    if (res.data.success === 1) {
-                      this.setState({
-                        userId: res.data.data.id,
-                        details: res.data.data,
-                      });
-                      const time = setTimeout(() => {
-                        this.props.userLoginAction(this.state);
-                      }, 1000);
-                      this.props.history.push({
-                        pathname: "/dashboard",
-                      });
-                    } else {
-                      this.props.userLoginAction(this.state);
-                      this.props.history.push({
-                        pathname: "/userDetails",
-                      });
-                    }
-                  });
+              if (res.data.success === 1) {
+                this.setState({
+                  userId: res.data.data.id,
+                  details: res.data.data,
+                });
+                const time = setTimeout(() => {
+                  this.props.userLoginAction(this.state);
+                }, 1000);
+                this.props.history.push({
+                  pathname: "/dashboard",
+                });
               } else {
                 this.props.userLoginAction(this.state);
                 this.props.history.push({
-                  pathname: "/preregister",
+                  pathname: "/userDetails",
                 });
               }
             });
         } else {
-          console.log("error");
-          this.setState({
-            error: "otp miss-match",
-            loading: false,
+          this.props.userLoginAction(this.state);
+          this.props.history.push({
+            pathname: "/preregister",
           });
-          this.props.history.push("./verify");
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log(this.props.number);
       });
+
+    // axios
+    //   .post(
+    //     "/stskFmsApi/otpServices/verifyOtpBySMS",
+    //     {
+    //       countryCode: 91,
+    //       mobileNumber: this.state.mobileNumber,
+    //       otp_input: this.state.otp,
+    //     },
+    //     { headers: header }
+    //   )
+    //   .then((Response) => {
+    //     console.log(Response);
+    //     console.log(Response.data);
+
+    //     if (Response.data.type === "success") {
+    //       axios
+    //         .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
+    //           headers: header,
+    //         })
+    //         .then((Response) => {
+    //           console.log(Response.data);
+    //           console.log(Response.data);
+
+    //           if (Response.data.success === 1) {
+    //             console.log("Dashboard");
+    //             axios
+    //               .get(
+    //                 "/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber,
+    //                 {
+    //                   headers: header,
+    //                 }
+    //               )
+    //               .then((res) => {
+    //                 console.log(res.data);
+
+    //                 if (res.data.success === 1) {
+    //                   this.setState({
+    //                     userId: res.data.data.id,
+    //                     details: res.data.data,
+    //                   });
+    //                   const time = setTimeout(() => {
+    //                     this.props.userLoginAction(this.state);
+    //                   }, 1000);
+    //                   this.props.history.push({
+    //                     pathname: "/dashboard",
+    //                   });
+    //                 } else {
+    //                   this.props.userLoginAction(this.state);
+    //                   this.props.history.push({
+    //                     pathname: "/userDetails",
+    //                   });
+    //                 }
+    //               });
+    //           } else {
+    //             this.props.userLoginAction(this.state);
+    //             this.props.history.push({
+    //               pathname: "/preregister",
+    //             });
+    //           }
+    //         });
+    //     } else {
+    //       console.log("error");
+    //       this.setState({
+    //         error: "otp miss-match",
+    //         loading: false,
+    //       });
+    //       this.props.history.push("./verify");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     console.log(this.props.number);
+    //   });
   };
   render() {
     const { loading } = this.state;

@@ -342,7 +342,7 @@ export class newJobs extends Component {
     );
 
     return (
-      <div id="back">
+      <div id="back" className="grey lighten-5">
         <div>
           <NavbarTop />
           <div className="row">

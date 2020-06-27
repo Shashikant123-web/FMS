@@ -52,7 +52,7 @@ export class RecomendedJobs extends Component {
     });
     const time2 = setTimeout(() => {
       this.props.handleUnsave(this.state);
-    }, 1000);
+    }, 50);
   };
 
   handleApply = (id) => {
@@ -61,7 +61,7 @@ export class RecomendedJobs extends Component {
     });
     const time3 = setTimeout(() => {
       this.props.handleApply(this.state);
-    }, 1000);
+    }, 50);
   };
   handlepopupopen() {
     // document.getElementById("popupopen").Style.display = "block";
@@ -138,9 +138,64 @@ export class RecomendedJobs extends Component {
                       </div>
 
                       <br></br>
-
                       <div className="row">
-                        <div className="col s12 m4 l4" id="marginLeft">
+                        <div className="show-on-small hide-on-med-and-up">
+                          <div className="col s12" id="showOnSmall">
+                            <strong className="black-text col s12">
+                              Job position -
+                              <span className="grey-text" id="smallScreen">
+                                {job.jobType}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Language -
+                              <span className="grey-text" id="smallScreen">
+                                {job.language}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Valid Upto -
+                              <span className="grey-text" id="smallScreen">
+                                {job.validUpto}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Experiance -
+                              <span className="grey-text" id="smallScreen">
+                                {job.experience}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Age limit -
+                              <span className="grey-text" id="smallScreen">
+                                {job.experience}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Location -
+                              <span className="grey-text" id="smallScreen">
+                                {job.serviceArea}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Vacancy -
+                              <span className="grey-text" id="smallScreen">
+                                {job.vacancy}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Salary range -
+                              <span className="grey-text" id="smallScreen">
+                                {job.salaryRange}
+                              </span>
+                            </strong>
+                          </div>
+                        </div>
+
+                        <div
+                          className="col s12 m4 l4 hide-on-small-only"
+                          id="marginLeft"
+                        >
                           <strong className="black-text">
                             Job position-
                             <span className="grey-text">{job.jobType}</span>
@@ -156,7 +211,7 @@ export class RecomendedJobs extends Component {
                             <span className="grey-text">{job.validUpto}</span>
                           </strong>
                         </div>
-                        <div className="col s12 m4 l4">
+                        <div className="col m4 l4 hide-on-small-only">
                           <strong className="black-text">
                             Experiance-
                             <span className="grey-text">{job.experience}</span>
@@ -172,7 +227,7 @@ export class RecomendedJobs extends Component {
                             <span className="grey-text">{job.serviceArea}</span>
                           </strong>
                         </div>
-                        <div className="col s12 m4 l4">
+                        <div className="col m4 l4 hide-on-small-only">
                           <strong className="black-text">
                             Vacancy-
                             <span className="grey-text">{job.vacancy}</span>
@@ -214,19 +269,19 @@ export class RecomendedJobs extends Component {
                               <span className="grey-text">{job.jobType}</span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Language-
                               <span className="grey-text">{job.language}</span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Valid Upto-
                               <span className="grey-text">{job.validUpto}</span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Salary range-
                               <span className="grey-text">
@@ -235,7 +290,7 @@ export class RecomendedJobs extends Component {
                             </strong>
                           </div>
                           <div className="col s12 m4 l4">
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Experiance-
                               <span className="grey-text">
@@ -243,7 +298,7 @@ export class RecomendedJobs extends Component {
                               </span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Age limit-
                               <span className="grey-text">
@@ -251,7 +306,7 @@ export class RecomendedJobs extends Component {
                               </span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Location-
                               <span className="grey-text">
@@ -259,7 +314,7 @@ export class RecomendedJobs extends Component {
                               </span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Vacancy-
                               <span className="grey-text">{job.vacancy}</span>
@@ -271,7 +326,7 @@ export class RecomendedJobs extends Component {
                           <br></br>
                           <p className="grey-text">{job.description}</p>
                         </div>
-                        <div className=".text-left">
+                        <div className="text-left">
                           <h6>Before Applying do you want to Edit?</h6>
                           <Popup
                             contentStyle={{ width: "75%" }}
@@ -286,7 +341,7 @@ export class RecomendedJobs extends Component {
                                   />
                                   <span
                                     id="label"
-                                    onClick={() => console.log("shsss")}
+                                    onClick={() => console.log("shashi")}
                                   >
                                     Yes
                                   </span>
@@ -459,7 +514,7 @@ export class RecomendedJobs extends Component {
               </h6>
             </div>
 
-            <nav className="container white" id="search">
+            <nav className="container white z-depth-2" id="search">
               <div className="nav-wrapper">
                 <div className="input-field">
                   <input

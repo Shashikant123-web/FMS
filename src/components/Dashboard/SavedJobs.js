@@ -29,7 +29,7 @@ export class SavedJobs extends Component {
     });
     const time3 = setTimeout(() => {
       this.props.handleApply(this.state);
-    }, 1000);
+    }, 50);
   };
   handleUnsave = (id) => {
     this.setState({
@@ -37,7 +37,7 @@ export class SavedJobs extends Component {
     });
     const time2 = setTimeout(() => {
       this.props.handleUnsave(this.state);
-    }, 1000);
+    }, 50);
   };
 
   render() {

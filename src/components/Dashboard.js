@@ -564,7 +564,10 @@ class Dashboard extends Component {
       recomendedJobs.slice(0, 3).map((job) => {
         return (
           <div className="col 12 m6 l4" key={job.id}>
-            <div className="card darken-1 hoverable " id="recomendedJobsMain">
+            <div
+              className="card darken-1 hoverable "
+              id="recomendedJobsMainDashboard"
+            >
               <div className="card-content ">
                 <strong className="black-text">
                   Job position-
@@ -611,7 +614,10 @@ class Dashboard extends Component {
       appliedJobs.slice(0, 3).map((applied) => {
         return (
           <div className="col 12 m6 l4" key={applied.id}>
-            <div className="card darken-1 hoverable" id="recomendedJobsMain">
+            <div
+              className="card darken-1 hoverable"
+              id="recomendedJobsMainDashboard"
+            >
               <div className="card-content ">
                 <strong className="black-text">
                   Job position-

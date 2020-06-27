@@ -29,11 +29,18 @@ i.left {
   padding: 12px;
   border-radius: 0 0 2px 2px;
 }
-#recomendedJobsMain {
+#recomendedJobsMainDashboard {
   border-top: 14px solid white;
   border-radius: 10px;
 }
+#recomendedJobsMain {
+  border-top: 14px solid rgba(199, 192, 192, 0.2);
+  border-radius: 10px;
+}
 #recomendedJobsMain:hover {
+  border-top: 14px solid teal;
+}
+#recomendedJobsMainDashboard:hover {
   border-top: 14px solid teal;
 }
 .card .card-action {
@@ -41,4 +48,11 @@ i.left {
 }
 .mainContainer {
   margin-top: -51px;
+}
+#showOnSmall {
+  font-size: 17px;
+  margin-left: 20px;
+}
+#smallScreen {
+  margin-left: 3px;
 }
