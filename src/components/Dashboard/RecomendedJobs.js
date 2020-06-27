@@ -35,13 +35,16 @@ export class RecomendedJobs extends Component {
     this.props.hideJobs(id);
   };
   handleSave = (id) => {
+    console.log("shashi");
     this.setState({
       id,
     });
+    // this.props.handleSave({ id }, { userId: 12 });
+    // this.props.handleSave(this.state);
 
     const time = setTimeout(() => {
       this.props.handleSave(this.state);
-    }, 1000);
+    }, 50);
   };
   handleUnsave = (id) => {
     this.setState({
@@ -445,7 +448,7 @@ export class RecomendedJobs extends Component {
     );
 
     return (
-      <div id="back">
+      <div id="back" className="grey lighten-5">
         <div>
           <NavbarTop />
           <div className="row">

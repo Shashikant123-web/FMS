@@ -12,6 +12,7 @@ const header = {
 };
 
 export const handleSave = (save) => {
+  console.log(save);
   const { id, userId } = save;
   console.log(id);
   console.log(userId);
@@ -133,6 +134,17 @@ export const handleApply = (save) => {
           dispatch({
             type: SAVED_JOBS,
             payLoad: res.data.data,
+          });
+        }
+      });
+    axios
+      .get("/stskFmsApi/jobseeker/getById/" + userId, { headers: header })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success === 1) {
+          dispatch({
+            type: APPLIED_JOBS,
+            payLoad: res.data.data.jobs,
           });
         }
       });

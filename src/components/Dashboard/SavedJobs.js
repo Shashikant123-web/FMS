@@ -266,7 +266,7 @@ export class SavedJobs extends Component {
 
     console.log(this.state);
     return (
-      <div id="back">
+      <div id="back" className="grey lighten-5">
         <div>
           <div className="navbar-fixed">
             <nav className="white">
