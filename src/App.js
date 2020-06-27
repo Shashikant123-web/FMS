@@ -30,6 +30,7 @@ import SavedJobs from "./components/Dashboard/SavedJobs";
 import history from "./components/history";
 import NewJobs from "./components/Dashboard/NewJobs";
 import Editprofile from "./components/Editprofile";
+import SearchedJobs from "./components/Dashboard/SearchedJobs";
 axios.defaults.baseURL = "http://stskfacilities.com:8081";
 
 //import dashboardHelp from './components/dashboardHelp'
@@ -59,6 +60,7 @@ class App extends Component {
             <Route exact path="/residentHelp" component={Resident} />
             <Route exact path="/recomendedJobs" component={RecomendedJobs} />
             <Route exact path="/savedJobs" component={SavedJobs} />
+            <Route exact path="/searchedJobs" component={SearchedJobs} />
             <Route exact path="/newJobs" component={NewJobs} />
             <Route exact path="/editProfile" component={Editprofile} />
 

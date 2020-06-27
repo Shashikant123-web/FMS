@@ -318,9 +318,9 @@ class Dashboard extends Component {
   };
 
   handleinputSearch = (e) => {
-    this.setState({
-      search: e.target.value,
-    });
+    // this.setState({
+    //   search: e.target.value,
+    // });
   };
 
   handlepopup = (e) => {
@@ -508,28 +508,29 @@ class Dashboard extends Component {
     // document.getElementById("valsel").innerHTML=test;
   };
   handleSearch = (e) => {
-    this.setState({
-      search: e.target.value,
-    });
-    const timer1 = setTimeout(() => {
-      axios
-        .get("/stskFmsApi/jobs/getByJobs/" + this.state.search, {
-          headers: header,
-        })
-        .then((res) => {
-          if (res.data.success === 1) {
-            this.setState({
-              searchedJobs: res.data.data,
-              searchLoading: true,
-              searchError: "",
-            });
-          } else {
-            this.setState({
-              searchError: "Sorry, No job updates..!",
-            });
-          }
-        });
-    }, 3000);
+    this.props.history.push("/searchedJobs");
+    // this.setState({
+    //   search: e.target.value,
+    // });
+    // const timer1 = setTimeout(() => {
+    //   axios
+    //     .get("/stskFmsApi/jobs/getByJobs/" + this.state.search, {
+    //       headers: header,
+    //     })
+    //     .then((res) => {
+    //       if (res.data.success === 1) {
+    //         this.setState({
+    //           searchedJobs: res.data.data,
+    //           searchLoading: true,
+    //           searchError: "",
+    //         });
+    //       } else {
+    //         this.setState({
+    //           searchError: "Sorry, No job updates..!",
+    //         });
+    //       }
+    //     });
+    // }, 3000);
   };
 
   render() {
@@ -670,7 +671,7 @@ class Dashboard extends Component {
                 <input
                   id="dashinput"
                   type="search"
-                  onChange={this.handleSearch}
+                  // onChange={this.handleSearch}
                   required
                   placeholder="Search jobs"
                 />

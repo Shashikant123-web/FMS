@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "../css/dashboardHelp.css";
 import mainLogo from "../../components/Images/Mainlogo.png";
+import dashboard from "../Images/dashboard.png";
+
 import { withRouter, Link } from "react-router-dom";
 
 class NavbarTop extends Component {
