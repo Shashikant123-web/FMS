@@ -35,7 +35,6 @@ export class RecomendedJobs extends Component {
     this.props.hideJobs(id);
   };
   handleSave = (id) => {
-    console.log("shashi");
     this.setState({
       id,
     });
@@ -130,7 +129,7 @@ export class RecomendedJobs extends Component {
                         </h5>
                         {job.isApplied ? (
                           <h6 className="right teal-text">
-                            <img src={rightMark} width="20" height="20"></img>
+                            <img src={rightMark} width="15" height="15"></img>
                             Applied
                           </h6>
                         ) : null}
