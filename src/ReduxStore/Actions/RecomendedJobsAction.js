@@ -8,41 +8,43 @@ import {
 } from "../ActionTypes/actionTypes";
 
 const header = {
-  "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
+  "x-api-key": "$2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
-function recommendeJobs(userId) {
-  return (dispatch, getState) => {
-    axios
-      .get("/stskFmsApi/jobseeker/RecommendedJobsWithStatus/" + userId, {
-        headers: header,
-      })
-      .then((res) => {
-        console.log(res.data.data);
-        if (res.data.success === 1) {
-          dispatch({
-            type: RECOMENDED_JOBS,
-            payLoad: res.data.data,
-          });
-        }
-      });
-  };
-}
-function savedJobs(userId) {
-  return (dispatch, getState) => {
-    axios
-      .get("/stskFmsApi/jobseeker/getSavedJobsWithStatus/" + userId, {
-        headers: header,
-      })
-      .then((res) => {
-        if (res.data.success === 1) {
-          dispatch({
-            type: SAVED_JOBS,
-            payLoad: res.data.data,
-          });
-        }
-      });
-  };
-}
+// const recommendeJobs = (userId) => {
+//   console.log("in");
+//   return (dispatch, getState) => {
+//     console.log(userId);
+//     axios
+//       .get("/stskFmsApi/jobseeker/RecommendedJobsWithStatus/" + userId, {
+//         headers: header,
+//       })
+//       .then((res) => {
+//         console.log(res.data.data);
+//         if (res.data.success === 1) {
+//           dispatch({
+//             type: RECOMENDED_JOBS,
+//             payLoad: res.data.data,
+//           });
+//         }
+//       });
+//   };
+// };
+// function savedJobs(userId) {
+//   return (dispatch, getState) => {
+//     axios
+//       .get("/stskFmsApi/jobseeker/getSavedJobsWithStatus/" + userId, {
+//         headers: header,
+//       })
+//       .then((res) => {
+//         if (res.data.success === 1) {
+//           dispatch({
+//             type: SAVED_JOBS,
+//             payLoad: res.data.data,
+//           });
+//         }
+//       });
+//   };
+// }
 
 export const handleSave = (save) => {
   console.log(save);
@@ -58,8 +60,8 @@ export const handleSave = (save) => {
           saveJobs: [
             {
               id,
-            },
-          ],
+            }
+          ]
         },
         { headers: header }
       )
@@ -67,13 +69,39 @@ export const handleSave = (save) => {
         console.log(res.data);
         console.log(res);
       });
-    recommendeJobs(userId);
-    savedJobs(userId);
+    // recommendeJobs(userId);
+    const time = setTimeout(() => {
+      axios
+        .get("/stskFmsApi/jobseeker/RecommendedJobsWithStatus/" + userId, {
+          headers: header,
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          if (res.data.success === 1) {
+            dispatch({
+              type: RECOMENDED_JOBS,
+              payLoad: res.data.data,
+            });
+          }
+        });
+      axios
+        .get("/stskFmsApi/jobseeker/getSavedJobsWithStatus/" + userId, {
+          headers: header,
+        })
+        .then((res) => {
+          if (res.data.success === 1) {
+            dispatch({
+              type: SAVED_JOBS,
+              payLoad: res.data.data,
+            });
+          }
+        });
+    }, 50);
+    //savedJobs(userId);
   };
 };
 export const handleUnsave = (save) => {
   const { id, userId } = save;
-
   return (dispatch, getState) => {
     axios
       .post("/stskFmsApi/jobseeker/unSaveJobs/" + userId + "/" + id, {
@@ -84,7 +112,22 @@ export const handleUnsave = (save) => {
         console.log(res.data);
         console.log(res);
       });
-    recommendeJobs(userId);
+    //recommendeJobs(userId);
+    const time2 = setTimeout(() => {
+      axios
+        .get("/stskFmsApi/jobseeker/RecommendedJobsWithStatus/" + userId, {
+          headers: header,
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          if (res.data.success === 1) {
+            dispatch({
+              type: RECOMENDED_JOBS,
+              payLoad: res.data.data,
+            });
+          }
+        });
+    }, 50);
   };
 };
 export const handleApply = (save) => {
@@ -100,8 +143,8 @@ export const handleApply = (save) => {
           jobs: [
             {
               id,
-            },
-          ],
+            }
+          ]
         },
         { headers: header }
       )
@@ -109,20 +152,47 @@ export const handleApply = (save) => {
         console.log(res.data);
         console.log(res);
       });
-    recommendeJobs(userId);
+    //recommendeJobs(userId);
+    const time3 = setTimeout(() => {
+      axios
+        .get("/stskFmsApi/jobseeker/RecommendedJobsWithStatus/" + userId, {
+          headers: header,
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          if (res.data.success === 1) {
+            dispatch({
+              type: RECOMENDED_JOBS,
+              payLoad: res.data.data,
+            });
+          }
+        });
 
-    savedJobs(userId);
+      //savedJobs(userId);
+      axios
+        .get("/stskFmsApi/jobseeker/getSavedJobsWithStatus/" + userId, {
+          headers: header,
+        })
+        .then((res) => {
+          if (res.data.success === 1) {
+            dispatch({
+              type: SAVED_JOBS,
+              payLoad: res.data.data,
+            });
+          }
+        });
 
-    axios
-      .get("/stskFmsApi/jobseeker/getById/" + userId, { headers: header })
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.success === 1) {
-          dispatch({
-            type: APPLIED_JOBS,
-            payLoad: res.data.data.jobs,
-          });
-        }
-      });
+      axios
+        .get("/stskFmsApi/jobseeker/getById/" + userId, { headers: header })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.success === 1) {
+            dispatch({
+              type: APPLIED_JOBS,
+              payLoad: res.data.data.jobs,
+            });
+          }
+        });
+    }, 50);
   };
 };

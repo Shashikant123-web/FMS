@@ -146,7 +146,7 @@ class ForgetPwd extends Component {
                       required
                     />
                   </div>
-                  <Form.Group onChange={this.handleChange1}>
+                  <Form.Group onChange={this.handleChange1} id="forgetpwds">
                     <Form.Control
                       as="select"
                       value={this.state.countryCode}

@@ -165,6 +165,12 @@ i.right {
     width: 340px;
     margin-left: 2px;
   }
+  #UserLoginButton {
+    width: 288px;
+    margin-top: -29px;
+    outline: none;
+    border: none;
+  }
   #center {
     margin-left: -23px;
   }
@@ -178,3 +184,9 @@ i.right {
   position: relative;
   top: -36px;
 }
+/* #forgetpwds {
+  width: 27%;
+  position: relative;
+  top: -39px;
+  margin-left: 62px;
+} */
