@@ -59,7 +59,7 @@ class ForgetPwd extends Component {
         if (Response.data.success === 1) {
           this.setState({
             otpLoading: !this.setState.otpLoading,
-            error: "",
+            errorOtp: "",
           });
           axios
             .post(
@@ -76,7 +76,7 @@ class ForgetPwd extends Component {
             });
         } else {
           this.setState({
-            errorOtp: "Oops mobile number not registered",
+            errorOtp: "Oops! mobile number not registered",
           });
         }
       });
