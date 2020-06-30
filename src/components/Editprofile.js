@@ -333,6 +333,7 @@ class Editprofile extends Component {
     });
   };
   handleSubmit = (e) => {
+    console.log("submit");
     const {
       name,
       email,
