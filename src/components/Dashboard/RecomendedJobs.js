@@ -27,8 +27,30 @@ export class RecomendedJobs extends Component {
     showPopup: false,
     id: "",
     userId: this.props.dashboard.payLoad.details.id,
+    wantedit: "",
   };
-
+  handleRadio = (e) => {
+    console.log(e.target.value);
+    if (e.target.value == "true") {
+      document.getElementById("rendereditprofile").style.display = "block";
+    } else {
+      document.getElementById("abc").style.display = "none";
+    }
+    if (e.target.value == "true") {
+      document.getElementById("abc").style.display = "none";
+    } else {
+      document.getElementById("rendereditprofile").style.display = "block";
+    }
+    if (e.target.value == "true") {
+      document.getElementById("saveandapply").style.display = "none";
+    }
+    if (e.target.value == "true") {
+      document.getElementById("viewdetails").style.display = "none";
+    }
+    this.setState({
+      wantedit: e.target.value,
+    });
+  };
   handleHide = (id) => {
     console.log(id);
 
@@ -137,7 +159,7 @@ export class RecomendedJobs extends Component {
                       </div>
 
                       <br></br>
-                      <div className="row">
+                      <div className="row" id="alka">
                         <div className="show-on-small hide-on-med-and-up">
                           <div className="col s12" id="showOnSmall">
                             <strong className="black-text col s12">
@@ -258,9 +280,11 @@ export class RecomendedJobs extends Component {
                           </i>
                         </div>
 
-                        <h4 className="center align grey-text">View Details</h4>
+                        <h4 className="center align grey-text" id="viewdetails">
+                          View Details
+                        </h4>
 
-                        <div className="row">
+                        <div className="row" id="abc">
                           <div className="col s12 m4 l4">
                             <br></br>
                             <strong className="black-text">
@@ -287,11 +311,14 @@ export class RecomendedJobs extends Component {
                                 {job.salaryRange}
                               </span>
                             </strong>
+                            <br></br> <br></br>
+                            <strong>Description-</strong>
+                            <p className="grey-text">{job.description}</p>
                           </div>
                           <div className="col s12 m4 l4">
                             <br className="hide-on-small-only"></br>
                             <strong className="black-text">
-                              Experiance-
+                              Experience-
                               <span className="grey-text">
                                 {job.experience}
                               </span>
@@ -318,87 +345,37 @@ export class RecomendedJobs extends Component {
                               Vacancy-
                               <span className="grey-text">{job.vacancy}</span>
                             </strong>
-                          </div>
-                        </div>
-                        <div>
-                          <strong>Description</strong>
-                          <br></br>
-                          <p className="grey-text">{job.description}</p>
-                        </div>
-                        <div className="text-left">
-                          <h6>Before Applying do you want to Edit?</h6>
-                          <Popup
-                            contentStyle={{ width: "75%" }}
-                            trigger={
+                            <div className="text-left">
+                              <h6>Before Applying do you want to Edit?</h6>
                               <p>
                                 <label>
                                   <input
-                                    name="fresher"
+                                    name="wantedit"
                                     value="true"
+                                    onClick={this.handleRadio}
                                     type="radio"
                                     id="ra"
                                   />
-                                  <span
-                                    id="label"
-                                    onClick={() => console.log("shashi")}
-                                  >
-                                    Yes
-                                  </span>
+                                  <span id="label">Yes</span>
                                 </label>
                               </p>
-                            }
-                            modal
-                            position="center"
-                            width="70%"
-                          >
-                            {(close) => (
-                              <div className="popup-content">
-                                <div className="col s12 m12 l12">
-                                  <div className="right-align">
-                                    <i
-                                      className="material-icons"
-                                      id="dashcancelbtn"
-                                      onClick={() => {
-                                        close();
-                                      }}
-                                    >
-                                      clear
-                                    </i>
-                                  </div>
-                                  <EditProfile />
-
-                                  <br></br>
-                                </div>
-                              </div>
-                            )}
-                          </Popup>
-
-                          <p>
-                            <label>
-                              <input
-                                name="fresher"
-                                value="false"
-                                onClick={this.handleRadio}
-                                type="radio"
-                                id="ra"
-                              />
-                              <span id="label">No</span>
-                            </label>
-                          </p>
-                          {/* {this.state.showPopup ? ( */}
-                          <Popup
-                            contentStyle={{ width: "75%" }}
-                            trigger={<div id="popupopen"></div>}
-                            modal
-                            position="center"
-                            width="70%"
-                          >
-                            <div className="popup-content">
-                              <EditProfile />
+                              <p>
+                                <label>
+                                  <input
+                                    name="wantedit"
+                                    value="false"
+                                    onClick={this.handleRadio}
+                                    type="radio"
+                                    id="ra"
+                                  />
+                                  <span id="label">No</span>
+                                </label>
+                              </p>
                             </div>
-                          </Popup>
+                          </div>
                         </div>
-                        <div className="center">
+
+                        <div className="center" id="saveandapply">
                           {job.isSaved ? (
                             <a
                               className="btn center"
@@ -436,6 +413,13 @@ export class RecomendedJobs extends Component {
                         </div>
 
                         <br></br>
+                      </div>
+                      <div
+                        class="editprofile"
+                        id="rendereditprofile"
+                        style={{ display: "none" }}
+                      >
+                        <EditProfile />
                       </div>
                     </div>
                   )}
