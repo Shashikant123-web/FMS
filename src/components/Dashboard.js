@@ -81,6 +81,10 @@ class Dashboard extends Component {
       newJobs: [],
       saveNumber: "",
       recomendedJobsLength: "",
+      items: [],
+      suggestions: [],
+      names: [],
+      text: "",
     };
   }
 
@@ -94,184 +98,47 @@ class Dashboard extends Component {
       alert("hi");
     }
   }
+  onTextChanged = (e, names) => {
+    const value = e.target.value;
+    let suggestions = [];
+    if (value.length > 0) {
+      const regex = new RegExp(`^${value}`, "i");
+      suggestions = names.sort().filter((v) => regex.test(v));
+    }
+    this.setState(() => ({ suggestions, text: value }));
+  };
+  renderSuggestions() {
+    console.log("hi");
+    const { suggestions } = this.state;
+    if (suggestions.length === 0) {
+      return null;
+    }
+    return (
+      <ul>
+        {suggestions.map((item) => (
+          <li onClick={() => this.suggestionsSelected(item)}>{item}</li>
+        ))}
+      </ul>
+    );
+  }
+  suggestionsSelected(value) {
+    this.setState({
+      text: value,
+      suggestions: [],
+    });
+  }
 
   componentDidMount(e) {
-    // fetch("http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes", {
-    //   headers: header,
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     let TypesFromApi = data.data.map((Type) => {
-    //       return { id: Type.id, name: Type.name };
-    //     });
-    //     this.setState({
-    //       Types: [
-    //         {
-    //           id: "",
-    //           name: "(Select your desire job)",
-    //         },
-    //       ].concat(TypesFromApi),
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // this._isMounted = true;
-    //const timer = setTimeout(() => {
-    //   axios
-    //     .get("/stskFmsApi/jobs/recommendedJobs/" + 27, {
-    //       headers: header,
-    //     })
-    //     .then((res) => {
-    //       console.log(res.data.data);
-    //       if (res.data.success === 1) {
-    //         this.setState({
-    //           recomendedJobs: res.data.data,
-    //         });
-    //       } else {
-    //         console.log("No jobs present");
-    //       }
-    //     });
-    //   axios
-    //     .get("/stskFmsApi/jobseeker/getSavedJobs/" + 27, {
-    //       headers: header,
-    //     })
-    //     .then((res) => {
-    //       if (res.data.success === 1) {
-    //         this.setState({
-    //           savedJobs: res.data.data,
-    //         });
-    //       } else {
-    //         this.setState({
-    //           savedJobs: "",
-    //         });
-    //       }
-    //     });
-    //   axios
-    //     .get("/stskFmsApi/jobs/newJobs/" + 27, {
-    //       headers: header,
-    //     })
-    //     .then((res) => {
-    //       if (res.data.success === 1) {
-    //         this.setState({
-    //           newJobs: res.data.data,
-    //         });
-    //       } else {
-    //         this.setState({
-    //           newJobs: "",
-    //         });
-    //       }
-    //     });
-    // }, 1000);
-    // const timer1 = setTimeout(() => {
-    //   axios
-    //     .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       if (res.data.success === 1) {
-    //         this.setState({
-    //           appliedJobs: res.data.data.jobs,
-    //         });
-    //       } else {
-    //         this.setState({
-    //           appliedJobs: 0,
-    //         });
-    //       }
-    //     });
-    // }, 1000);
-    // const timer2 = setTimeout(() => {
-    //   axios
-    //     .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
-    //       headers: header,
-    //     })
-    //     .then((res) => {
-    //       console.log(res.data.data[0].docId);
-    //       this.setState({
-    //         docId: res.data.data[0].docId,
-    //       });
-    //     });
-    // }, 4000);
-    // const timer3 = setTimeout(() => {
-    //   axios
-    //     .get("/stskFmsApi/jobseekerdoc/retriveWithPath/" + this.state.docId, {
-    //       headers: header,
-    //     })
-    //     .then((res) => {
-    //       console.log(res.data.data.path);
-    //       this.setState({
-    //         path: res.data.data.path,
-    //         fileName: res.data.data.docName,
-    //       });
-    //     })
-    //     .catch((err) => console.log(err));
-    // }, 5000);
-    // const timer4 = setTimeout(() => {
-    //   axios
-    //     .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
-    //       headers: header,
-    //     })
-    //     .then((res) => {
-    //       console.log(res.data.data.id);
-    //       this.setState({
-    //         mobileNumberUserloginId: res.data.data.id,
-    //       });
-    //     })
-    //     .catch((err) => console.log(err));
-    // }, 6000);
-    // const timer5 = setTimeout(() => {
-    //   axios
-    //     .get(
-    //       "/stskFmsApi/imageDoc/getByLoginId/" +
-    //         this.state.mobileNumberUserloginId,
-    //       { headers: header }
-    //     )
-    //     .then((res) => {
-    //       console.log(res.data.data[0].docId);
-    //       this.setState({
-    //         profileimageretrievedocId: res.data.data[0].docId,
-    //       });
-    //     })
-    //     .catch((err) => console.log(err));
-    // }, 7000);
-    // const timer6 = setTimeout(() => {
-    //   axios
-    //     .get(
-    //       "/stskFmsApi/imageDoc/retriveWithPath/" +
-    //         this.state.profileimageretrievedocId,
-    //       { headers: header }
-    //     )
-    //     .then((res) => {
-    //       console.log(res);
-    //       this.setState({
-    //         profileimagepath: res.data.data.path,
-    //       });
-    //     })
-    //     .catch((err) => console.log(err));
-    // }, 8000);
-    // axios
-    //   .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId" + this.state.userId, {
-    //     headers: header,
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data.data.docId);
-    //     console.log(res);
-    //     this.setState({
-    //       docId: res.data.data.docId,
-    //     });
-    //   });
-    // const timerrr2 = setTimeout(() => {
-    //   axios
-    //     .get("/stskFmsApi/jobseekerdoc/getByJobSeekerId/" + this.state.userId, {
-    //       headers: header,
-    //     })
-    //     .then((res) => {
-    //       console.log(res.data.data.docId);
-    //       console.log(res);
-    //       this.setState({
-    //         docId: res.data.data.docId,
-    //       });
-    //     });
-    // }, 4000);
+    axios
+      .get("/stskFmsApi/jobTypes/getAllJobTypes", { headers: header })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data.data[0].name);
+        this.setState({
+          items: res.data.data,
+        });
+      })
+      .catch((err) => console.log(err));
   }
 
   handleApply = (id) => {
@@ -508,7 +375,35 @@ class Dashboard extends Component {
     // document.getElementById("valsel").innerHTML=test;
   };
   handleSearch = (e) => {
-    this.props.history.push("/searchedJobs");
+    console.log("hello");
+    e.preventDefault();
+    this.props.history.push({
+      pathname: "/searchedJobs",
+      state: {
+        userInput: this.state.text,
+      },
+    });
+    axios
+      .get("/stskFmsApi/jobs/getByJobName/" + this.state.text, {
+        headers: header,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.success === 1) {
+          this.props.history.push({
+            pathname: "/searchedJobs",
+            state: {
+              userInput: this.state.text,
+            },
+          });
+        }
+        // console.log(res.data.data[0].name);
+        // this.setState({
+        //   items: res.data.data,
+        // });
+      })
+      .catch((err) => console.log(err));
+    // this.props.history.push("/searchedJobs");
     // this.setState({
     //   search: e.target.value,
     // });
@@ -534,6 +429,10 @@ class Dashboard extends Component {
   };
 
   render() {
+    const { text } = this.state;
+    const names = this.state.items.map((name) => {
+      return name.name;
+    });
     const {
       mobileNumber,
       userId,
@@ -665,16 +564,48 @@ class Dashboard extends Component {
             </div>
           </div>
 
-          <nav className="container white" id="search">
-            <div className="nav-wrapper">
-              <div className="input-field">
-                <input
+          {/* <nav className="container white" id="search"> */}
+          <div className="container white" id="search">
+            {/* <div className="nav-wrapper">
+              <div className="input-field"> */}
+            <input
+              type="text"
+              onChange={(e) => this.onTextChanged(e, names)}
+              value={text}
+              className="autosugest"
+              style={{ width: "80%" }}
+            />
+            <i className="material-icons right">
+              <a
+                className="btn hide-on-small-only"
+                onClick={this.handleSearch}
+                id="src1"
+              >
+                <i className="material-icons right" id="src">
+                  search
+                </i>
+                Search
+              </a>
+            </i>
+
+            <i
+              className="material-icons right show-on-small hide-on-med-and-up grey-text"
+              onClick={this.handleSearch}
+            >
+              search
+            </i>
+          </div>
+          {/* <div class="input-field col s12"></div> */}
+
+          {/* <input
                   id="dashinput"
                   type="search"
-                  // onChange={this.handleSearch}
                   required
                   placeholder="Search jobs"
+                  onChange={(e) => this.onTextChanged(e, names)}
+                  value={text}
                 />
+
                 <i className="material-icons right">
                   <a
                     className="btn hide-on-small-only"
@@ -693,10 +624,10 @@ class Dashboard extends Component {
                   onClick={this.handleSearch}
                 >
                   search
-                </i>
-              </div>
-            </div>
-          </nav>
+                </i> */}
+          {/* </div>
+            </div> */}
+          {/* </nav> */}
         </div>
         {/* edit profile*/}
         <div className="" id="details">
@@ -856,6 +787,11 @@ class Dashboard extends Component {
                     <h4 className="grey-text">Recomended jobs</h4>
 
                     {recommendedList}
+                    <div className="suggestionbox z-depth-1">
+                      <ul id="listitem">
+                        <li>{this.renderSuggestions()}</li>
+                      </ul>
+                    </div>
                     <div className="col s12 m12 l12">
                       <strong>
                         <div className="numberCircle left">{nmbr}</div>

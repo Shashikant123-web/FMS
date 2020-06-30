@@ -27,8 +27,27 @@ export class SearchedJobs extends Component {
     showPopup: false,
     id: "",
     userId: this.props.dashboard.payLoad.details.id,
+    userInput: "",
+    searchedjobdetails: "",
   };
-
+  componentDidMount() {
+    console.log(this.props.location.state.userInput);
+    this.setState({
+      userInput: this.props.location.state.userInput,
+    });
+    setTimeout(() => {
+      axios
+        .get("/stskFmsApi/jobs/getByJobName/" + this.state.userInput, {
+          headers: header,
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          this.setState({
+            searchedjobdetails: res.data.data,
+          });
+        });
+    }, 2000);
+  }
   handleHide = (id) => {
     console.log(id);
 
@@ -106,17 +125,18 @@ export class SearchedJobs extends Component {
   // };
 
   render() {
-    console.log(this.props.dashboard.payLoad.details.id);
+    // console.log(this.props.dashboard.payLoad.details.id);
     console.log(this.state);
-    const {
-      payLoad: { userId },
-      recomendedJobs,
-      savedJobs,
-      appliedJobs,
-    } = this.props.dashboard;
-    const nmbr = recomendedJobs.length;
-    const recommendedList = recomendedJobs.length ? (
-      recomendedJobs.map((job) => {
+    // const {
+    //   payLoad: { userId },
+    //   recomendedJobs,
+    //   savedJobs,
+    //   appliedJobs,
+    // } = this.props.dashboard;
+    const { searchedjobdetails } = this.state;
+    const nmbr = searchedjobdetails.length;
+    const searchedjobList = searchedjobdetails.length ? (
+      searchedjobdetails.map((job) => {
         return (
           <div key={job.id}>
             <div className="col s12 m12 l12">
@@ -567,7 +587,7 @@ export class SearchedJobs extends Component {
             </div>
             <br></br>
             <br></br>
-            {recommendedList}
+            {searchedjobList}
           </div>
 
           <div className="footer-copyright" id="footer">
