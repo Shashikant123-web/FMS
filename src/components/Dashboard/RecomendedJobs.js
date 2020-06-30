@@ -10,6 +10,7 @@ import M from "materialize-css/dist/js/materialize.min.js";
 import { connect } from "react-redux";
 import NavbarTop from "../NavbarJobseeker/NavbarTop";
 import EditProfile from "../Editprofile";
+import $ from "jquery";
 
 import { HIDE_JOBS } from "../../ReduxStore/ActionTypes/actionTypes";
 import {
@@ -30,26 +31,31 @@ export class RecomendedJobs extends Component {
     wantedit: "",
   };
   handleRadio = (e) => {
-    console.log(e.target.value);
-    if (e.target.value == "true") {
-      document.getElementById("rendereditprofile").style.display = "block";
-    } else {
-      document.getElementById("abc").style.display = "none";
-    }
-    if (e.target.value == "true") {
-      document.getElementById("abc").style.display = "none";
-    } else {
-      document.getElementById("rendereditprofile").style.display = "block";
-    }
-    if (e.target.value == "true") {
-      document.getElementById("saveandapply").style.display = "none";
-    }
-    if (e.target.value == "true") {
-      document.getElementById("viewdetails").style.display = "none";
-    }
-    this.setState({
-      wantedit: e.target.value,
-    });
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
   };
   handleHide = (id) => {
     console.log(id);
@@ -345,6 +351,7 @@ export class RecomendedJobs extends Component {
                               Vacancy-
                               <span className="grey-text">{job.vacancy}</span>
                             </strong>
+
                             <div className="text-left">
                               <h6>Before Applying do you want to Edit?</h6>
                               <p>
@@ -354,7 +361,10 @@ export class RecomendedJobs extends Component {
                                     value="true"
                                     onClick={this.handleRadio}
                                     type="radio"
-                                    id="ra"
+                                    data-toggle="modal"
+                                    data-target="#squarespaceModal"
+                                    // id="ra"
+                                    id="myBtn"
                                   />
                                   <span id="label">Yes</span>
                                 </label>
@@ -364,9 +374,9 @@ export class RecomendedJobs extends Component {
                                   <input
                                     name="wantedit"
                                     value="false"
-                                    onClick={this.handleRadio}
+                                    // onClick={this.handleRadio}
                                     type="radio"
-                                    id="ra"
+                                    // id="ra"
                                   />
                                   <span id="label">No</span>
                                 </label>
@@ -424,6 +434,7 @@ export class RecomendedJobs extends Component {
                     </div>
                   )}
                 </Popup>
+
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
@@ -552,7 +563,12 @@ export class RecomendedJobs extends Component {
             <br></br>
             {recommendedList}
           </div>
-
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <EditProfile />
+            </div>
+          </div>
           <div className="footer-copyright" id="footer">
             <h6 className="center">
               Copyright @2020 All rights reserved | This tamplate is made with
