@@ -40,9 +40,6 @@ class UploadDocument extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    // this.setState({
-    //     mobileNumber   })
-
     let formData = new FormData();
 
     formData.append("file", this.state.image);

@@ -15,11 +15,11 @@ class ChangePwd extends Component {
     loading: false,
   };
 
-  // componentDidMount() {
-  //   this.setState({
-  //     mob: this.props.location.state.mobileNumber.mobileNumber,
-  //   });
-  // }
+  componentDidMount() {
+    this.setState({
+      mob: this.props.location.state.mobileNumber.mobileNumber,
+    });
+  }
 
   handleChange1 = (e) => {
     this.setState({
@@ -59,10 +59,15 @@ class ChangePwd extends Component {
           { headers: header }
         )
         .then((Response) => {
-          this.props.history.push("./userLogin");
-
           console.log(Response);
           console.log(Response.data);
+          if (Response.data.success === 1) {
+            this.props.history.push("./userLogin");
+          } else
+            this.setState({
+              error: "Please Try again...",
+              loading: false,
+            });
         })
         .catch((error) => {
           console.log(error);
