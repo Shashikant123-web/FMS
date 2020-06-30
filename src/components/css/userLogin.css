@@ -55,7 +55,11 @@
 #input-forgot {
   width: 288px;
   outline: none;
-  margin-top: -30px;
+  margin-top: -23px;
+}
+#input-forgot-error {
+  margin-top: -54px;
+  margin-left: 38px;
 }
 
 #input-type4 {
@@ -136,7 +140,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-top: -33px;
+  margin-top: 14px;
 }
 
 #FpVerify {

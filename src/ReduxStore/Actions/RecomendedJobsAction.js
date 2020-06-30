@@ -60,8 +60,8 @@ export const handleSave = (save) => {
           saveJobs: [
             {
               id,
-            }
-          ]
+            },
+          ],
         },
         { headers: header }
       )
@@ -69,7 +69,6 @@ export const handleSave = (save) => {
         console.log(res.data);
         console.log(res);
       });
-    // recommendeJobs(userId);
     const time = setTimeout(() => {
       axios
         .get("/stskFmsApi/jobseeker/RecommendedJobsWithStatus/" + userId, {
@@ -92,6 +91,18 @@ export const handleSave = (save) => {
           if (res.data.success === 1) {
             dispatch({
               type: SAVED_JOBS,
+              payLoad: res.data.data,
+            });
+          }
+        });
+      axios
+        .get("/stskFmsApi/jobseeker/newJobsWithStatus/" + userId, {
+          headers: header,
+        })
+        .then((res) => {
+          if (res.data.success === 1) {
+            dispatch({
+              type: NEW_JOBS,
               payLoad: res.data.data,
             });
           }
@@ -127,6 +138,18 @@ export const handleUnsave = (save) => {
             });
           }
         });
+      axios
+        .get("/stskFmsApi/jobseeker/newJobs/" + userId, {
+          headers: header,
+        })
+        .then((res) => {
+          if (res.data.success === 1) {
+            dispatch({
+              type: NEW_JOBS,
+              payLoad: res.data.data,
+            });
+          }
+        });
     }, 50);
   };
 };
@@ -143,8 +166,8 @@ export const handleApply = (save) => {
           jobs: [
             {
               id,
-            }
-          ]
+            },
+          ],
         },
         { headers: header }
       )
@@ -190,6 +213,18 @@ export const handleApply = (save) => {
             dispatch({
               type: APPLIED_JOBS,
               payLoad: res.data.data.jobs,
+            });
+          }
+        });
+      axios
+        .get("/stskFmsApi/jobseeker/newJobs/" + userId, {
+          headers: header,
+        })
+        .then((res) => {
+          if (res.data.success === 1) {
+            dispatch({
+              type: NEW_JOBS,
+              payLoad: res.data.data,
             });
           }
         });

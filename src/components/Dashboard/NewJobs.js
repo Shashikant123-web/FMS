@@ -9,90 +9,64 @@ import rightMark from "../Images/tic.png";
 import M from "materialize-css/dist/js/materialize.min.js";
 import NavbarTop from "../NavbarJobseeker/NavbarTop";
 import { connect } from "react-redux";
+import EditProfile from "../Editprofile";
+
+import { HIDE_JOBS } from "../../ReduxStore/ActionTypes/actionTypes";
+import {
+  handleSave,
+  handleUnsave,
+  handleApply,
+} from "../../ReduxStore/Actions/RecomendedJobsAction";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
 };
 
 export class newJobs extends Component {
-  handleHide = (id) => {
-    // M.toast({ Forhtml: "I am a toast", classes: "rounded" });
-    const recomendedJobs = this.state.recomendedJobs.filter((job) => {
-      return job.id !== id;
-    });
-    this.setState({
-      recomendedJobs,
-    });
-  };
-  handleApply = (id) => {
-    axios
-      .post(
-        "/stskFmsApi/jobseeker/applyJobs",
-        {
-          id: 27,
-          jobs: [
-            {
-              id: id,
-            },
-          ],
-        },
-        { headers: header }
-      )
-      .then((res) => {
-        console.log(res.data);
-        console.log(res);
-      });
-    const timer1 = setTimeout(() => {
-      axios
-        .get("/stskFmsApi/jobseeker/getById/" + 27, { headers: header })
-        .then((res) => {
-          this.setState({
-            appliedJobs: res.data.data.jobs,
-          });
-        });
-    }, 1000);
+  state = {
+    userId: this.props.dashboard.payLoad.details.id,
   };
   handleSave = (id) => {
-    // axios
-    //   .post(
-    //     "/stskFmsApi/jobseeker/saveJobs",
-    //     {
-    //       id: 27,
-    //       jobs: [
-    //         {
-    //           id: id,
-    //         }
-    //       ]
-    //     },
-    //     { headers: header }
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     console.log(res);
-    //   });
-    // {
-    //   this.state.saved.map((savedId) => {
-    //     var flag = document.getElementById(id).innerHTML;
-
-    //     if (flag === "turned_in_not" && id == savedId) {
-    //       var a = (document.getElementById(id).innerHTML = "turned_in");
-    //       flag = 1;
-    //     } else {
-    //       var a = (document.getElementById(id).innerHTML = "turned_in_not");
-    //     }
-    //   });
-    // }
-    console.log(id);
     this.setState({
-      saved: [...this.state.saved, id],
+      id,
     });
+    // this.props.handleSave({ id }, { userId: 12 });
+    // this.props.handleSave(this.state);
+
+    const time = setTimeout(() => {
+      this.props.handleSave(this.state);
+    }, 50);
+  };
+  handleUnsave = (id) => {
+    this.setState({
+      id,
+    });
+    const time2 = setTimeout(() => {
+      this.props.handleUnsave(this.state);
+    }, 50);
+  };
+
+  handleApply = (id) => {
+    this.setState({
+      id,
+    });
+    const time3 = setTimeout(() => {
+      this.props.handleApply(this.state);
+    }, 50);
   };
 
   render() {
-    const { newJobs, appliedJobs } = this.props.dashboard;
-
+    console.log(this.props.dashboard.payLoad.details.id);
+    console.log(this.state);
+    const {
+      payLoad: { userId },
+      recomendedJobs,
+      newJobs,
+      savedJobs,
+      appliedJobs,
+    } = this.props.dashboard;
     const nmbr = newJobs.length;
-    const newJobsList = newJobs.length ? (
+    const recommendedList = newJobs.length ? (
       newJobs.map((job) => {
         return (
           <div key={job.id}>
@@ -105,28 +79,74 @@ export class newJobs extends Component {
                         <h5>
                           <strong className="left">{job.jobType}</strong>
                         </h5>
-                        {appliedJobs &&
-                          appliedJobs.map((id, index) => {
-                            if (id.id === job.id) {
-                              return (
-                                <h6 className="right teal-text" key={index}>
-                                  <img
-                                    src={rightMark}
-                                    width="20"
-                                    height="20"
-                                  ></img>
-                                  Applied
-                                </h6>
-                              );
-                            }
-                          })}
+                        {job.isApplied ? (
+                          <h6 className="right teal-text">
+                            <img src={rightMark} width="15" height="15"></img>
+                            Applied
+                          </h6>
+                        ) : null}
                         <br></br>
                       </div>
 
                       <br></br>
-
                       <div className="row">
-                        <div className="col s12 m4 l4" id="marginLeft">
+                        <div className="show-on-small hide-on-med-and-up">
+                          <div className="col s12" id="showOnSmall">
+                            <strong className="black-text col s12">
+                              Job position -
+                              <span className="grey-text" id="smallScreen">
+                                {job.jobType}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Language -
+                              <span className="grey-text" id="smallScreen">
+                                {job.language}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Valid Upto -
+                              <span className="grey-text" id="smallScreen">
+                                {job.validUpto}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Experiance -
+                              <span className="grey-text" id="smallScreen">
+                                {job.experience}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Age limit -
+                              <span className="grey-text" id="smallScreen">
+                                {job.experience}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Location -
+                              <span className="grey-text" id="smallScreen">
+                                {job.serviceArea}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Vacancy -
+                              <span className="grey-text" id="smallScreen">
+                                {job.vacancy}
+                              </span>
+                            </strong>
+                            <strong className="black-text col s12">
+                              Salary range -
+                              <span className="grey-text" id="smallScreen">
+                                {job.salaryRange}
+                              </span>
+                            </strong>
+                          </div>
+                        </div>
+
+                        <div
+                          className="col s12 m4 l4 hide-on-small-only"
+                          id="marginLeft"
+                        >
                           <strong className="black-text">
                             Job position-
                             <span className="grey-text">{job.jobType}</span>
@@ -142,7 +162,7 @@ export class newJobs extends Component {
                             <span className="grey-text">{job.validUpto}</span>
                           </strong>
                         </div>
-                        <div className="col s12 m4 l4">
+                        <div className="col m4 l4 hide-on-small-only">
                           <strong className="black-text">
                             Experiance-
                             <span className="grey-text">{job.experience}</span>
@@ -158,7 +178,7 @@ export class newJobs extends Component {
                             <span className="grey-text">{job.serviceArea}</span>
                           </strong>
                         </div>
-                        <div className="col s12 m4 l4">
+                        <div className="col m4 l4 hide-on-small-only">
                           <strong className="black-text">
                             Vacancy-
                             <span className="grey-text">{job.vacancy}</span>
@@ -200,19 +220,19 @@ export class newJobs extends Component {
                               <span className="grey-text">{job.jobType}</span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Language-
                               <span className="grey-text">{job.language}</span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Valid Upto-
                               <span className="grey-text">{job.validUpto}</span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Salary range-
                               <span className="grey-text">
@@ -221,7 +241,7 @@ export class newJobs extends Component {
                             </strong>
                           </div>
                           <div className="col s12 m4 l4">
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Experiance-
                               <span className="grey-text">
@@ -229,7 +249,7 @@ export class newJobs extends Component {
                               </span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Age limit-
                               <span className="grey-text">
@@ -237,7 +257,7 @@ export class newJobs extends Component {
                               </span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Location-
                               <span className="grey-text">
@@ -245,7 +265,7 @@ export class newJobs extends Component {
                               </span>
                             </strong>
                             <br></br>
-                            <br></br>
+                            <br className="hide-on-small-only"></br>
                             <strong className="black-text">
                               Vacancy-
                               <span className="grey-text">{job.vacancy}</span>
@@ -257,18 +277,114 @@ export class newJobs extends Component {
                           <br></br>
                           <p className="grey-text">{job.description}</p>
                         </div>
-                        <div className="center">
-                          <a className="btn center" id="savebtn">
-                            <i className="material-icons left">turned_in_not</i>
-                            save
-                          </a>
-                          <a
-                            className="btn center"
-                            onClick={() => this.handleApply(job.id)}
-                            id="applybtn"
+                        <div className="text-left">
+                          <h6>Before Applying do you want to Edit?</h6>
+                          <Popup
+                            contentStyle={{ width: "75%" }}
+                            trigger={
+                              <p>
+                                <label>
+                                  <input
+                                    name="fresher"
+                                    value="true"
+                                    type="radio"
+                                    id="ra"
+                                  />
+                                  <span
+                                    id="label"
+                                    onClick={() => console.log("shashi")}
+                                  >
+                                    Yes
+                                  </span>
+                                </label>
+                              </p>
+                            }
+                            modal
+                            position="center"
+                            width="70%"
                           >
-                            Apply
-                          </a>
+                            {(close) => (
+                              <div className="popup-content">
+                                <div className="col s12 m12 l12">
+                                  <div className="right-align">
+                                    <i
+                                      className="material-icons"
+                                      id="dashcancelbtn"
+                                      onClick={() => {
+                                        close();
+                                      }}
+                                    >
+                                      clear
+                                    </i>
+                                  </div>
+                                  <EditProfile />
+
+                                  <br></br>
+                                </div>
+                              </div>
+                            )}
+                          </Popup>
+
+                          <p>
+                            <label>
+                              <input
+                                name="fresher"
+                                value="false"
+                                onClick={this.handleRadio}
+                                type="radio"
+                                id="ra"
+                              />
+                              <span id="label">No</span>
+                            </label>
+                          </p>
+                          {/* {this.state.showPopup ? ( */}
+                          <Popup
+                            contentStyle={{ width: "75%" }}
+                            trigger={<div id="popupopen"></div>}
+                            modal
+                            position="center"
+                            width="70%"
+                          >
+                            <div className="popup-content">
+                              <EditProfile />
+                            </div>
+                          </Popup>
+                        </div>
+                        <div className="center">
+                          {job.isSaved ? (
+                            <a
+                              className="btn center"
+                              id="savebtn"
+                              onClick={() => this.handleUnsave(job.id)}
+                            >
+                              <i className="material-icons left">turned_in</i>
+                              saved
+                            </a>
+                          ) : (
+                            <a
+                              className="btn center"
+                              id="savebtn"
+                              onClick={() => this.handleSave(job.id)}
+                            >
+                              <i className="material-icons left">
+                                turned_in_not
+                              </i>
+                              save
+                            </a>
+                          )}
+                          {job.isApplied ? (
+                            <a className="btn center" id="applybtn">
+                              Applied
+                            </a>
+                          ) : (
+                            <a
+                              className="btn center"
+                              onClick={() => this.handleApply(job.id)}
+                              id="applybtn"
+                            >
+                              Apply
+                            </a>
+                          )}
                         </div>
 
                         <br></br>
@@ -279,32 +395,28 @@ export class newJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    {this.state.saved &&
-                      this.state.saved.map((id, index) => {
-                        if (id === job.id) {
-                          return (
-                            <strong className="right" key={index}>
-                              <i className="material-icons teal-text left">
-                                turned_in
-                              </i>
-                              saved
-                            </strong>
-                          );
-                        } else {
-                          return (
-                            <strong
-                              key={index}
-                              className="right"
-                              onClick={() => this.handleSave(job.id)}
-                            >
-                              <i className="material-icons teal-text left">
-                                turned_in_not
-                              </i>
-                              save
-                            </strong>
-                          );
-                        }
-                      })}
+                    {job.isSaved ? (
+                      <strong
+                        className="right"
+                        onClick={() => this.handleUnsave(job.id)}
+                      >
+                        <i className="material-icons teal-text left">
+                          turned_in
+                        </i>
+                        saved
+                      </strong>
+                    ) : null}
+                    {job.isSaved ? null : (
+                      <strong
+                        className="right"
+                        onClick={() => this.handleSave(job.id)}
+                      >
+                        <i className="material-icons teal-text left">
+                          turned_in_not
+                        </i>
+                        save
+                      </strong>
+                    )}
                     <strong
                       className="right"
                       onClick={() => {
@@ -353,7 +465,7 @@ export class newJobs extends Component {
               </h6>
             </div>
 
-            <nav className="container white" id="search">
+            <nav className="container white z-depth-2" id="search">
               <div className="nav-wrapper">
                 <div className="input-field">
                   <input
@@ -397,7 +509,7 @@ export class newJobs extends Component {
             <hr></hr>
             <div>
               <h5 className="left">
-                <strong>Recomended jobs for you</strong>
+                <strong>New jobs for you</strong>
               </h5>
               <strong className="right">
                 <div className="numberCircle left">{nmbr}</div>
@@ -406,7 +518,7 @@ export class newJobs extends Component {
             </div>
             <br></br>
             <br></br>
-            {newJobsList}
+            {recommendedList}
           </div>
 
           <div className="footer-copyright" id="footer">
@@ -426,4 +538,15 @@ const mapStateToProps = (state) => {
     dashboard: state.userLogin.userLogin,
   };
 };
-export default connect(mapStateToProps)(withRouter(newJobs));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSave: (id) => dispatch(handleSave(id)),
+    handleUnsave: (id) => dispatch(handleUnsave(id)),
+    handleApply: (id) => dispatch(handleApply(id)),
+    hideJobs: (id) => dispatch({ type: HIDE_JOBS, id: id }),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(newJobs));

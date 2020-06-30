@@ -3,6 +3,7 @@ import axios from "axios";
 import { Form, FormControl } from "react-bootstrap";
 import OtpInput from "react-otp-input";
 import "./css/SendOtp.css";
+import "./css/ForgotPwd.css";
 
 import { withRouter } from "react-router-dom";
 
@@ -49,21 +50,35 @@ class ForgetPwd extends Component {
 
   handleSend = (e) => {
     e.preventDefault();
-    this.setState({
-      otpLoading: !this.setState.otpLoading,
-    });
     axios
-      .post(
-        "/stskFmsApi/otpServices/sendOtpBySMS",
-        { countryCode: 91, mobileNumber: this.state.mobileNumber },
-        { headers: header }
-      )
-      .then((Response) => {
-        console.log(Response);
-        console.log(Response.data);
+      .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
+        headers: header,
       })
-      .catch((error) => {
-        console.log(error);
+      .then((Response) => {
+        console.log(Response.data);
+        if (Response.data.success === 1) {
+          this.setState({
+            otpLoading: !this.setState.otpLoading,
+            error: "",
+          });
+          axios
+            .post(
+              "/stskFmsApi/otpServices/sendOtpBySMS",
+              { countryCode: 91, mobileNumber: this.state.mobileNumber },
+              { headers: header }
+            )
+            .then((Response) => {
+              console.log(Response);
+              console.log(Response.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          this.setState({
+            errorOtp: "Oops mobile number not registered",
+          });
+        }
       });
   };
   handleVerify = (e) => {
@@ -84,25 +99,12 @@ class ForgetPwd extends Component {
         console.log(Response.data);
 
         if (Response.data.type === "success") {
-          axios
-            .get("/stskFmsApi/userLogin/getByMob/" + this.state.mobileNumber, {
-              headers: header,
-            })
-            .then((Response) => {
-              console.log(Response.data);
-              if (Response.data.success === 1) {
-                this.props.history.push({
-                  pathname: "/changePwd",
-                  state: {
-                    mobileNumber: this.state,
-                  },
-                });
-              } else {
-                this.setState({
-                  errorOtp: "Oops mobile number not registered",
-                });
-              }
-            });
+          this.props.history.push({
+            pathname: "/changePwd",
+            state: {
+              mobileNumber: this.state,
+            },
+          });
         } else {
           this.setState({
             errorOtp: "Otp miss-match",
@@ -128,44 +130,24 @@ class ForgetPwd extends Component {
             >
               arrow_back
             </i>
-
-            <h3 className="center" id="otp">
-              OTP
-            </h3>
-
             {this.state.otpLoading ? (
               <div>
-                <form id="userLogin1" onSubmit={this.handleSend}>
-                  <div className="input-field">
-                    <input
-                      id="sendotpinput"
-                      type="tel"
-                      placeholder="Enter mobile number"
-                      maxLength="10"
-                      pattern="[0-9]{10}"
-                      onChange={this.handleChangeMob}
-                      required
-                    />
-                  </div>
-                  <Form.Group onChange={this.handleChange1} id="forgetpwds">
-                    <Form.Control
-                      as="select"
-                      value={this.state.countryCode}
-                      onChange={this.handleCountryCode}
-                      id="countries"
-                    >
-                      {countries.map((country, i) => (
-                        <option key={i} value={country.number.slice(1)}>
-                          {country.name.toUpperCase().slice(0, 3)}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Form.Group>
-                  <button id="verifymisscall">Send otp</button>
-                </form>
+                <h3 className="center" id="otp">
+                  OTP
+                </h3>
 
                 <form onSubmit={this.handleVerify}>
                   <div>
+                    <div>
+                      <strong>We have sent you an OTP code to you</strong>
+                    </div>
+                    <strong>number of verification</strong>
+                    <div>
+                      <strong>+91{this.state.mobileNumber}</strong>
+                    </div>
+                    <br></br>
+                    <strong className="left">Enter OTP here</strong>
+                    <br></br>
                     <OtpInput
                       inputStyle={{
                         width: "3rem",
@@ -184,6 +166,13 @@ class ForgetPwd extends Component {
                     <h6 className="center-align red-text">
                       {this.state.errorOtp}
                     </h6>
+                    <strong
+                      className="center teal-text"
+                      onClick={this.handleSend}
+                      id="frgtpwdResendPwd"
+                    >
+                      Resend OTP
+                    </strong>
                   </div>
                   <button id="FpVerify">
                     <i className="material-icons right">arrow_forward</i>Verify
@@ -202,33 +191,46 @@ class ForgetPwd extends Component {
               </div>
             ) : (
               //false condition
-              <form id="userLogin1" onSubmit={this.handleSend}>
-                <div className="input-field">
-                  <input
-                    id="sendotpinput"
-                    type="tel"
-                    placeholder="Enter mobile number"
-                    maxLength="10"
-                    onChange={this.handleChangeMob}
-                    required
-                  />
-                </div>
-                <Form.Group onChange={this.handleChange1}>
-                  <Form.Control
-                    as="select"
-                    value={this.state.countryCode}
-                    onChange={this.handleCountryCode}
-                    id="countries"
-                  >
-                    {countries.map((country, i) => (
-                      <option key={i} value={country.number.slice(1)}>
-                        {country.name.toUpperCase().slice(0, 3)}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
-                <button id="input-forgot">Send otp</button>
-              </form>
+              <div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <h3 className="center" id="otp">
+                  OTP
+                </h3>
+
+                <form id="userLogin1" onSubmit={this.handleSend}>
+                  <div className="input-field">
+                    <input
+                      id="sendotpinput"
+                      type="tel"
+                      placeholder="Enter mobile number"
+                      maxLength="10"
+                      onChange={this.handleChangeMob}
+                      required
+                    />
+                  </div>
+                  <Form.Group onChange={this.handleChange1}>
+                    <Form.Control
+                      as="select"
+                      value={this.state.countryCode}
+                      onChange={this.handleCountryCode}
+                      id="countries"
+                    >
+                      {countries.map((country, i) => (
+                        <option key={i} value={country.number.slice(1)}>
+                          {country.name.toUpperCase().slice(0, 3)}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                  <h6 className="center red-text" id="input-forgot-error">
+                    {this.state.errorOtp}
+                  </h6>
+
+                  <button id="input-forgot">Send otp</button>
+                </form>
+              </div>
             )}
           </center>
         </div>

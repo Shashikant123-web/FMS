@@ -212,13 +212,13 @@ class UserLogin extends Component {
                 ></i>
                 <br></br>
                 <br></br>
-                <h6 className="red-text">{this.state.error}</h6>
+                <strong className="red-text">{this.state.error}</strong>
               </div>
               <br></br>
               {loading && loading ? (
                 <button id="UserLoginButton">
                   {loading && <i className="fa fa-spinner fa-spin"></i>}
-                  Loading...
+                  Logging in...
                 </button>
               ) : (
                 <button id="UserLoginButton">Login</button>
