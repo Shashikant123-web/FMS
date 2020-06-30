@@ -12,13 +12,14 @@ class ChangePwd extends Component {
     password: "",
     confirmPassword: "",
     error: "",
+    loading: false,
   };
 
-  componentDidMount() {
-    this.setState({
-      mob: this.props.location.state.mobileNumber.mobileNumber,
-    });
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     mob: this.props.location.state.mobileNumber.mobileNumber,
+  //   });
+  // }
 
   handleChange1 = (e) => {
     this.setState({
@@ -33,13 +34,18 @@ class ChangePwd extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({
+      loading: true,
+      error: "",
+    });
     const { password, confirmPassword } = this.state;
 
     if (password !== confirmPassword) {
       this.setState({
         password: "",
         confirmPassword: "",
-        error: "Password and Confirmpassword miss-match",
+        error: "Password & Confpassword miss-match",
+        loading: false,
       });
     } else {
       axios
@@ -64,6 +70,7 @@ class ChangePwd extends Component {
     }
   };
   render() {
+    const { loading } = this.state;
     return (
       <div id="body">
         <div className="row" id="main2">
@@ -75,6 +82,8 @@ class ChangePwd extends Component {
               width="70"
               height="70"
             ></img>
+            <br></br>
+            <br></br>
             <form id="frm" onSubmit={this.handleSubmit}>
               <div className="input-field">
                 <i id="iconn" className="material-icons prefix">
@@ -106,11 +115,17 @@ class ChangePwd extends Component {
                   onChange={this.handleChange2}
                 />
                 <br></br>
+                <strong className="red-text center">{this.state.error}</strong>
                 <br></br>
-                <h6 className="red-text center">{this.state.error}</h6>
               </div>
-
-              <button id="input-type4">Save</button>
+              {loading && loading ? (
+                <button id="input-type4">
+                  {loading && <i className="fa fa-spinner fa-spin"></i>}
+                  saving...
+                </button>
+              ) : (
+                <button id="input-type4">save</button>
+              )}
             </form>
           </center>
         </div>

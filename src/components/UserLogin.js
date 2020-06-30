@@ -224,9 +224,9 @@ class UserLogin extends Component {
                 <button id="UserLoginButton">Login</button>
               )}
             </form>
-            <h6 id="forgot" onClick={this.forgetPwd}>
+            <strong id="forgot" onClick={this.forgetPwd}>
               Forgot Password?
-            </h6>
+            </strong>
           </center>
         </div>
       </div>
