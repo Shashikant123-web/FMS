@@ -197,9 +197,7 @@ input.error {
   margin-left: 112px;
   margin-bottom: -2px;
   margin-top: -10px;
-  color: lightseagreen;
-  text-decoration: none;
-  font-weight: 500;
+  cursor: pointer;
 }
 #verifymisscall,
 #verifymisscall1 {
@@ -222,9 +220,7 @@ input.error {
 }
 
 #enterHere {
-  margin-bottom: -7px;
   color: #707070;
-  font-weight: 500;
 }
 /* #hr {
   width: 129px;
