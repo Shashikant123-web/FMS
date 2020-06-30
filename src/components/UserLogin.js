@@ -215,14 +215,18 @@ class UserLogin extends Component {
                 <h6 className="red-text">{this.state.error}</h6>
               </div>
               <br></br>
-              <button id="UserLoginButton">
-                {loading && <i className="fa fa-spinner fa-spin"></i>}
-                Login
-              </button>
+              {loading && loading ? (
+                <button id="UserLoginButton">
+                  {loading && <i className="fa fa-spinner fa-spin"></i>}
+                  Loading...
+                </button>
+              ) : (
+                <button id="UserLoginButton">Login</button>
+              )}
             </form>
-            <h6 id="forgot" onClick={this.forgetPwd}>
+            <strong id="forgot" onClick={this.forgetPwd}>
               Forgot Password?
-            </h6>
+            </strong>
           </center>
         </div>
       </div>

@@ -95,6 +95,7 @@ const sendotpReducer = (state = intialState, action) => {
         ...state,
         userLogin: {
           ...state.userLogin,
+          ...state.userLogin.recomendedJobs,
           recomendedJobs: action.payLoad,
         },
       };
@@ -103,6 +104,7 @@ const sendotpReducer = (state = intialState, action) => {
         ...state,
         userLogin: {
           ...state.userLogin,
+          ...state.userLogin.savedJobs,
           savedJobs: action.payLoad,
         },
       };

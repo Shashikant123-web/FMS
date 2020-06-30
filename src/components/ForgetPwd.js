@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Form, FormControl } from "react-bootstrap";
 import OtpInput from "react-otp-input";
+import "./css/SendOtp.css";
 
 import { withRouter } from "react-router-dom";
 
@@ -146,12 +147,12 @@ class ForgetPwd extends Component {
                       required
                     />
                   </div>
-                  <Form.Group onChange={this.handleChange1}>
+                  <Form.Group onChange={this.handleChange1} id="forgetpwds">
                     <Form.Control
                       as="select"
                       value={this.state.countryCode}
                       onChange={this.handleCountryCode}
-                      id="country"
+                      id="countries"
                     >
                       {countries.map((country, i) => (
                         <option key={i} value={country.number.slice(1)}>
@@ -200,6 +201,7 @@ class ForgetPwd extends Component {
                 </button>
               </div>
             ) : (
+              //false condition
               <form id="userLogin1" onSubmit={this.handleSend}>
                 <div className="input-field">
                   <input
@@ -216,7 +218,7 @@ class ForgetPwd extends Component {
                     as="select"
                     value={this.state.countryCode}
                     onChange={this.handleCountryCode}
-                    id="country"
+                    id="countries"
                   >
                     {countries.map((country, i) => (
                       <option key={i} value={country.number.slice(1)}>
