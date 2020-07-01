@@ -81,7 +81,12 @@ export class newJobs extends Component {
                         </h5>
                         {job.isApplied ? (
                           <h6 className="right teal-text">
-                            <img src={rightMark} width="15" height="15"></img>
+                            <img
+                              src={rightMark}
+                              className="rightIcon"
+                              width="15"
+                              height="15"
+                            ></img>
                             Applied
                           </h6>
                         ) : null}

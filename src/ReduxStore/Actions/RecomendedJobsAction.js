@@ -126,6 +126,18 @@ export const handleUnsave = (save) => {
     //recommendeJobs(userId);
     const time2 = setTimeout(() => {
       axios
+        .get("/stskFmsApi/jobseeker/getSavedJobsWithStatus/" + userId, {
+          headers: header,
+        })
+        .then((res) => {
+          if (res.data.success === 1) {
+            dispatch({
+              type: SAVED_JOBS,
+              payLoad: res.data.data,
+            });
+          }
+        });
+      axios
         .get("/stskFmsApi/jobseeker/RecommendedJobsWithStatus/" + userId, {
           headers: header,
         })

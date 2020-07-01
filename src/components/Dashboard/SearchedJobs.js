@@ -150,7 +150,12 @@ export class SearchedJobs extends Component {
                         </h5>
                         {job.isApplied ? (
                           <h6 className="right teal-text">
-                            <img src={rightMark} width="20" height="20"></img>
+                            <img
+                              src={rightMark}
+                              className="rightIcon"
+                              width="20"
+                              height="20"
+                            ></img>
                             Applied
                           </h6>
                         ) : null}

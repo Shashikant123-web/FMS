@@ -631,7 +631,7 @@ class Dashboard extends Component {
         {/* edit profile*/}
         <div className="" id="details">
           <div className="row">
-            <div className="col s12 m12 l12">
+            <div className="col s12 m12 l12 grey lighten-5">
               <div
                 className="col s10 m3 l2 offset-m1 offset-l1 offset-s1 z-depth-1 white"
                 id="profile"
@@ -779,7 +779,7 @@ class Dashboard extends Component {
 
               <div>
                 <div
-                  className="col s12 m7 l8 offset-l1 z-depth-1"
+                  className="col s12 m7 l8 offset-l1 z-depth-1 grey lighten-5 container"
                   id="container"
                 >
                   <div>
@@ -866,7 +866,7 @@ class Dashboard extends Component {
                 </div>
               </div>
               {/*applied status*/}
-              <div className="col s12 m10 l10 offset-l1 offset-m1 z-depth-1 appliedStatus">
+              <div className="col s12 m10 l10 offset-l1 offset-m1 z-depth-1 appliedStatus grey lighten-5">
                 <h4 className="grey-text">Appied status</h4>
                 {appliedJobsList}
                 <div className="col s12 m12 l12">

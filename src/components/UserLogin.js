@@ -14,7 +14,7 @@ const header = {
 
 class UserLogin extends Component {
   state = {
-    isPasswordShown: "false",
+    visibility: false,
     email: "",
     email1: "",
     password: "",
@@ -23,9 +23,10 @@ class UserLogin extends Component {
     mobileNumber: "",
     loading: false,
   };
-  togglePasswordVisibility = () => {
-    const { isPasswordShown } = this.state;
-    this.setState({ isPasswordShown: !isPasswordShown });
+  handleVisibility = () => {
+    this.setState({
+      visibility: !this.state.visibility,
+    });
   };
   handleChange1 = (e) => {
     this.setState({
@@ -159,8 +160,7 @@ class UserLogin extends Component {
   };
 
   render() {
-    const { loading } = this.state;
-    const { isPasswordShown } = this.state;
+    const { loading, visibility } = this.state;
     return (
       <div className="" id="body">
         <div className="row" id="main1">
@@ -196,20 +196,29 @@ class UserLogin extends Component {
                 </i>
                 <input
                   id="icon_prefix"
-                  type="password"
+                  type={visibility ? "text" : "password"}
                   placeholder="Password"
-                  type={isPasswordShown ? "password" : "text"}
                   size="30"
                   required
                   onChange={this.handleChange2}
                   // pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                   // title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
                 />
-                <i
-                  className="fa fa-eye"
-                  id="eyesssss"
-                  onClick={this.togglePasswordVisibility}
-                ></i>
+                {visibility ? (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility}
+                  >
+                    visibility
+                  </i>
+                ) : (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility}
+                  >
+                    visibility_off
+                  </i>
+                )}
                 <br></br>
                 <br></br>
                 <strong className="red-text">{this.state.error}</strong>

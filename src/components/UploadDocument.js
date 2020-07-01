@@ -5,6 +5,7 @@ import doclogo from "./Images/doclogo.png";
 import { Button, Checkbox, Form } from "semantic-ui-react";
 import axios from "axios";
 import { connect } from "react-redux";
+import { userLoginAction } from "../ReduxStore/Actions/UserLoginAction";
 
 const config = {
   headers: {
@@ -21,19 +22,19 @@ class UploadDocument extends Component {
       image: null,
       mobileNumber: this.props.details.mobileNumber,
       userId: "",
+      details: {},
       // docId:''
     };
   }
   componentDidMount() {
     axios
-      .get(
-        "/stskFmsApi/jobseeker/getByMob/" + this.props.details.mobileNumber,
-        config
-      )
+      .get("/stskFmsApi/jobseeker/getByMob/" + 7676476756, config)
 
       .then((res) => {
         console.log(res.data.data.id);
+        console.log(res.data.data);
         this.setState({
+          details: res.data.data,
           userId: res.data.data.id,
         });
       });
@@ -60,15 +61,12 @@ class UploadDocument extends Component {
           if (res.data.success === 1) {
             console.log(res);
             console.log(res.data);
-
-            this.props.history.push({
-              pathname: "/userLogin",
-              //   state: {
-              //     mobileNumber: this.state,
-              //   },
-            });
+            this.props.userLoginAction(this.state);
+            const tm = setTimeout(() => {
+              this.props.history.push("/dashboard");
+            }, 50);
           }
-        }, 3000);
+        }, 1000);
       })
       .catch((err) => console.log(err));
   };
@@ -120,4 +118,9 @@ const mapStateToProps = (state) => {
     details: state.userLogin.userLogin,
   };
 };
-export default connect(mapStateToProps)(UploadDocument);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userLoginAction: (UserLogin) => dispatch(userLoginAction(UserLogin)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(UploadDocument);

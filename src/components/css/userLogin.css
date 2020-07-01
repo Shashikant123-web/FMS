@@ -196,3 +196,10 @@ i.right {
   top: -39px;
   margin-left: 62px;
 } */
+.eyeInChangePwd {
+  color: grey;
+  cursor: pointer;
+  font-size: 17px;
+  position: absolute;
+  top: 8px;
+}

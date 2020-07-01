@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import logo from "./Images/Mainlogo.png";
+import "./css/userLogin.css";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -13,6 +14,8 @@ class ChangePwd extends Component {
     confirmPassword: "",
     error: "",
     loading: false,
+    visibility: false,
+    visibility2: false,
   };
 
   componentDidMount() {
@@ -21,15 +24,19 @@ class ChangePwd extends Component {
     });
   }
 
-  handleChange1 = (e) => {
+  handleVisibility = () => {
     this.setState({
-      password: e.target.value,
+      visibility: !this.state.visibility,
     });
   };
-
-  handleChange2 = (e) => {
+  handleVisibility2 = () => {
     this.setState({
-      confirmPassword: e.target.value,
+      visibility2: !this.state.visibility2,
+    });
+  };
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
     });
   };
   handleSubmit = (e) => {
@@ -75,7 +82,7 @@ class ChangePwd extends Component {
     }
   };
   render() {
-    const { loading } = this.state;
+    const { loading, visibility, visibility2 } = this.state;
     return (
       <div id="body">
         <div className="row" id="main2">
@@ -96,29 +103,60 @@ class ChangePwd extends Component {
                 </i>
                 <input
                   id="icon_prefix"
-                  type="password"
+                  type={visibility ? "text" : "password"}
                   required
                   value={this.state.password}
-                  onChange={this.handleChange1}
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
                   placeholder="Enter password"
-                  onChange={this.handleChange1}
+                  name="password"
+                  onChange={this.handleChange}
                 />
+                {visibility ? (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility}
+                  >
+                    visibility
+                  </i>
+                ) : (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility}
+                  >
+                    visibility_off
+                  </i>
+                )}
               </div>
+
               <div className="input-field">
                 <i id="iconn" className="material-icons prefix">
                   lock
                 </i>
                 <input
                   id="icon_prefix"
-                  type="password"
+                  type={visibility2 ? "text" : "password"}
                   required
                   value={this.state.confirmPassword}
-                  onChange={this.handleChange2}
+                  name="confirmPassword"
+                  onChange={this.handleChange}
                   placeholder="Confirm password"
-                  onChange={this.handleChange2}
                 />
+                {visibility2 ? (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility2}
+                  >
+                    visibility
+                  </i>
+                ) : (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility2}
+                  >
+                    visibility_off
+                  </i>
+                )}
                 <br></br>
                 <strong className="red-text center">{this.state.error}</strong>
                 <br></br>
