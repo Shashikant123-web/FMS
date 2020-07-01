@@ -88,7 +88,7 @@ html {
   border-radius: 50px;
   height: 48px;
   border: none;
-  margin-top: 50px;
+  margin-top: 0px;
   margin-left: 10px;
 }
 .rank-label-container {
@@ -160,5 +160,5 @@ html {
   margin-top: 10px;
 }
 #formcontainer {
-  margin-top: -95px;
+  margin-top: -100px;
 }

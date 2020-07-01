@@ -31,6 +31,7 @@ import history from "./components/history";
 import NewJobs from "./components/Dashboard/NewJobs";
 import Editprofile from "./components/Editprofile";
 import SearchedJobs from "./components/Dashboard/SearchedJobs";
+import NavbarTop from "./components/NavbarJobseeker/NavbarTop";
 axios.defaults.baseURL = "http://stskfacilities.com:8081";
 
 //import dashboardHelp from './components/dashboardHelp'
@@ -72,7 +73,7 @@ class App extends Component {
             <Route path="/assoVendorHelp" component={AssVendorHelp} />
             <Route path="/assoResidentHelp" component={AssResidentHelp} />
             <Route path="/uploadDocument" component={UploadDocument} />
-
+            <Route path="/navbartop" component={NavbarTop} />
             <Route path="/admin" component={navbarAdmin} />
           </Switch>
         </div>

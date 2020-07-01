@@ -564,9 +564,11 @@ export class RecomendedJobs extends Component {
             {recommendedList}
           </div>
           <div id="myModal" class="modal">
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <EditProfile />
+            <div className="modal-content">
+              <span className="close">&times;</span>
+              <center>
+                <EditProfile />
+              </center>
             </div>
           </div>
           <div className="footer-copyright" id="footer">

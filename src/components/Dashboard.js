@@ -95,7 +95,6 @@ class Dashboard extends Component {
     //     wantedit:e.target.value
     // })
     if (e.target.value == "false") {
-      alert("hi");
     }
   }
   onTextChanged = (e, names) => {
@@ -555,7 +554,7 @@ class Dashboard extends Component {
         className="grey lighten-5
       "
       >
-        <NavbarTop />
+        {/* <NavbarTop /> */}
         <div className="row">
           <div className="">
             <img className="center" id="dashboard" src={dashboard}></img>
