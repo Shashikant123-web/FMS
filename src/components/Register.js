@@ -13,7 +13,8 @@ const header = {
 
 class Register extends Component {
   state = {
-    isPasswordShown: "false",
+    visibility: false,
+    visibility2: false,
     mob: this.props.details.mobileNumber,
     mobileNumber: this.props.details.mobileNumber,
     email: "",
@@ -32,6 +33,41 @@ class Register extends Component {
       },
     });
   }
+  handleVisibility = () => {
+    this.setState({
+      visibility: !this.state.visibility,
+    });
+  };
+  handleVisibility2 = () => {
+    this.setState({
+      visibility2: !this.state.visibility2,
+    });
+  };
+
+  handleChange10() {
+    var x = document.getElementById("myInput");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+
+  handleChange1 = (e) => {
+    this.setState({
+      email: e.target.value,
+    });
+  };
+  handleChange2 = (e) => {
+    this.setState({
+      password: e.target.value,
+    });
+  };
+  handleChange3 = (e) => {
+    this.setState({
+      conformPwd: e.target.value,
+    });
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state);
@@ -72,42 +108,10 @@ class Register extends Component {
     }
   };
 
-  handleChange10() {
-    var x = document.getElementById("myInput");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
-    }
-  }
-
-  handleChange1 = (e) => {
-    this.setState({
-      email: e.target.value,
-    });
-  };
-  handleChange2 = (e) => {
-    this.setState({
-      password: e.target.value,
-    });
-  };
-  handleChange3 = (e) => {
-    this.setState({
-      conformPwd: e.target.value,
-    });
-  };
-  handleButton = (e) => {
-    alert("hi");
-    //console.log(this.state)
-  };
-  togglePasswordVisibility = () => {
-    const { isPasswordShown } = this.state;
-    this.setState({ isPasswordShown: !isPasswordShown });
-  };
-
   render() {
     const { mob, email, password, userRoles } = this.state;
-    const { isPasswordShown } = this.state;
+    const { visibility, visibility2 } = this.state;
+
     console.log(this.state);
     console.log(this.props.details.mobileNumber);
     // const { formErrors } = this.state;
@@ -152,7 +156,7 @@ class Register extends Component {
                 <input
                   id="icon_prefixs"
                   style={{ width: "242px" }}
-                  type={isPasswordShown ? "password" : "text"}
+                  type={visibility ? "text" : "password"}
                   size="30"
                   placeholder="Password"
                   required
@@ -163,11 +167,21 @@ class Register extends Component {
                 and at least 6 or more characters"
                   onChange={this.handleChange2}
                 />
-                <i
-                  className="fa fa-eye"
-                  id="eye"
-                  onClick={this.togglePasswordVisibility}
-                ></i>
+                {visibility ? (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility}
+                  >
+                    visibility
+                  </i>
+                ) : (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility}
+                  >
+                    visibility_off
+                  </i>
+                )}
               </div>
               <div className="input-field">
                 <i id="iconn" className="material-icons prefix">
@@ -176,7 +190,7 @@ class Register extends Component {
                 <input
                   id="icon_prefixs"
                   style={{ width: "242px" }}
-                  type={isPasswordShown ? "password" : "text"}
+                  type={visibility2 ? "text" : "password"}
                   size="30"
                   placeholder="Password"
                   required
@@ -187,11 +201,21 @@ class Register extends Component {
                           and at least 6 or more characters"
                   onChange={this.handleChange3}
                 />
-                <i
-                  className="fa fa-eye"
-                  id="eyes"
-                  onClick={this.togglePasswordVisibility}
-                ></i>
+                {visibility2 ? (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility2}
+                  >
+                    visibility
+                  </i>
+                ) : (
+                  <i
+                    className="material-icons right eyeInChangePwd"
+                    onClick={this.handleVisibility2}
+                  >
+                    visibility_off
+                  </i>
+                )}
                 <br></br>
 
                 <h6 className="red-text center-align">{this.state.error}</h6>

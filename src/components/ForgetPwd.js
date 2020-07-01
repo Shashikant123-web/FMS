@@ -224,9 +224,9 @@ class ForgetPwd extends Component {
                       ))}
                     </Form.Control>
                   </Form.Group>
-                  <h6 className="center red-text" id="input-forgot-error">
+                  <strong className="center red-text" id="input-forgot-error">
                     {this.state.errorOtp}
-                  </h6>
+                  </strong>
 
                   <button id="input-forgot">Send otp</button>
                 </form>

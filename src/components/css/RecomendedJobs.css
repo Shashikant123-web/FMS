@@ -60,7 +60,6 @@ i.left {
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -76,6 +75,9 @@ i.left {
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
+  position: fixed;
+  z-index: -1;
+  margin-left: 40px;
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
@@ -101,4 +103,25 @@ i.left {
   right: 0px;
 
   display: flex;
+}
+.rightIcon {
+  margin-right: 4px;
+  margin-top: -2px;
+}
+.popup-overlay {
+  z-index: -1;
+}
+@media screen and (min-width: 1200px) {
+  .modal-content {
+    position: fixed;
+    z-index: -1;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    margin-left: 135px;
+    margin-top: 10px;
+    height: 200%;
+  }
 }

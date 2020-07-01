@@ -32,12 +32,24 @@ export class SavedJobs extends Component {
     }, 50);
   };
   handleUnsave = (id) => {
-    this.setState({
-      id,
-    });
-    const time2 = setTimeout(() => {
-      this.props.handleUnsave(this.state);
-    }, 50);
+    // this.setState({
+    //   id,
+    // });
+    // const time2 = setTimeout(() => {
+    //   this.props.handleUnsave(this.state);
+    // }, 50);
+    axios
+      .post(
+        "/stskFmsApi/jobseeker/unSaveJobs/" + this.state.userId + "/" + id,
+        {
+          headers: header,
+        }
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        console.log(res.data);
+        console.log(res);
+      });
   };
 
   render() {
@@ -59,7 +71,12 @@ export class SavedJobs extends Component {
                         </h5>
                         {job.isApplied ? (
                           <h6 className="right teal-text">
-                            <img src={rightMark} width="20" height="20"></img>
+                            <img
+                              src={rightMark}
+                              className="rightIcon"
+                              width="15"
+                              height="15"
+                            ></img>
                             Applied
                           </h6>
                         ) : null}
@@ -236,7 +253,11 @@ export class SavedJobs extends Component {
                 <div className="card-action">
                   <strong className="left">{job.createdAt}</strong>
                   <div className="right">
-                    <strong className="right" key={job.id}>
+                    <strong
+                      className="right"
+                      key={job.id}
+                      onClick={() => this.handleUnsave(job.id)}
+                    >
                       <i className="material-icons teal-text left">turned_in</i>
                       saved
                     </strong>
