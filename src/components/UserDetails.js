@@ -105,11 +105,7 @@ class UserDetails extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentWillMount() {
-    // this.setState({
-    //   mob: this.props.location.state.mobileNumber.mobileNumber,
-    //   mobileNumber: this.props.location.state.mobileNumber.mobileNumber,
-    // });
+  componentDidMount() {
     fetch("http://stskfacilities.com:8081/stskFmsApi/jobTypes/getAllJobTypes", {
       headers: header,
     })
@@ -132,8 +128,6 @@ class UserDetails extends Component {
       .catch((error) => {
         console.log(error);
       });
-  }
-  componentDidMount() {
     axios
       .get(
         "/stskFmsApi/userLogin/getByMob/" + this.props.details.mobileNumber,
