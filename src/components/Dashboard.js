@@ -557,7 +557,7 @@ class Dashboard extends Component {
         className="grey lighten-5
       "
       >
-        {/* <NavbarTop /> */}
+        <NavbarTop />
         <div className="row">
           <div className="">
             <img className="center" id="dashboard" src={dashboard}></img>
@@ -566,48 +566,16 @@ class Dashboard extends Component {
             </div>
           </div>
 
-          {/* <nav className="container white" id="search"> */}
-          <div className="container white" id="search">
-            {/* <div className="nav-wrapper">
-              <div className="input-field"> */}
-            <input
-              type="text"
-              onChange={(e) => this.onTextChanged(e, names)}
-              value={text}
-              className="autosugest"
-              style={{ width: "80%" }}
-            />
-            <i className="material-icons right">
-              <a
-                className="btn hide-on-small-only"
-                onClick={this.handleSearch}
-                id="src1"
-              >
-                <i className="material-icons right" id="src">
-                  search
-                </i>
-                Search
-              </a>
-            </i>
-
-            <i
-              className="material-icons right show-on-small hide-on-med-and-up grey-text"
-              onClick={this.handleSearch}
-            >
-              search
-            </i>
-          </div>
-          {/* <div class="input-field col s12"></div> */}
-
-          {/* <input
+          <nav className="container white" id="search">
+            <div className="nav-wrapper">
+              <div className="input-field">
+                <input
                   id="dashinput"
                   type="search"
+                  // onChange={this.handleSearch}
                   required
                   placeholder="Search jobs"
-                  onChange={(e) => this.onTextChanged(e, names)}
-                  value={text}
                 />
-
                 <i className="material-icons right">
                   <a
                     className="btn hide-on-small-only"
@@ -626,10 +594,10 @@ class Dashboard extends Component {
                   onClick={this.handleSearch}
                 >
                   search
-                </i> */}
-          {/* </div>
-            </div> */}
-          {/* </nav> */}
+                </i>
+              </div>
+            </div>
+          </nav>
         </div>
         {/* edit profile*/}
         <div className="" id="details">

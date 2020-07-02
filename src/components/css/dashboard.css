@@ -4,6 +4,7 @@
 
 #back {
   background-color: white;
+  overflow: auto;
 }
 #profile {
   height: 409px;
@@ -40,25 +41,19 @@ nav ul li a {
   background-position: center;
   background-size: cover;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 #search {
   margin-top: -30px;
   width: 60%;
   border-radius: 5px;
-  padding: 10px 10px 0px 10px;
-  position: relative;
-  top: -30px;
-  box-shadow: 3px 3px 5px 1px #ccc;
 }
 #src {
-  /* margin-top: -19px; */
-  margin-top: -0px;
+  margin-top: -19px;
   margin-left: 3px;
 }
 #src1 {
-  /* margin-top: -13px; */
-  margin-top: 2px;
+  margin-top: -13px;
   border-radius: 8px;
   background-color: #3fb2aa;
   color: white;
@@ -231,20 +226,4 @@ nav .nav-wrapper {
 #recommendedList {
   display: flex;
   flex-direction: row;
-}
-.suggestionbox {
-  max-width: 400px;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  background-color: #fff;
-  z-index: 1;
-  top: -57px;
-}
-#listitem {
-  /* position: relative; */
-  top: -158px;
-}
-.autosugest[type="text"] {
-  width: 75%;
 }
