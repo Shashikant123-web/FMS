@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../css/RecomendedJobs.css";
 import mainLogo from "../Images/Mainlogo.png";
 import dashboard from "../Images/dashboard.png";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
@@ -27,9 +27,18 @@ export class RecomendedJobs extends Component {
   state = {
     showPopup: false,
     id: "",
-    userId: this.props.dashboard.payLoad.details.id,
+    userId: "",
     wantedit: "",
   };
+  componentDidMount() {
+    if (this.props.token.SendOtp.token !== true) {
+      return <Redirect to="/userLogin" />;
+    } else {
+      this.setState({
+        userId: this.props.dashboard.payLoad.details.id,
+      });
+    }
+  }
   handleRadio = (e) => {
     // Get the modal
     var modal = document.getElementById("myModal");
@@ -133,6 +142,9 @@ export class RecomendedJobs extends Component {
   // };
 
   render() {
+    if (this.props.token.SendOtp.token !== true) {
+      return <Redirect to="/userLogin" />;
+    }
     console.log(this.props.dashboard.payLoad.details.id);
     console.log(this.state);
     const {
@@ -586,6 +598,7 @@ export class RecomendedJobs extends Component {
 const mapStateToProps = (state) => {
   return {
     dashboard: state.userLogin.userLogin,
+    token: state,
   };
 };
 const mapDispatchToProps = (dispatch) => {

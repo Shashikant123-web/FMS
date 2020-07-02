@@ -3,7 +3,7 @@ import axios from "axios";
 import "./css/dashboard.css";
 import mainLogo from "./Images/Mainlogo.png";
 import dashboard from "./Images/dashboard.png";
-import { withRouter, Link, NavLink } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import Popup from "reactjs-popup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -180,7 +180,7 @@ class Dashboard extends Component {
       LoggedIn: false,
     });
     this.props.history.push("/userLogin");
-    localStorage.clear();
+    localStorage.removeItem("state");
   };
 
   handleinputSearch = (e) => {
@@ -428,6 +428,9 @@ class Dashboard extends Component {
   };
 
   render() {
+    if (this.props.token.SendOtp.token !== true) {
+      return <Redirect to="/userLogin" />;
+    }
     const { text } = this.state;
     const names = this.state.items.map((name) => {
       return name.name;
@@ -444,7 +447,7 @@ class Dashboard extends Component {
       },
     } = this.props.dashboard;
 
-    console.log(this.props);
+    console.log(this.props.token.SendOtp.token);
 
     /*saved jobs */
     //const { savedJobs } = this.state;
@@ -898,6 +901,7 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   return {
     dashboard: state.userLogin.userLogin,
+    token: state,
   };
 };
 export default connect(mapStateToProps)(withRouter(Dashboard));

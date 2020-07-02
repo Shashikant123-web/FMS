@@ -16,4 +16,6 @@ export const HANDLE_SAVE_JOBS = "HANDLE_SAVE_JOBS";
 export const HANDLE_UNSAVE_JOBS = "HANDLE_SAVE_JOBS";
 export const HANDLE_APPLIED_JOBS = "HANDLE_APPLIED_JOBS";
 
+export const TOKEN = "TOKEN";
+
 export const DASUSERLOGIN = "DASHBOARD";

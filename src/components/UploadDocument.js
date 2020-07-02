@@ -6,6 +6,7 @@ import { Button, Checkbox, Form } from "semantic-ui-react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { userLoginAction } from "../ReduxStore/Actions/UserLoginAction";
+import { TOKEN } from "../ReduxStore/ActionTypes/actionTypes";
 
 const config = {
   headers: {
@@ -61,6 +62,7 @@ class UploadDocument extends Component {
           if (res.data.success === 1) {
             console.log(res);
             console.log(res.data);
+            this.props.token();
             this.props.userLoginAction(this.state);
             const tm = setTimeout(() => {
               this.props.history.push("/dashboard");
@@ -121,6 +123,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     userLoginAction: (UserLogin) => dispatch(userLoginAction(UserLogin)),
+    token: () => dispatch({ type: TOKEN }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UploadDocument);

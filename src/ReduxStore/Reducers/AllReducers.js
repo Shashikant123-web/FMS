@@ -9,9 +9,11 @@ import {
   NEW_JOBS,
   APPLIED_JOBS,
   HIDE_JOBS,
+  TOKEN,
 } from "../ActionTypes/actionTypes";
 
 const intialState = {
+  token: false,
   SendOtp: {
     countryCode: "91",
     mobileNumber: "",
@@ -44,6 +46,11 @@ const intialState = {
 };
 const sendotpReducer = (state = intialState, action) => {
   switch (action.type) {
+    case TOKEN:
+      return {
+        ...state,
+        token: true,
+      };
     case SEND_OTP:
       return {
         ...state,

@@ -5,7 +5,7 @@ import image from "./Images/Background.png";
 import logo from "./Images/Mainlogo.png";
 import OtpInput from "react-otp-input";
 import "./css/Verify.css";
-
+import { TOKEN } from "../ReduxStore/ActionTypes/actionTypes";
 import { connect } from "react-redux";
 import { userLoginAction } from "../ReduxStore/Actions/UserLoginAction";
 
@@ -73,7 +73,6 @@ class Verify extends Component {
               console.log(Response.data);
 
               if (Response.data.success === 1) {
-                console.log("Dashboard");
                 axios
                   .get(
                     "/stskFmsApi/jobseeker/getByMob/" + this.state.mobileNumber,
@@ -95,6 +94,7 @@ class Verify extends Component {
                       this.props.history.push({
                         pathname: "/dashboard",
                       });
+                      this.props.token();
                     } else {
                       this.props.userLoginAction(this.state);
                       this.props.history.push({
@@ -202,6 +202,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     userLoginAction: (UserLogin) => dispatch(userLoginAction(UserLogin)),
+    token: () => dispatch({ type: TOKEN }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Verify);
