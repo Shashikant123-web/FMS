@@ -10,10 +10,12 @@ import {
   APPLIED_JOBS,
   HIDE_JOBS,
   TOKEN,
+  SEARCHED_JOBS,
 } from "../ActionTypes/actionTypes";
 
 const intialState = {
   token: false,
+  searchedJobs: [],
   SendOtp: {
     countryCode: "91",
     mobileNumber: "",
@@ -141,6 +143,11 @@ const sendotpReducer = (state = intialState, action) => {
           ...state.userLogin,
           recomendedJobs: jobs,
         },
+      };
+    case SEARCHED_JOBS:
+      return {
+        ...state,
+        searchedJobs: action.payLoad,
       };
   }
   return state;

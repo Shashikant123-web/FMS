@@ -111,6 +111,16 @@ i.left {
 .popup-overlay {
   z-index: -1;
 }
+#saveHide {
+  font-size: 19px;
+  margin-top: 2px;
+  margin-left: 7px;
+  margin-right: 2px;
+}
+#homeIcon {
+  font-size: 20px;
+  margin-right: 4px;
+}
 @media screen and (min-width: 1200px) {
   .modal-content {
     position: fixed;

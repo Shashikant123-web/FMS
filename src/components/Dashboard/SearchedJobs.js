@@ -35,23 +35,9 @@ export class SearchedJobs extends Component {
       return <Redirect to="/userLogin" />;
     } else {
       this.setState({
-        userInput: this.props.location.state.userInput,
-        userId: this.props.dashboard.payLoad.details.id,
+        userId: this.props.dashboard.payLoad.userId,
       });
     }
-
-    setTimeout(() => {
-      axios
-        .get("/stskFmsApi/jobs/getByJobName/" + this.state.userInput, {
-          headers: header,
-        })
-        .then((res) => {
-          console.log(res.data.data);
-          this.setState({
-            searchedjobdetails: res.data.data,
-          });
-        });
-    }, 2000);
   }
   handleHide = (id) => {
     console.log(id);
@@ -133,18 +119,18 @@ export class SearchedJobs extends Component {
     if (this.props.token.SendOtp.token !== true) {
       return <Redirect to="/userLogin" />;
     }
-    // console.log(this.props.dashboard.payLoad.details.id);
-    console.log(this.state);
-    // const {
-    //   payLoad: { userId },
-    //   recomendedJobs,
-    //   savedJobs,
-    //   appliedJobs,
-    // } = this.props.dashboard;
-    const { searchedjobdetails } = this.state;
-    const nmbr = searchedjobdetails.length;
-    const searchedjobList = searchedjobdetails.length ? (
-      searchedjobdetails.map((job) => {
+    const { searchedJobs } = this.props.searchedJobs.SendOtp;
+    const {
+      payLoad: { userId },
+      recomendedJobs,
+      savedJobs,
+      appliedJobs,
+    } = this.props.dashboard;
+    console.log(userId);
+    console.log(this.state.userId);
+    const nmbr = searchedJobs.length;
+    const searchedjobList = searchedJobs.length ? (
+      searchedJobs.map((job) => {
         return (
           <div key={job.id}>
             <div className="col s12 m12 l12">
@@ -482,7 +468,10 @@ export class SearchedJobs extends Component {
                         className="right"
                         onClick={() => this.handleUnsave(job.id)}
                       >
-                        <i className="material-icons teal-text left">
+                        <i
+                          className="material-icons teal-text left"
+                          id="saveHide"
+                        >
                           turned_in
                         </i>
                         saved
@@ -493,7 +482,10 @@ export class SearchedJobs extends Component {
                         className="right"
                         onClick={() => this.handleSave(job.id)}
                       >
-                        <i className="material-icons teal-text left">
+                        <i
+                          className="material-icons teal-text left"
+                          id="saveHide"
+                        >
                           turned_in_not
                         </i>
                         save
@@ -505,7 +497,10 @@ export class SearchedJobs extends Component {
                         this.handleHide(job.id);
                       }}
                     >
-                      <i className="material-icons teal-text left">
+                      <i
+                        className="material-icons teal-text left"
+                        id="saveHide"
+                      >
                         visibility_off
                       </i>
                       hide
@@ -580,7 +575,10 @@ export class SearchedJobs extends Component {
                   this.props.history.push("/dashboard");
                 }}
               >
-                <i className="material-icons left grey-text">home</i>Home
+                <i className="material-icons left grey-text" id="homeIcon">
+                  home
+                </i>
+                Home
               </strong>
               <strong className="waves-effect waves-light">
                 <i className="material-icons left">chevron_right</i>
@@ -619,6 +617,7 @@ const mapStateToProps = (state) => {
   return {
     dashboard: state.userLogin.userLogin,
     token: state,
+    searchedJobs: state,
   };
 };
 const mapDispatchToProps = (dispatch) => {

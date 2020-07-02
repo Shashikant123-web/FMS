@@ -5,6 +5,7 @@ import {
   RECOMENDED_JOBS,
   APPLIED_JOBS,
   SAVED_JOBS,
+  SEARCHED_JOBS,
 } from "../ActionTypes/actionTypes";
 
 const header = {
@@ -103,6 +104,21 @@ export const handleSave = (save) => {
           if (res.data.success === 1) {
             dispatch({
               type: NEW_JOBS,
+              payLoad: res.data.data,
+            });
+          }
+        });
+      axios
+        .get("/stskFmsApi/jobs/getByJobNameWithStatus/" + userId + "/" + id, {
+          headers: header,
+        })
+        .then((res) => {
+          console.log(res.data);
+          console.log("shashi");
+          console.log("handle save");
+          if (res.data.success === 1) {
+            dispatch({
+              type: SEARCHED_JOBS,
               payLoad: res.data.data,
             });
           }
@@ -241,5 +257,20 @@ export const handleApply = (save) => {
           }
         });
     }, 50);
+  };
+};
+export const handleSearch = (value) => {
+  console.log(value);
+  return (dispatch) => {
+    axios
+      .get("/stskFmsApi/jobs/getByJobName/" + value, {
+        headers: header,
+      })
+      .then((res) => {
+        dispatch({
+          type: SEARCHED_JOBS,
+          payLoad: res.data.data,
+        });
+      });
   };
 };

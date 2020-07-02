@@ -271,7 +271,12 @@ export class SavedJobs extends Component {
                       key={job.id}
                       onClick={() => this.handleUnsave(job.id)}
                     >
-                      <i className="material-icons teal-text left">turned_in</i>
+                      <i
+                        className="material-icons teal-text left"
+                        id="saveHide"
+                      >
+                        turned_in
+                      </i>
                       saved
                     </strong>
                   </div>
@@ -344,7 +349,10 @@ export class SavedJobs extends Component {
                   this.props.history.push("/dashboard");
                 }}
               >
-                <i className="material-icons left grey-text">home</i>Home
+                <i className="material-icons left grey-text" id="homeIcon">
+                  home
+                </i>
+                Home
               </strong>
               <strong className="waves-effect waves-light">
                 <i className="material-icons left">chevron_right</i>

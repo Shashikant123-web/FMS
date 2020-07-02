@@ -22,6 +22,7 @@ import EditProfile from "./Editprofile";
 
 import { connect } from "react-redux";
 import NavbarTop from "./NavbarJobseeker/NavbarTop";
+import { handleSearch } from "../ReduxStore/Actions/RecomendedJobsAction";
 
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
@@ -64,7 +65,7 @@ class Dashboard extends Component {
       LoggedIn: "true",
       mobileNumber: "",
       userId: "",
-      search: "",
+      searchInput: "",
       appliedJobs: "",
       searchedJobs: [],
       searchLoading: false,
@@ -87,7 +88,18 @@ class Dashboard extends Component {
       text: "",
     };
   }
-
+  componentDidMount(e) {
+    axios
+      .get("/stskFmsApi/jobTypes/getAllJobTypes", { headers: header })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data.data[0].name);
+        this.setState({
+          items: res.data.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
   handlejobtypes() {}
   handleRadioEdit(e) {
     console.log(e.target.value);
@@ -107,7 +119,6 @@ class Dashboard extends Component {
     this.setState(() => ({ suggestions, text: value }));
   };
   renderSuggestions() {
-    console.log("hi");
     const { suggestions } = this.state;
     if (suggestions.length === 0) {
       return null;
@@ -126,20 +137,6 @@ class Dashboard extends Component {
       suggestions: [],
     });
   }
-
-  componentDidMount(e) {
-    axios
-      .get("/stskFmsApi/jobTypes/getAllJobTypes", { headers: header })
-      .then((res) => {
-        console.log(res);
-        console.log(res.data.data[0].name);
-        this.setState({
-          items: res.data.data,
-        });
-      })
-      .catch((err) => console.log(err));
-  }
-
   handleApply = (id) => {
     console.log(id);
     toast.success("Applied successfully", {
@@ -183,10 +180,10 @@ class Dashboard extends Component {
     localStorage.removeItem("state");
   };
 
-  handleinputSearch = (e) => {
-    // this.setState({
-    //   search: e.target.value,
-    // });
+  handleSearchInput = (e) => {
+    this.setState({
+      searchInput: e.target.value,
+    });
   };
 
   handlepopup = (e) => {
@@ -374,34 +371,29 @@ class Dashboard extends Component {
     // document.getElementById("valsel").innerHTML=test;
   };
   handleSearch = (e) => {
-    console.log("hello");
     e.preventDefault();
-    this.props.history.push({
-      pathname: "/searchedJobs",
-      state: {
-        userInput: this.state.text,
-      },
-    });
-    axios
-      .get("/stskFmsApi/jobs/getByJobName/" + this.state.text, {
-        headers: header,
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.data.success === 1) {
-          this.props.history.push({
-            pathname: "/searchedJobs",
-            state: {
-              userInput: this.state.text,
-            },
-          });
-        }
-        // console.log(res.data.data[0].name);
-        // this.setState({
-        //   items: res.data.data,
-        // });
-      })
-      .catch((err) => console.log(err));
+    this.props.handleSearch(this.state.searchInput);
+    this.props.history.push("/searchedJobs");
+    // axios
+    //   .get("/stskFmsApi/jobs/getByJobName/" + this.state.text, {
+    //     headers: header,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.data.success === 1) {
+    //       this.props.history.push({
+    //         pathname: "/searchedJobs",
+    //         state: {
+    //           userInput: this.state.text,
+    //         },
+    //       });
+    //     }
+    // console.log(res.data.data[0].name);
+    // this.setState({
+    //   items: res.data.data,
+    // });
+    // })
+    // .catch((err) => console.log(err));
     // this.props.history.push("/searchedJobs");
     // this.setState({
     //   search: e.target.value,
@@ -491,6 +483,7 @@ class Dashboard extends Component {
                 <strong className="left">{job.createdAt}</strong>
                 <i
                   className="material-icons teal-text right"
+                  style={{ cursor: "pointer" }}
                   onClick={() =>
                     this.props.history.push({
                       pathname: "/recomendedJobs",
@@ -566,38 +559,40 @@ class Dashboard extends Component {
             </div>
           </div>
 
-          <nav className="container white" id="search">
-            <div className="nav-wrapper">
-              <div className="input-field">
-                <input
-                  id="dashinput"
-                  type="search"
-                  // onChange={this.handleSearch}
-                  required
-                  placeholder="Search jobs"
-                />
-                <i className="material-icons right">
-                  <a
-                    className="btn hide-on-small-only"
-                    onClick={this.handleSearch}
-                    id="src1"
-                  >
-                    <i className="material-icons right" id="src">
-                      search
-                    </i>
-                    Search
-                  </a>
-                </i>
+          <form onSubmit={this.handleSearch}>
+            <nav className="container white" id="search">
+              <div className="nav-wrapper">
+                <div className="input-field">
+                  <input
+                    id="dashinput"
+                    type="search"
+                    onChange={this.handleSearchInput}
+                    required
+                    placeholder="Search jobs"
+                  />
+                  <i className="material-icons right">
+                    <a
+                      className="btn hide-on-small-only"
+                      onClick={this.handleSearch}
+                      id="src1"
+                    >
+                      <i className="material-icons right" id="src">
+                        search
+                      </i>
+                      Search
+                    </a>
+                  </i>
 
-                <i
-                  className="material-icons right show-on-small hide-on-med-and-up grey-text"
-                  onClick={this.handleSearch}
-                >
-                  search
-                </i>
+                  <i
+                    className="material-icons right show-on-small hide-on-med-and-up grey-text"
+                    onClick={this.handleSearch}
+                  >
+                    search
+                  </i>
+                </div>
               </div>
-            </div>
-          </nav>
+            </nav>
+          </form>
         </div>
         {/* edit profile*/}
         <div className="" id="details">
@@ -872,4 +867,12 @@ const mapStateToProps = (state) => {
     token: state,
   };
 };
-export default connect(mapStateToProps)(withRouter(Dashboard));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSearch: (value) => dispatch(handleSearch(value)),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Dashboard));

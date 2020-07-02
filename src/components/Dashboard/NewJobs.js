@@ -418,7 +418,10 @@ export class newJobs extends Component {
                         className="right"
                         onClick={() => this.handleUnsave(job.id)}
                       >
-                        <i className="material-icons teal-text left">
+                        <i
+                          className="material-icons teal-text left"
+                          id="saveHide"
+                        >
                           turned_in
                         </i>
                         saved
@@ -429,7 +432,10 @@ export class newJobs extends Component {
                         className="right"
                         onClick={() => this.handleSave(job.id)}
                       >
-                        <i className="material-icons teal-text left">
+                        <i
+                          className="material-icons teal-text left"
+                          id="saveHide"
+                        >
                           turned_in_not
                         </i>
                         save
@@ -441,7 +447,10 @@ export class newJobs extends Component {
                         this.handleHide(job.id);
                       }}
                     >
-                      <i className="material-icons teal-text left">
+                      <i
+                        className="material-icons teal-text left"
+                        id="saveHide"
+                      >
                         visibility_off
                       </i>
                       hide
@@ -516,7 +525,10 @@ export class newJobs extends Component {
                   this.props.history.push("/dashboard");
                 }}
               >
-                <i className="material-icons left grey-text">home</i>Home
+                <i className="material-icons left grey-text" id="homeIcon">
+                  home
+                </i>
+                Home
               </strong>
               <strong className="waves-effect waves-light">
                 <i className="material-icons left">chevron_right</i>
