@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../css/RecomendedJobs.css";
 import mainLogo from "../Images/Mainlogo.png";
 import dashboard from "../Images/dashboard.png";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
@@ -26,15 +26,20 @@ export class SearchedJobs extends Component {
   state = {
     showPopup: false,
     id: "",
-    userId: this.props.dashboard.payLoad.details.id,
+    userId: "",
     userInput: "",
     searchedjobdetails: "",
   };
   componentDidMount() {
-    console.log(this.props.location.state.userInput);
-    this.setState({
-      userInput: this.props.location.state.userInput,
-    });
+    if (this.props.token.SendOtp.token !== true) {
+      return <Redirect to="/userLogin" />;
+    } else {
+      this.setState({
+        userInput: this.props.location.state.userInput,
+        userId: this.props.dashboard.payLoad.details.id,
+      });
+    }
+
     setTimeout(() => {
       axios
         .get("/stskFmsApi/jobs/getByJobName/" + this.state.userInput, {
@@ -125,6 +130,9 @@ export class SearchedJobs extends Component {
   // };
 
   render() {
+    if (this.props.token.SendOtp.token !== true) {
+      return <Redirect to="/userLogin" />;
+    }
     // console.log(this.props.dashboard.payLoad.details.id);
     console.log(this.state);
     // const {
@@ -610,6 +618,7 @@ export class SearchedJobs extends Component {
 const mapStateToProps = (state) => {
   return {
     dashboard: state.userLogin.userLogin,
+    token: state,
   };
 };
 const mapDispatchToProps = (dispatch) => {

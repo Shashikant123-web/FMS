@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "../css/RecomendedJobs.css";
 import mainLogo from "../Images/Mainlogo.png";
 import dashboard from "../Images/dashboard.png";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
+
 import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
@@ -24,8 +25,17 @@ const header = {
 
 export class newJobs extends Component {
   state = {
-    userId: this.props.dashboard.payLoad.details.id,
+    userId: "",
   };
+  componentDidMount() {
+    if (this.props.token.SendOtp.token !== true) {
+      return <Redirect to="/userLogin" />;
+    } else {
+      this.setState({
+        userId: this.props.dashboard.payLoad.details.id,
+      });
+    }
+  }
   handleSave = (id) => {
     this.setState({
       id,
@@ -56,6 +66,9 @@ export class newJobs extends Component {
   };
 
   render() {
+    if (this.props.token.SendOtp.token !== true) {
+      return <Redirect to="/userLogin" />;
+    }
     console.log(this.props.dashboard.payLoad.details.id);
     console.log(this.state);
     const {
@@ -541,6 +554,7 @@ export class newJobs extends Component {
 const mapStateToProps = (state) => {
   return {
     dashboard: state.userLogin.userLogin,
+    token: state,
   };
 };
 const mapDispatchToProps = (dispatch) => {

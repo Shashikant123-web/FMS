@@ -7,6 +7,7 @@ import $ from "jquery";
 import jQuery from "jquery";
 import { connect } from "react-redux";
 import { userLoginAction } from "../ReduxStore/Actions/UserLoginAction";
+import { TOKEN } from "../ReduxStore/ActionTypes/actionTypes";
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
@@ -132,6 +133,7 @@ class UserLogin extends Component {
                 });
               } else {
                 this.props.userLoginAction(this.state);
+                this.props.token();
 
                 this.props.history.push({
                   pathname: "/dashboard",
@@ -245,6 +247,7 @@ class UserLogin extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     userLoginAction: (UserLogin) => dispatch(userLoginAction(UserLogin)),
+    token: (id) => dispatch({ type: TOKEN }),
   };
 };
 export default connect(null, mapDispatchToProps)(UserLogin);

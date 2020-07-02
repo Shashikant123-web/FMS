@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import "../css/RecomendedJobs.css";
 import mainLogo from "../Images/Mainlogo.png";
 import dashboard from "../Images/dashboard.png";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, Redirect } from "react-router-dom";
 import Popup from "reactjs-popup";
 import axios from "axios";
 import rightMark from "../Images/tic.png";
+import NavbarTop from "../NavbarJobseeker/NavbarTop";
 
 import {
   handleSave,
@@ -21,8 +22,17 @@ const header = {
 export class SavedJobs extends Component {
   state = {
     id: "",
-    userId: this.props.dashboard.payLoad.details.id,
+    userId: "",
   };
+  componentDidMount() {
+    if (this.props.token.SendOtp.token !== true) {
+      return <Redirect to="/userLogin" />;
+    } else {
+      this.setState({
+        userId: this.props.dashboard.payLoad.details.id,
+      });
+    }
+  }
   handleApply = (id) => {
     this.setState({
       id,
@@ -53,6 +63,9 @@ export class SavedJobs extends Component {
   };
 
   render() {
+    if (this.props.token.SendOtp.token !== true) {
+      return <Redirect to="/userLogin" />;
+    }
     console.log(this.props);
     const { savedJobs, appliedJobs } = this.props.dashboard;
     const savedNumber = savedJobs.length;
@@ -289,52 +302,7 @@ export class SavedJobs extends Component {
     return (
       <div id="back" className="grey lighten-5">
         <div>
-          <div className="navbar-fixed">
-            <nav className="white">
-              <div className="nav-wrapper white container">
-                <a className="brand-logo left jobnav" id="img">
-                  <img
-                    className="center"
-                    src={mainLogo}
-                    width="50"
-                    height="50"
-                  ></img>
-                </a>
-                <ul id="nav-mobile jonnav" className="right">
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="waves-effect waves-light btn-small"
-                      id="btnnav"
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      id="home"
-                      to={{
-                        pathname: "/help",
-                        state: {
-                          mobileNumber: this.state,
-                        },
-                      }}
-                    >
-                      Help
-                    </Link>
-                  </li>
-                  <img
-                    src={this.state.profileimagepath}
-                    style={{
-                      height: "63px",
-                      width: "63px",
-                      borderRadius: "50px",
-                    }}
-                  ></img>
-                </ul>
-              </div>
-            </nav>
-          </div>
+          <NavbarTop />
 
           <div className="row">
             <img className="center" id="dashboard" src={dashboard}></img>
@@ -413,6 +381,7 @@ export class SavedJobs extends Component {
 const mapStateToProps = (state) => {
   return {
     dashboard: state.userLogin.userLogin,
+    token: state,
   };
 };
 const mapDispatchToProps = (dispatch) => {
