@@ -50,6 +50,28 @@ class NavbarTop extends Component {
   handleSearch = (e) => {
     console.log("hello");
     e.preventDefault();
+    this.props.history.push({
+      pathname: "/searchedJobs",
+      state: {
+        userInput: this.state.text,
+      },
+    });
+    axios
+      .get("/stskFmsApi/jobs/getByJobName/" + this.state.text, {
+        headers: header,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.success === 1) {
+          this.props.history.push({
+            pathname: "/searchedJobs",
+            state: {
+              userInput: this.state.text,
+            },
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   componentDidMount(e) {
@@ -126,15 +148,14 @@ class NavbarTop extends Component {
             </h6>
           </div>
         </div>
-        {/* <div className="nav-wrapper">
-              <div className="input-field"> */}
-        <div>
+
+        <div className="container white" id="search">
           <input
             type="text"
             onChange={(e) => this.onTextChanged(e, names)}
             value={text}
             className="autosugest"
-            style={{ width: "80%" }}
+            style={{ width: "80%", border: "none" }}
           />
           <i className="material-icons right">
             <a
