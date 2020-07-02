@@ -242,6 +242,8 @@ button:enabled {
     width: 374px;
   }
 } */
+
+/* mobile display */
 @media only screen and (min-width: 626px) {
   body {
     background: url("../Images/Background.png");
@@ -249,12 +251,12 @@ button:enabled {
     background-size: cover;
   }
 }
-
+/* desktop display */
 @media only screen and (max-width: 625px) {
   body {
-    background: url("../Images/Background.png");
+    background: url("../Images/Background2.png");
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: cover;
   }
 }
 @media only screen and (max-width: 368px) {
