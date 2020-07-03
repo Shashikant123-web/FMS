@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 class NavbarBottom extends Component {
-  state = {};
   render() {
     return (
       <div>
@@ -14,38 +14,31 @@ class NavbarBottom extends Component {
           </h5>
         </div>
 
-        <div className="row container" id="helpDetails">
-          <div
-            className="col s6 m5 l5 offset-m3 offset-l3 z-depth-1 center "
-            id="mail"
-          >
-            <i className="material-icons">email</i>
-            <p id="textcolor">
-              send us an email <a href="">info@stskfecilities.com</a>
-            </p>
-          </div>
-          <div
-            className="col s6 m5 l5 offset-s1 offset-l1 offset-m1 z-depth-1 center"
-            id="mail"
-          >
-            <i className="material-icons ">call</i>
-            <p id="textcolor">
-              Call us on <a href="">1800-121-0786</a>
-            </p>
-          </div>
-        </div>
-
-        <br></br>
-        <br></br>
-
-        <div className="container z-depth-1">
-          <ul className="">
-            <div className="collapsible-header" id="jobtypesbtn">
-              System info:
+        <div>
+          <div className="container px-lg-5 px-lg-offset-3">
+            <div className="row mx-lg-n5">
+              <div className="center col py-3 px-lg-5 border bg-white">
+                <i className="material-icons ">call</i>
+                <p id="textcolor">
+                  Call us on <a href="">1800-121-0786</a>
+                </p>
+              </div>
+              <div className="center col py-3 px-lg-5 border bg-white">
+                <i className="material-icons">email</i>
+                <p id="textcolor">
+                  send us an email <a href="">info@stskfecilities.com</a>
+                </p>
+              </div>
             </div>
-          </ul>
+          </div>
         </div>
 
+        <br></br>
+        <br></br>
+        <div className="container card" style={{ padding: "0px" }}>
+          <div className="card-body">System info:</div>
+        </div>
+        <br></br>
         <footer className="page-footer" id="addresss">
           <div className="center align">
             <div className="row ">

@@ -3,8 +3,9 @@ import "./css/dashboardHelp.css";
 import dashboard from "./Images/dashboard.png";
 import { withRouter, Link } from "react-router-dom";
 import M from "materialize-css/dist/js/materialize.min.js";
+import "materialize-css/dist/js/materialize.min.js";
 import NavbarJobseeker from "../components/NavbarJobseeker";
-
+import "../../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import "react-accessible-accordion/dist/fancy-example.css";
 import UserLogin from "./UserLogin";
 import NavbarBottom from "./NavbarJobseeker/NavbarBottom";
@@ -20,33 +21,33 @@ export class dashboardHelp extends Component {
     console.log(this.state);
     const jobseker = require("./Json/Jobseeker.json");
 
-    const jobseekerList = jobseker.length
-      ? jobseker.map((Qes) => {
-          return (
-            <div key={Qes.id}>
-              <ul
-                className="collapsible container"
-                data-collapsible="accordion"
-                id="collpsible"
-                key={Qes.id}
-              >
-                <li>
-                  <div className="collapsible-header">
-                    <i className="material-icons right-align">
-                      arrow_drop_down
-                    </i>
-                    {Qes.question}
-                  </div>
-                  <div className="collapsible-body">
-                    <p>{Qes.ans}</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          );
-        })
-      : null;
-
+    // const jobseekerList = jobseker.length
+    //   ? jobseker.map((Qes) => {
+    //       return (
+    //         <div key={Qes.id}>
+    //           <div className="" id="accordionExample">
+    //             <div className="card">
+    //               <div
+    //                 className="card-header white"
+    //                 id="headingTwo"
+    //                 data-toggle="collapse"
+    //                 data-target="#collapseTwo"
+    //               >
+    //                 <p className="mb-0">
+    //                   {Qes.question}
+    //                   <i className="material-icons right">arrow_drop_down</i>
+    //                 </p>
+    //               </div>
+    //               <div id="collapseTwo" className="collapse">
+    //                 <div className="card-body">{Qes.ans}</div>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       );
+    //     })
+    //   : null;
+    console.log(jobseker);
     return (
       <div id="back">
         <div>
@@ -94,15 +95,110 @@ export class dashboardHelp extends Component {
 
           <br></br>
 
-          <div className="container z-depth-1" id="colli">
+          <div
+            className="container z-depth-1"
+            style={{ borderRadius: "5px" }}
+            // style={{ border: "1px solid grey" }}
+            id="colli"
+          >
             <h5 className="center-align" id="coll">
               Job Seeker
             </h5>
-            {jobseekerList}
+            <div className="" id="accordionExample">
+              <div className="card">
+                <div
+                  className="card-header white"
+                  id="headingTwo"
+                  data-toggle="collapse"
+                  data-target="#collapseOne"
+                >
+                  <p className="mb-0">
+                    {jobseker[0].question}
+                    <i className="material-icons right">arrow_drop_down</i>
+                  </p>
+                </div>
+                <div id="collapseOne" className="collapse">
+                  <div className="card-body">{jobseker[0].ans}</div>
+                </div>
+              </div>
+            </div>
+            <div className="" id="accordionExample">
+              <div className="card">
+                <div
+                  className="card-header white"
+                  id="headingTwo"
+                  data-toggle="collapse"
+                  data-target="#collapseTwo"
+                >
+                  <p className="mb-0">
+                    {jobseker[1].question}
+                    <i className="material-icons right">arrow_drop_down</i>
+                  </p>
+                </div>
+                <div id="collapseTwo" className="collapse">
+                  <div className="card-body">{jobseker[1].ans}</div>
+                </div>
+              </div>
+            </div>
+            <div className="" id="accordionExample">
+              <div className="card">
+                <div
+                  className="card-header white"
+                  id="headingTwo"
+                  data-toggle="collapse"
+                  data-target="#collapseThree"
+                >
+                  <p className="mb-0">
+                    {jobseker[2].question}
+                    <i className="material-icons right">arrow_drop_down</i>
+                  </p>
+                </div>
+                <div id="collapseThree" className="collapse">
+                  <div className="card-body">{jobseker[2].ans}</div>
+                </div>
+              </div>
+            </div>
+            <div className="" id="accordionExample">
+              <div className="card">
+                <div
+                  className="card-header white"
+                  id="headingTwo"
+                  data-toggle="collapse"
+                  data-target="#collapseFour"
+                >
+                  <p className="mb-0">
+                    {jobseker[3].question}
+                    <i className="material-icons right">arrow_drop_down</i>
+                  </p>
+                </div>
+                <div id="collapseFour" className="collapse">
+                  <div className="card-body">{jobseker[3].ans}</div>
+                </div>
+              </div>
+            </div>
+            <div className="" id="accordionExample">
+              <div className="card">
+                <div
+                  className="card-header white"
+                  id="headingTwo"
+                  data-toggle="collapse"
+                  data-target="#collapseFive"
+                >
+                  <p className="mb-0">
+                    {jobseker[4].question}
+                    <i className="material-icons right">arrow_drop_down</i>
+                  </p>
+                </div>
+                <div id="collapseFive" className="collapse">
+                  <div className="card-body">{jobseker[4].ans}</div>
+                </div>
+              </div>
+            </div>
             <br></br>
             <br></br>
           </div>
-
+          <br></br>
+          <br></br>
           <NavbarBottom />
         </div>
       </div>

@@ -3,7 +3,7 @@ import "../css/dashboardHelp.css";
 import mainLogo from "../../components/Images/Mainlogo.png";
 import dashboard from "../Images/dashboard.png";
 
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, NavLink } from "react-router-dom";
 
 class NavbarTop extends Component {
   state = {
@@ -24,23 +24,23 @@ class NavbarTop extends Component {
             </a>
             <ul id="nav-mobile jonnav" className="right">
               <li>
-                <Link
+                <NavLink
                   to="/dashboard"
                   className="waves-effect waves-light btn-small"
                   id="btnnav"
                 >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   id="home"
                   to={{
                     pathname: "/help",
                   }}
                 >
                   Help
-                </Link>
+                </NavLink>
               </li>
               {/* <li><i className="material-icons grey-text large" id="profileicn">account_circle</i></li> */}
               <img
