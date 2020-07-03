@@ -27,16 +27,11 @@ import UploadDocument from "./components/UploadDocument";
 import navbarAdmin from "./components/jobseekerAdmin/navbarAdmin";
 import RecomendedJobs from "./components/Dashboard/RecomendedJobs";
 import SavedJobs from "./components/Dashboard/SavedJobs";
-import history from "./components/history";
 import NewJobs from "./components/Dashboard/NewJobs";
 import Editprofile from "./components/Editprofile";
 import SearchedJobs from "./components/Dashboard/SearchedJobs";
 import NavbarTop from "./components/NavbarJobseeker/NavbarTop";
 axios.defaults.baseURL = "http://stskfacilities.com:8081";
-
-//import dashboardHelp from './components/dashboardHelp'
-
-// import Verify from './components/Verify'
 
 class App extends Component {
   render() {

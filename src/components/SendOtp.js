@@ -1,19 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
 import "./css/SendOtp.css";
-import back from "./Images/Background.png";
-import { Form, FormControl } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import logo from "./Images/Mainlogo.png";
-
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 import { createProject } from "../ReduxStore/Actions/SendOtpAction";
-
-//import PhoneInput from 'react-phone-number-input'
-//import OTPInput from 'react-otp-input';
-
-const header = {
-  "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",
-};
 
 class SendOtp extends Component {
   constructor(props) {
@@ -50,7 +41,7 @@ class SendOtp extends Component {
       countryCode: e.target.value,
     });
 
-    if (e.target.value.length == 100) {
+    if (e.target.value.length === 100) {
       this.setState({
         disabled: false,
       });
@@ -91,6 +82,7 @@ class SendOtp extends Component {
           <center id="center">
             <img
               className="center"
+              alt="logo"
               id="logo"
               src={logo}
               width="70"

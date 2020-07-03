@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import axios from "axios";
-import image from "./Images/Background.png";
 import logo from "./Images/Mainlogo.png";
 import OtpInput from "react-otp-input";
 import "./css/Verify.css";
@@ -21,7 +19,6 @@ class Verify extends Component {
     userId: "",
     error: "",
     otp: "",
-    userId: "",
     loading: false,
   };
   handleChange = (otp) => {
@@ -135,6 +132,7 @@ class Verify extends Component {
         <div className="row" id="main1">
           <center id="center">
             <img
+              alt="logo"
               className="center"
               id="logo"
               src={logo}

@@ -20,7 +20,7 @@ class NavbarBottom extends Component {
               <div className="center col py-3 px-lg-5 border bg-white">
                 <i className="material-icons ">call</i>
                 <p id="textcolor">
-                  Call us on <a href="">1800-121-0786</a>
+                  Call us on <a href="#">1800-121-0786</a>
                 </p>
               </div>
               <div className="center col py-3 px-lg-5 border bg-white">

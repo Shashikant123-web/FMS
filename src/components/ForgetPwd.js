@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, FormControl } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import OtpInput from "react-otp-input";
 import "./css/SendOtp.css";
 import "./css/ForgotPwd.css";

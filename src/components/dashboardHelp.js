@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import "./css/dashboardHelp.css";
 import dashboard from "./Images/dashboard.png";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import M from "materialize-css/dist/js/materialize.min.js";
 import "materialize-css/dist/js/materialize.min.js";
 import NavbarJobseeker from "../components/NavbarJobseeker";
 import "../../node_modules/bootstrap/dist/js/bootstrap.bundle";
-import "react-accessible-accordion/dist/fancy-example.css";
 import UserLogin from "./UserLogin";
 import NavbarBottom from "./NavbarJobseeker/NavbarBottom";
 
@@ -207,20 +206,3 @@ export class dashboardHelp extends Component {
 }
 
 export default withRouter(dashboardHelp);
-
-// <Accordion>
-// <AccordionItem>
-//     <AccordionItemHeading>
-//         <AccordionItemButton>
-//             What harsh truths do you prefer to ignore?
-//         </AccordionItemButton>
-//     </AccordionItemHeading>
-//     <AccordionItemPanel>
-//         <p>
-//             Exercitation in fugiat est ut ad ea cupidatat ut in
-//             cupidatat occaecat ut occaecat consequat est minim minim
-//             esse tempor laborum consequat esse adipisicing eu
-//             reprehenderit enim.
-//         </p>
-//     </AccordionItemPanel>
-// </AccordionItem>

@@ -6,9 +6,6 @@ import {
   APPLIED_JOBS,
   SAVED_JOBS,
 } from "../ActionTypes/actionTypes";
-import { createBrowserHistory } from "history";
-import { withRouter, Redirect } from "react-router-dom";
-const history = createBrowserHistory();
 
 const header = {
   "x-api-key": " $2a$10$AIUufK8g6EFhBcumRRV2L.AQNz3Bjp7oDQVFiO5JJMBFZQ6x2/R/2",

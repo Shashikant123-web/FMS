@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter, Link, Route } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import logo from "./Images/Mainlogo.png";
 import left from "./Images/leftside.png";
 import right from "./Images/rightside.png";
@@ -60,6 +60,7 @@ export class Register extends Component {
         <div className="center col s10" id="main">
           <img
             className="left align"
+            alt="logo"
             id="side"
             src={left}
             width="50"
@@ -67,6 +68,7 @@ export class Register extends Component {
           ></img>
           <img
             className="right align"
+            alt="logo"
             id="side"
             src={right}
             width="50"
@@ -76,6 +78,7 @@ export class Register extends Component {
             <img
               id="logo"
               className="center"
+              alt="logo"
               src={logo}
               width="60"
               height="60"
@@ -94,6 +97,7 @@ export class Register extends Component {
               >
                 <img
                   className="left align"
+                  alt="logo"
                   src={job}
                   width="60"
                   height="60"
@@ -122,6 +126,7 @@ export class Register extends Component {
               >
                 <img
                   className="left align"
+                  alt="logo"
                   src={vendor}
                   width="60"
                   height="60"
@@ -135,6 +140,7 @@ export class Register extends Component {
               >
                 <img
                   className="left align"
+                  alt="logo"
                   src={resident}
                   width="60"
                   height="60"
