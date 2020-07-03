@@ -108,21 +108,6 @@ export const handleSave = (save) => {
             });
           }
         });
-      axios
-        .get("/stskFmsApi/jobs/getByJobNameWithStatus/" + userId + "/" + id, {
-          headers: header,
-        })
-        .then((res) => {
-          console.log(res.data);
-          console.log("shashi");
-          console.log("handle save");
-          if (res.data.success === 1) {
-            dispatch({
-              type: SEARCHED_JOBS,
-              payLoad: res.data.data,
-            });
-          }
-        });
     }, 50);
     //savedJobs(userId);
   };
@@ -267,6 +252,7 @@ export const handleSearch = (value) => {
         headers: header,
       })
       .then((res) => {
+        console.log(res);
         dispatch({
           type: SEARCHED_JOBS,
           payLoad: res.data.data,

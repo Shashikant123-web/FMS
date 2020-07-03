@@ -17,6 +17,7 @@ import {
   handleSave,
   handleUnsave,
   handleApply,
+  handleSearch,
 } from "../../ReduxStore/Actions/RecomendedJobsAction";
 
 const header = {
@@ -29,7 +30,20 @@ export class RecomendedJobs extends Component {
     id: "",
     userId: "",
     wantedit: "",
+    text: "",
   };
+
+  handleSearchInput = (e) => {
+    this.setState({
+      searchInput: e.target.value,
+    });
+  };
+  handleSearch = (e) => {
+    e.preventDefault();
+    this.props.handleSearch(this.state.searchInput);
+    this.props.history.push("/searchedJobs");
+  };
+
   componentDidMount() {
     if (this.props.token.SendOtp.token !== true) {
       return <Redirect to="/userLogin" />;
@@ -529,29 +543,40 @@ export class RecomendedJobs extends Component {
               </h6>
             </div>
 
-            <nav className="container white z-depth-2" id="search">
-              <div className="nav-wrapper">
-                <div className="input-field">
-                  <input
-                    type="search"
-                    id="dashinput"
-                    placeholder="Search jobs"
-                    required
-                  ></input>
-                  <i className="material-icons right">
-                    <a className="btn hide-on-small-only" id="src1">
-                      <i className="material-icons right" id="src">
-                        search
-                      </i>
-                      Search
-                    </a>
-                  </i>
-                  <i className="material-icons right show-on-small grey-text hide-on-med-and-up">
-                    search
-                  </i>
+            <form onSubmit={this.handleSearch}>
+              <nav className="container white" id="search">
+                <div className="nav-wrapper">
+                  <div className="input-field">
+                    <input
+                      id="dashinput"
+                      type="search"
+                      onChange={this.handleSearchInput}
+                      required
+                      placeholder="Search jobs"
+                    />
+                    <i className="material-icons right">
+                      <a
+                        className="btn hide-on-small-only"
+                        onClick={this.handleSearch}
+                        id="src1"
+                      >
+                        <i className="material-icons right" id="src">
+                          search
+                        </i>
+                        Search
+                      </a>
+                    </i>
+
+                    <i
+                      className="material-icons right show-on-small hide-on-med-and-up grey-text"
+                      onClick={this.handleSearch}
+                    >
+                      search
+                    </i>
+                  </div>
                 </div>
-              </div>
-            </nav>
+              </nav>
+            </form>
           </div>
 
           <div className="container mainContainer">
@@ -619,6 +644,7 @@ const mapDispatchToProps = (dispatch) => {
     handleUnsave: (id) => dispatch(handleUnsave(id)),
     handleApply: (id) => dispatch(handleApply(id)),
     hideJobs: (id) => dispatch({ type: HIDE_JOBS, id: id }),
+    handleSearch: (value) => dispatch(handleSearch(value)),
   };
 };
 export default connect(
