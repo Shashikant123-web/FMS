@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import SendOtp from "./components/SendOtp";
 import Verify from "./components/Verify";
 import UserLogin from "./components/UserLogin";
@@ -75,6 +75,7 @@ class App extends Component {
             <Route path="/uploadDocument" component={UploadDocument} />
             <Route path="/navbartop" component={NavbarTop} />
             <Route path="/admin" component={navbarAdmin} />
+            <Redirect to="/" />
           </Switch>
         </div>
       </BrowserRouter>
