@@ -8,14 +8,31 @@ import NavbarJobseeker from "../components/NavbarJobseeker";
 import "../../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import UserLogin from "./UserLogin";
 import NavbarBottom from "./NavbarJobseeker/NavbarBottom";
-
+import { connect } from "react-redux";
+import { HIDE_JOBS } from "../ReduxStore/ActionTypes/actionTypes";
+import { handleSearch } from "../ReduxStore/Actions/RecomendedJobsAction";
 export class dashboardHelp extends Component {
+  state = {
+    userId: "",
+    text: "",
+  };
   componentDidMount() {
     document.addEventListener("DOMContentLoaded", function() {
       var elems = document.querySelectorAll(".collapsible");
       var instances = M.Collapsible.init(elems, {});
     });
   }
+  handleSearchInput = (e) => {
+    this.setState({
+      searchInput: e.target.value,
+    });
+  };
+  handleSearch = (e) => {
+    e.preventDefault();
+    this.props.handleSearch(this.state.searchInput);
+    this.props.history.push("/searchedJobs");
+  };
+
   render() {
     console.log(this.state);
     const jobseker = require("./Json/Jobseeker.json");
@@ -60,33 +77,65 @@ export class dashboardHelp extends Component {
               </h6>
             </div>
 
-            <nav className="container white" id="search">
-              <div className="nav-wrapper">
-                <div className="input-field">
-                  <input
-                    type="search"
-                    id="dashinput"
-                    placeholder="Ask a question"
-                    required
-                  ></input>
-                  <i className="material-icons right">
-                    <a className="btn hide-on-small-only" id="src1">
-                      <i className="material-icons right" id="src">
-                        search
-                      </i>
-                      Search
-                    </a>
-                  </i>
-                  <i className="material-icons right show-on-small grey-text hide-on-med-and-up">
-                    search
-                  </i>
+            <form onSubmit={this.handleSearch}>
+              <nav className="container white" id="search">
+                <div className="nav-wrapper">
+                  <div className="input-field">
+                    <input
+                      id="dashinput"
+                      type="search"
+                      onChange={this.handleSearchInput}
+                      required
+                      placeholder="Search jobs"
+                    />
+                    <i className="material-icons right">
+                      <a
+                        className="btn hide-on-small-only"
+                        onClick={this.handleSearch}
+                        id="src1"
+                      >
+                        <i className="material-icons right" id="src">
+                          search
+                        </i>
+                        Search
+                      </a>
+                    </i>
+
+                    <i
+                      className="material-icons right show-on-small hide-on-med-and-up grey-text"
+                      onClick={this.handleSearch}
+                    >
+                      search
+                    </i>
+                  </div>
                 </div>
-              </div>
-            </nav>
+              </nav>
+            </form>
+          </div>
+          <div className="container mainContainer">
+            <div className="left">
+              <strong
+                className="waves-effect waves-light"
+                onClick={() => {
+                  this.props.history.push("/dashboard");
+                }}
+              >
+                <i className="material-icons left grey-text" id="homeIcon">
+                  home
+                </i>
+                Home
+              </strong>
+              <strong className="waves-effect waves-light">
+                <i className="material-icons left">chevron_right</i>
+                <strong className="teal-text">Help</strong>
+              </strong>
+            </div>
+            <br></br>
+            <hr></hr>
           </div>
 
           <h4 className="center" id="headinggg">
-            Got questions?
+            <strong>Got questions?</strong>
           </h4>
           <h5 className="center" id="textcolor">
             Perfect, we've got answer!
@@ -95,7 +144,7 @@ export class dashboardHelp extends Component {
           <br></br>
 
           <div
-            className="container z-depth-1"
+            className="container faqJobseeker"
             style={{ borderRadius: "5px" }}
             // style={{ border: "1px solid grey" }}
             id="colli"
@@ -204,5 +253,11 @@ export class dashboardHelp extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    hideJobs: (id) => dispatch({ type: HIDE_JOBS, id: id }),
+    handleSearch: (value) => dispatch(handleSearch(value)),
+  };
+};
 
-export default withRouter(dashboardHelp);
+export default connect(null, mapDispatchToProps)(withRouter(dashboardHelp));

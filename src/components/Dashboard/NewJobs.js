@@ -5,9 +5,7 @@ import dashboard from "../Images/dashboard.png";
 import { withRouter, Redirect } from "react-router-dom";
 
 import Popup from "reactjs-popup";
-import axios from "axios";
 import rightMark from "../Images/tic.png";
-import M from "materialize-css/dist/js/materialize.min.js";
 import NavbarTop from "../NavbarJobseeker/NavbarTop";
 import { connect } from "react-redux";
 import EditProfile from "../Editprofile";
