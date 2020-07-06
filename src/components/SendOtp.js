@@ -5,6 +5,7 @@ import logo from "./Images/Mainlogo.png";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 import { createProject } from "../ReduxStore/Actions/SendOtpAction";
+import Axios from "axios";
 
 class SendOtp extends Component {
   constructor(props) {
@@ -18,7 +19,6 @@ class SendOtp extends Component {
   userLogin = (e) => {
     this.props.history.push("/userLogin");
   };
-
   handleGoogle = (e) => {
     e.preventDefault();
     console.log("face");
