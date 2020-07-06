@@ -10,21 +10,15 @@ class NavbarBottom extends Component {
     curTime: new Date().toLocaleTimeString(),
     data: "",
   };
+
   // callMe() {
   //   console.log(this.state.curTime.slice(0, 2));
   //   setInterval(() => {
   //     this.setState({
   //       curTime: new Date().toLocaleString(),
   //     });
-
-  //     if (10 > 9) {
-  //       console.log("yess");
-  //       this.setState({
-  //         data: "we are in office",
-  //       });
-  //     }
-  //   }, 10000);
-  //}
+  //   }, 10000000000000000);
+  // }
   render() {
     var { curTime, data } = this.state;
     return (
@@ -66,9 +60,17 @@ class NavbarBottom extends Component {
                 ></img>
                 <p id="textcolor">
                   Call us on-
-                  <u className="blue-text" style={{ cursor: "pointer" }}>
+                  <u
+                    className="blue-text hide-on-small-only"
+                    style={{ cursor: "pointer" }}
+                  >
                     1800-121-0786
                   </u>
+                  <span className="show-on-small hide-on-med-and-up">
+                    <u className="blue-text" style={{ cursor: "pointer" }}>
+                      1800-121-0786
+                    </u>
+                  </span>
                 </p>
               </div>
             </div>
@@ -118,9 +120,7 @@ class NavbarBottom extends Component {
                       href="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d31115.44716423899!2d77.6347607214851!3d12.879991018615911!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e6!4m3!3m2!1d12.8688906!2d77.6650548!4m5!1s0x3bae15b15cc1af17%3A0xd7dc35c692468e44!2sstsk%20properties%20private%20limited!3m2!1d12.8913914!2d77.6415901!5e0!3m2!1sen!2sin!4v1593842701370!5m2!1sen!2sin"
                       target="iframe_a"
                     >
-                      <h6>
-                        <u className="teal-text">See on the map</u>
-                      </h6>
+                      <u className="teal-text">See on the map</u>
                     </a>
                   </p>
                 </div>

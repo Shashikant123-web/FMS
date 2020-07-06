@@ -745,11 +745,11 @@ class Dashboard extends Component {
 
               <div>
                 <div
-                  className="col s12 m7 l8 offset-l1 z-depth-1 grey lighten-5 container"
+                  className="col s11 m7 l8 offset-l1 border offset-s1 grey lighten-5 container"
                   id="container"
                 >
                   <div>
-                    <h4 className="grey-text">Recomended jobs</h4>
+                    <h4 className="grey-text">Recommended jobs</h4>
 
                     {recommendedList}
                     <div className="suggestionbox z-depth-1">
@@ -805,8 +805,32 @@ class Dashboard extends Component {
                       </div>
                     </div>
                   </div>
-
-                  <div className="card white newJobs">
+                  <div className="col s12 m10 l8 offset-m1 show-on-small hide-on-med-and-up">
+                    <div className="card white newJobs">
+                      <div className="card-content white-text">
+                        <span className="card-title right" id="number">
+                          {saveNumber}
+                        </span>
+                        <h5>Saved jobs</h5>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <h5 className="left">Security Guard</h5>
+                        <h6
+                          className="right"
+                          id="viewdetailss"
+                          onClick={() =>
+                            this.props.history.push({
+                              pathname: "/savedJobs",
+                            })
+                          }
+                        >
+                          View Details
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="card white newJobs hide-on-small-only">
                     <div className="card-content white-text">
                       <span className="card-title right" id="number">
                         {saveNumber}
@@ -832,7 +856,7 @@ class Dashboard extends Component {
                 </div>
               </div>
               {/*applied status*/}
-              <div className="col s12 m10 l10 offset-l1 offset-m1 z-depth-1 appliedStatus grey lighten-5">
+              <div className="col s10 m10 l10 offset-l1 offset-m1 offset-s1 border appliedStatus grey lighten-5">
                 <h4 className="grey-text">Appied status</h4>
                 {appliedJobsList}
                 <div className="col s12 m12 l12">

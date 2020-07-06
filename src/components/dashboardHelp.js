@@ -146,7 +146,6 @@ export class dashboardHelp extends Component {
           <div
             className="container faqJobseeker"
             style={{ borderRadius: "5px" }}
-            // style={{ border: "1px solid grey" }}
             id="colli"
           >
             <h5 className="center-align" id="coll">
